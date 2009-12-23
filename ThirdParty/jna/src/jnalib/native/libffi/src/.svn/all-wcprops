@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/src
+END
+closures.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/src/closures.c
+END
+raw_api.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/raw_api.c
+END
+java_raw_api.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/java_raw_api.c
+END
+types.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/types.c
+END
+ffitest.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/ffitest.c
+END
+debug.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/debug.c
+END
+prep_cif.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/src/prep_cif.c
+END
+dlmalloc.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/540/trunk/jnalib/native/libffi/src/dlmalloc.c
+END

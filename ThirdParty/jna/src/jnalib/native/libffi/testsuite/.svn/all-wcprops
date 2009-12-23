@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/jna/!svn/ver/946/trunk/jnalib/native/libffi/testsuite
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/946/trunk/jnalib/native/libffi/testsuite/Makefile.in
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/testsuite/Makefile.am
+END

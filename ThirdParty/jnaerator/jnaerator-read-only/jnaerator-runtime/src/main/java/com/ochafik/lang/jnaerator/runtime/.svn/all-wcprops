@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/940/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime
+END
+VirtualTablePointer.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/VirtualTablePointer.java
+END
+Structure.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/869/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/Structure.java
+END
+LibraryExtractor.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/940/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/LibraryExtractor.java
+END
+Bits.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/Bits.java
+END
+StructureType.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/StructureType.java
+END
+ThisCall.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/ThisCall.java
+END
+This.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/This.java
+END
+StringPointer.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/870/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/StringPointer.java
+END
+NativeSize.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/899/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/NativeSize.java
+END
+MangledFunctionMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/810/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/MangledFunctionMapper.java
+END
+CharByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/CharByReference.java
+END
+ScalaRuntime.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/ScalaRuntime.java
+END
+Union.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/869/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/Union.java
+END
+StructureTypeDependent.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/StructureTypeDependent.java
+END
+FastCall.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/FastCall.java
+END
+JNAeratorRuntime.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/920/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/JNAeratorRuntime.java
+END
+NativeSizeByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/875/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/NativeSizeByReference.java
+END
+Mangling.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/Mangling.java
+END
+WStringPointer.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/!svn/ver/870/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/WStringPointer.java
+END

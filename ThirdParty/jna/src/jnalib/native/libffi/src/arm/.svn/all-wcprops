@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/arm
+END
+ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/arm/ffitarget.h
+END
+ffi.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/arm/ffi.c
+END
+sysv.S
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/arm/sysv.S
+END

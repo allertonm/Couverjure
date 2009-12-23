@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/920/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals
+END
+Global.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/Global.java
+END
+GlobalPointer.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalPointer.java
+END
+GlobalNativeSize.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/875/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalNativeSize.java
+END
+GlobalPointerType.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalPointerType.java
+END
+GlobalStruct.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalStruct.java
+END
+GlobalInt.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalInt.java
+END
+GlobalCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/757/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalCallback.java
+END
+GlobalLong.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalLong.java
+END
+GlobalShort.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalShort.java
+END
+GlobalByte.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalByte.java
+END
+GlobalFloat.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalFloat.java
+END
+GlobalNativeLong.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalNativeLong.java
+END
+GlobalPrimitive.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalPrimitive.java
+END
+GlobalDouble.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalDouble.java
+END
+GlobalChar.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/743/trunk/jnaerator-runtime/src/main/java/com/ochafik/lang/jnaerator/runtime/globals/GlobalChar.java
+END

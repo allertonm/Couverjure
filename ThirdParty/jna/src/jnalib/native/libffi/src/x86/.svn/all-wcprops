@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/src/x86
+END
+darwin64.S
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/x86/darwin64.S
+END
+ffi64.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/x86/ffi64.c
+END
+ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/793/trunk/jnalib/native/libffi/src/x86/ffitarget.h
+END
+win32.S
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/src/x86/win32.S
+END
+darwin.S
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/src/x86/darwin.S
+END
+ffi.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/src/x86/ffi.c
+END
+sysv.S
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/796/trunk/jnalib/native/libffi/src/x86/sysv.S
+END
+win64.S
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/793/trunk/jnalib/native/libffi/src/x86/win64.S
+END
+freebsd.S
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/src/x86/freebsd.S
+END
+unix64.S
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/796/trunk/jnalib/native/libffi/src/x86/unix64.S
+END

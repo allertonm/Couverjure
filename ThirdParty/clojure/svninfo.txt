@@ -1,0 +1,11 @@
+Path: .
+URL: https://clojure.googlecode.com/svn/branches/1.0
+Repository Root: https://clojure.googlecode.com/svn
+Repository UUID: a41a16f3-9855-0410-b325-31a011a03e7c
+Revision: 1362
+Node Kind: directory
+Schedule: normal
+Last Changed Author: richhickey
+Last Changed Rev: 1362
+Last Changed Date: 2009-05-04 07:53:38 -0400 (Mon, 04 May 2009)
+

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp
+END
+MainTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/MainTestCase.java
+END
+CppReaderTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/CppReaderTestCase.java
+END
+PreprocessorTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/PreprocessorTestCase.java
+END
+JavaFileSystemTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/JavaFileSystemTestCase.java
+END
+ErrorTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/ErrorTestCase.java
+END
+BaseTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/BaseTestCase.java
+END
+LexerSourceTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/LexerSourceTestCase.java
+END
+JoinReaderTestCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/822/trunk/anarres/src/tests/org/anarres/cpp/JoinReaderTestCase.java
+END

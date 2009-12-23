@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/963/trunk/jnalib/test/com/sun/jna/examples/win32
+END
+Kernel32Test.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/963/trunk/jnalib/test/com/sun/jna/examples/win32/Kernel32Test.java
+END
+Shell32Test.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/683/trunk/jnalib/test/com/sun/jna/examples/win32/Shell32Test.java
+END

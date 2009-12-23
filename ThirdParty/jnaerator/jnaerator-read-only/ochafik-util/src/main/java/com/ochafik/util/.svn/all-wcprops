@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util
+END
+Adapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/Adapter.java
+END
+CompoundCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/CompoundCollection.java
+END
+IteratorEnumeration.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/IteratorEnumeration.java
+END
+DefaultAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/DefaultAdapter.java
+END
+SystemUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/SystemUtils.java
+END
+IntArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/IntArray.java
+END
+SortedIntArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/SortedIntArray.java
+END
+CollectionAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/util/CollectionAdapter.java
+END

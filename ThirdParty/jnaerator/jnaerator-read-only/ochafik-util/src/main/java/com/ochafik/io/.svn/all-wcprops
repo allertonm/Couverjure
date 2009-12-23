@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io
+END
+WriteText.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io/WriteText.java
+END
+ReadText.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io/ReadText.java
+END
+JTextAreaOutputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io/JTextAreaOutputStream.java
+END
+IOUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io/IOUtils.java
+END
+FileListUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io/FileListUtils.java
+END
+StringBufferOutputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/913/trunk/ochafik-util/src/main/java/com/ochafik/io/StringBufferOutputStream.java
+END

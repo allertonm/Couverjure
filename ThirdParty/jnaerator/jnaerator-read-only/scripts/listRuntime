@@ -1,0 +1,1 @@
+unzip -l jnaerator-runtime/target/jnaerator-runtime-0.9.3-SNAPSHOT.jar | sed -E 's/^.*[0-9]+:[0-9]+ +//' | grep '\.' | sort | tee jnaerator/src/main/resources/jnaerator-runtime.jar.files

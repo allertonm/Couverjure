@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport
+END
+mach_header.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/mach_header.java
+END
+fat_header.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/fat_header.java
+END
+FatMachOLibrary.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/FatMachOLibrary.java
+END
+fat_arch.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/fat_arch.java
+END
+nlist.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/nlist.java
+END
+load_command.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/load_command.java
+END
+symtab_command.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport/symtab_command.java
+END

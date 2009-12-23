@@ -1,0 +1,179 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/943/trunk/anarres/src/java/org/anarres/cpp
+END
+Source.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Source.java
+END
+LexerSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/LexerSource.java
+END
+FileLexerSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/FileLexerSource.java
+END
+Macro.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Macro.java
+END
+ChrootFileSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/ChrootFileSystem.java
+END
+DeferredFileReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/DeferredFileReader.java
+END
+CppTask.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/CppTask.java
+END
+CppReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/CppReader.java
+END
+Warning.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Warning.java
+END
+SourceIterator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/SourceIterator.java
+END
+TokenSnifferSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/TokenSnifferSource.java
+END
+State.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/State.java
+END
+InputLexerSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/InputLexerSource.java
+END
+Token.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Token.java
+END
+FixedTokenSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/FixedTokenSource.java
+END
+JoinReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/JoinReader.java
+END
+Argument.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Argument.java
+END
+MacroTokenSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/MacroTokenSource.java
+END
+Main.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Main.java
+END
+Version.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Version.java
+END
+VirtualFile.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/VirtualFile.java
+END
+Preprocessor.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/943/trunk/anarres/src/java/org/anarres/cpp/Preprocessor.java
+END
+JavaFileSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/JavaFileSystem.java
+END
+StringLexerSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/StringLexerSource.java
+END
+InternalException.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/InternalException.java
+END
+Feature.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/Feature.java
+END
+VirtualFileSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/VirtualFileSystem.java
+END
+PreprocessorListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/PreprocessorListener.java
+END
+LexerException.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/822/trunk/anarres/src/java/org/anarres/cpp/LexerException.java
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/929/trunk/jna-jnaerator/src/main/java/com/sun/jna
+END
+Structure.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/929/trunk/jna-jnaerator/src/main/java/com/sun/jna/Structure.java
+END
+Pointer.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/929/trunk/jna-jnaerator/src/main/java/com/sun/jna/Pointer.java
+END
+PointerUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/929/trunk/jna-jnaerator/src/main/java/com/sun/jna/PointerUtils.java
+END
+CallbackReferenceHack.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/929/trunk/jna-jnaerator/src/main/java/com/sun/jna/CallbackReferenceHack.java
+END
+BitFields.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/929/trunk/jna-jnaerator/src/main/java/com/sun/jna/BitFields.java
+END

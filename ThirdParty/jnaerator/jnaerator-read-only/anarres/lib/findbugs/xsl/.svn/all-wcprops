@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/xsl
+END
+summary.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/xsl/summary.xsl
+END
+fancy.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/xsl/fancy.xsl
+END
+plain.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/xsl/plain.xsl
+END
+default.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/xsl/default.xsl
+END
+fancy-hist.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/xsl/fancy-hist.xsl
+END

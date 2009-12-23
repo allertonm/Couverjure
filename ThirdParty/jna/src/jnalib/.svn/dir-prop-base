@@ -1,0 +1,14 @@
+K 10
+svn:ignore
+V 71
+build
+build.eclipse
+www
+certs
+.clover
+.gdbinit
+build-d64
+build.clover
+
+
+END

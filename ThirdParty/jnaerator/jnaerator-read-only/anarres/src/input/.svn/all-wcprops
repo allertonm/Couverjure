@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/822/trunk/anarres/src/input
+END
+test0.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/822/trunk/anarres/src/input/test0.c
+END
+trigraph.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/822/trunk/anarres/src/input/trigraph.c
+END
+test1.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/822/trunk/anarres/src/input/test1.c
+END
+test0.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/822/trunk/anarres/src/input/test0.h
+END
+test1.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/822/trunk/anarres/src/input/test1.h
+END

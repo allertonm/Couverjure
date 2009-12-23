@@ -1,0 +1,737 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call
+END
+cls_multi_ushort.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_multi_ushort.c
+END
+stret_medium.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/stret_medium.c
+END
+cls_align_uint16.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_uint16.c
+END
+cls_align_longdouble_split2.c
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_longdouble_split2.c
+END
+struct1.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct1.c
+END
+return_uc.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/return_uc.c
+END
+struct3.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct3.c
+END
+nested_struct1.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct1.c
+END
+err_bad_abi.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/err_bad_abi.c
+END
+struct5.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct5.c
+END
+nested_struct3.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct3.c
+END
+cls_7_1_byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_7_1_byte.c
+END
+cls_double.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_double.c
+END
+nested_struct5.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct5.c
+END
+struct7.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct7.c
+END
+nested_struct7.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct7.c
+END
+struct9.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct9.c
+END
+return_sl.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/return_sl.c
+END
+cls_sint.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_sint.c
+END
+nested_struct9.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct9.c
+END
+cls_pointer.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_pointer.c
+END
+many_win32.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/many_win32.c
+END
+cls_20byte1.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_20byte1.c
+END
+cls_multi_sshortchar.c
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_multi_sshortchar.c
+END
+return_fl.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/return_fl.c
+END
+cls_align_sint64.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_sint64.c
+END
+many.c
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/many.c
+END
+strlen.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/strlen.c
+END
+cls_3byte2.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_3byte2.c
+END
+return_ldl.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/790/trunk/jnalib/native/libffi/testsuite/libffi.call/return_ldl.c
+END
+cls_multi_schar.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_multi_schar.c
+END
+stret_large.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/stret_large.c
+END
+cls_multi_uchar.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_multi_uchar.c
+END
+err_bad_typedef.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/err_bad_typedef.c
+END
+cls_9byte1.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_9byte1.c
+END
+cls_19byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_19byte.c
+END
+cls_align_longdouble_split.c
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_longdouble_split.c
+END
+cls_align_float.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_float.c
+END
+closure_fn1.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn1.c
+END
+return_fl1.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/return_fl1.c
+END
+problem1.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/problem1.c
+END
+return_dbl2.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/return_dbl2.c
+END
+closure_fn3.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn3.c
+END
+cls_sshort.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_sshort.c
+END
+return_fl3.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/return_fl3.c
+END
+closure_fn5.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn5.c
+END
+cls_align_double.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_double.c
+END
+nested_struct.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jna/!svn/ver/789/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct.c
+END
+cls_2byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_2byte.c
+END
+promotion.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/promotion.c
+END
+float2.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/float2.c
+END
+nested_struct10.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct10.c
+END
+return_ll1.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/return_ll1.c
+END
+cls_4byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/789/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_4byte.c
+END
+float4.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/float4.c
+END
+cls_6byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_6byte.c
+END
+cls_longdouble.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/792/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_longdouble.c
+END
+huge_struct.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/huge_struct.c
+END
+cls_8byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_8byte.c
+END
+cls_multi_sshort.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_multi_sshort.c
+END
+cls_align_uint32.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_uint32.c
+END
+cls_align_sint16.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_sint16.c
+END
+cls_double_va.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_double_va.c
+END
+return_sc.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/return_sc.c
+END
+float.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/float.c
+END
+cls_20byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/789/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_20byte.c
+END
+struct2.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct2.c
+END
+cls_float.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_float.c
+END
+cls_pointer_stack.c
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_pointer_stack.c
+END
+cls_5_1_byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/789/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_5_1_byte.c
+END
+struct4.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct4.c
+END
+nested_struct2.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct2.c
+END
+struct6.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct6.c
+END
+cls_24byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_24byte.c
+END
+nested_struct4.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct4.c
+END
+nested_struct6.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct6.c
+END
+struct8.c
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/struct8.c
+END
+closure_loc_fn0.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/765/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_loc_fn0.c
+END
+nested_struct8.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/nested_struct8.c
+END
+cls_64byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_64byte.c
+END
+return_ul.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/return_ul.c
+END
+cls_uint.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_uint.c
+END
+strlen_win32.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/strlen_win32.c
+END
+cls_dbls_struct.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_dbls_struct.c
+END
+pyobjc-tc.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/pyobjc-tc.c
+END
+cls_multi_ushortchar.c
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_multi_ushortchar.c
+END
+stret_large2.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/stret_large2.c
+END
+return_dbl.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/return_dbl.c
+END
+cls_schar.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_schar.c
+END
+cls_uchar.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_uchar.c
+END
+cls_align_uint64.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_uint64.c
+END
+cls_ulonglong.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_ulonglong.c
+END
+cls_align_longdouble.c
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_longdouble.c
+END
+cls_1_1byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_1_1byte.c
+END
+return_ll.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/return_ll.c
+END
+cls_3_1byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_3_1byte.c
+END
+cls_12byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_12byte.c
+END
+cls_3byte1.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_3byte1.c
+END
+cls_4_1byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_4_1byte.c
+END
+ffitest.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/ffitest.h
+END
+cls_6_1_byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_6_1_byte.c
+END
+cls_16byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_16byte.c
+END
+cls_18byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_18byte.c
+END
+cls_9byte2.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_9byte2.c
+END
+closure_fn0.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn0.c
+END
+cls_longdouble_va.c
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_longdouble_va.c
+END
+return_dbl1.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/return_dbl1.c
+END
+closure_fn2.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn2.c
+END
+return_fl2.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/387/trunk/jnalib/native/libffi/testsuite/libffi.call/return_fl2.c
+END
+closure_stdcall.c
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_stdcall.c
+END
+closure_fn4.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn4.c
+END
+stret_medium2.c
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jna/!svn/ver/944/trunk/jnalib/native/libffi/testsuite/libffi.call/stret_medium2.c
+END
+negint.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/negint.c
+END
+cls_ushort.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_ushort.c
+END
+call.exp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/testsuite/libffi.call/call.exp
+END
+closure_fn6.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/791/trunk/jnalib/native/libffi/testsuite/libffi.call/closure_fn6.c
+END
+float1.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/float1.c
+END
+float3.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/243/trunk/jnalib/native/libffi/testsuite/libffi.call/float3.c
+END
+cls_5byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_5byte.c
+END
+cls_align_pointer.c
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jna/!svn/ver/789/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_pointer.c
+END
+cls_7byte.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_7byte.c
+END
+cls_align_sint32.c
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/testsuite/libffi.call/cls_align_sint32.c
+END

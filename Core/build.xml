@@ -1,0 +1,38 @@
+<project name="Native" basedir="." default="package">
+
+    <property name="jna" value="../jna"/>
+    <property environment="env"/>
+
+    <path id="libs">
+    	<path location="${jna}/jna.jar"/>
+    </path>
+    <path id="javah_classpath">
+        <path location="${jna}/jna.jar"/>
+        <path location="bin"/>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac srcdir="src/java" destdir="bin" classpathref="libs" debug="true">
+        	<include name="org/couverjure/**/*.java"/>
+        </javac>
+    </target>
+
+    <target name="clean" >
+        <delete dir="bin" />
+    </target>
+
+    <target name="native-headers" depends="compile">
+        <javah outputfile="src/native/nativehelper.h" verbose="yes" force="yes" classpath="bin" classpathref="javah_classpath">
+          <class name="org.couverjure.jni.NativeHelper"/>
+        </javah>
+    </target>
+
+    <target name="package" depends="compile" >
+        <jar jarfile="CometFilter.jar" >
+            <fileset dir="bin" />
+        </jar>
+    </target>
+
+	<target name="all" depends="clean, compile, package"/>
+</project>

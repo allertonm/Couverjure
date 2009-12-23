@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/822/trunk/anarres/etc/junit/xsl
+END
+junit-noframes.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/822/trunk/anarres/etc/junit/xsl/junit-noframes.xsl
+END
+junit-frames.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/822/trunk/anarres/etc/junit/xsl/junit-frames.xsl
+END

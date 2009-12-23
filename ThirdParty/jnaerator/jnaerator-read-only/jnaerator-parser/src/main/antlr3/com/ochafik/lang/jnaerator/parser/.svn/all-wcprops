@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/947/trunk/jnaerator-parser/src/main/antlr3/com/ochafik/lang/jnaerator/parser
+END
+ObjCpp.g
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/947/trunk/jnaerator-parser/src/main/antlr3/com/ochafik/lang/jnaerator/parser/ObjCpp.g
+END
+ObjCDemangling.g
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/!svn/ver/913/trunk/jnaerator-parser/src/main/antlr3/com/ochafik/lang/jnaerator/parser/ObjCDemangling.g
+END
+XCodeProject.g
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/913/trunk/jnaerator-parser/src/main/antlr3/com/ochafik/lang/jnaerator/parser/XCodeProject.g
+END

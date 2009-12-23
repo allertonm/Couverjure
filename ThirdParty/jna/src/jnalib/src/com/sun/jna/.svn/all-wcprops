@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/jna/!svn/ver/1017/trunk/jnalib/src/com/sun/jna
+END
+IntegerType.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/913/trunk/jnalib/src/com/sun/jna/IntegerType.java
+END
+StructureReadContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/StructureReadContext.java
+END
+CallbackParameterContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/CallbackParameterContext.java
+END
+NativeMappedConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/973/trunk/jnalib/src/com/sun/jna/NativeMappedConverter.java
+END
+CallbackReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/970/trunk/jnalib/src/com/sun/jna/CallbackReference.java
+END
+NativeLibrary.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/990/trunk/jnalib/src/com/sun/jna/NativeLibrary.java
+END
+NativeString.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/783/trunk/jnalib/src/com/sun/jna/NativeString.java
+END
+NativeMapped.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/439/trunk/jnalib/src/com/sun/jna/NativeMapped.java
+END
+InvocationMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jna/!svn/ver/404/trunk/jnalib/src/com/sun/jna/InvocationMapper.java
+END
+FromNativeContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/FromNativeContext.java
+END
+StructureWriteContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/StructureWriteContext.java
+END
+Pointer.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/1014/trunk/jnalib/src/com/sun/jna/Pointer.java
+END
+Platform.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/928/trunk/jnalib/src/com/sun/jna/Platform.java
+END
+Native.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/1017/trunk/jnalib/src/com/sun/jna/Native.java
+END
+MethodParameterContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/MethodParameterContext.java
+END
+Union.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/jna/!svn/ver/801/trunk/jnalib/src/com/sun/jna/Union.java
+END
+DefaultTypeMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/158/trunk/jnalib/src/com/sun/jna/DefaultTypeMapper.java
+END
+ToNativeContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/ToNativeContext.java
+END
+Structure.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/1017/trunk/jnalib/src/com/sun/jna/Structure.java
+END
+CallbackResultContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/CallbackResultContext.java
+END
+FromNativeConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/257/trunk/jnalib/src/com/sun/jna/FromNativeConverter.java
+END
+Library.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/967/trunk/jnalib/src/com/sun/jna/Library.java
+END
+StringArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/639/trunk/jnalib/src/com/sun/jna/StringArray.java
+END
+NativeLong.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/328/trunk/jnalib/src/com/sun/jna/NativeLong.java
+END
+Memory.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jna/!svn/ver/962/trunk/jnalib/src/com/sun/jna/Memory.java
+END
+TypeConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/149/trunk/jnalib/src/com/sun/jna/TypeConverter.java
+END
+AltCallingConvention.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jna/!svn/ver/7/trunk/jnalib/src/com/sun/jna/AltCallingConvention.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/441/trunk/jnalib/src/com/sun/jna/package.html
+END
+ToNativeConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/290/trunk/jnalib/src/com/sun/jna/ToNativeConverter.java
+END
+PointerType.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/964/trunk/jnalib/src/com/sun/jna/PointerType.java
+END
+MethodResultContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/262/trunk/jnalib/src/com/sun/jna/MethodResultContext.java
+END
+Function.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/1008/trunk/jnalib/src/com/sun/jna/Function.java
+END
+TypeMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/149/trunk/jnalib/src/com/sun/jna/TypeMapper.java
+END
+FunctionResultContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/FunctionResultContext.java
+END
+overview.html
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/961/trunk/jnalib/src/com/sun/jna/overview.html
+END
+FunctionMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/404/trunk/jnalib/src/com/sun/jna/FunctionMapper.java
+END
+FunctionParameterContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/349/trunk/jnalib/src/com/sun/jna/FunctionParameterContext.java
+END
+LastErrorException.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jna/!svn/ver/886/trunk/jnalib/src/com/sun/jna/LastErrorException.java
+END
+Callback.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/769/trunk/jnalib/src/com/sun/jna/Callback.java
+END
+WString.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/913/trunk/jnalib/src/com/sun/jna/WString.java
+END
+CallbackProxy.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/769/trunk/jnalib/src/com/sun/jna/CallbackProxy.java
+END

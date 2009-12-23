@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/cplusplus
+END
+CPlusPlusMangler.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/cplusplus/CPlusPlusMangler.java
+END
+GCC4Mangler.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/cplusplus/GCC4Mangler.java
+END
+VC9Mangler.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/cplusplus/VC9Mangler.java
+END
+Primitive.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/cplusplus/Primitive.java
+END

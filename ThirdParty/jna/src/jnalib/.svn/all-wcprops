@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/jna/!svn/ver/1017/trunk/jnalib
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/jna/!svn/ver/909/trunk/jnalib/.classpath
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/jna/!svn/ver/319/trunk/jnalib/LICENSE.txt
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/jna/!svn/ver/7/trunk/jnalib/.project
+END
+OTHERS
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/jna/!svn/ver/271/trunk/jnalib/OTHERS
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/jna/!svn/ver/992/trunk/jnalib/TODO
+END
+release-notes.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/jna/!svn/ver/1017/trunk/jnalib/release-notes.html
+END
+pom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/jna/!svn/ver/1017/trunk/jnalib/pom.xml
+END
+jna.keystore
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/jna/!svn/ver/908/trunk/jnalib/jna.keystore
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/jna/!svn/ver/1017/trunk/jnalib/build.xml
+END

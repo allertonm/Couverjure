@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 23
+/svn/!svn/ver/947/trunk
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/666/trunk/.classpath
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/321/trunk/.project
+END
+LICENSE.LGPL.header
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/31/trunk/LICENSE.LGPL.header
+END
+CHANGELOG
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/888/trunk/CHANGELOG
+END
+pom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/!svn/ver/929/trunk/pom.xml
+END
+LICENSE.LGPL-3.0.txt
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/744/trunk/LICENSE.LGPL-3.0.txt
+END

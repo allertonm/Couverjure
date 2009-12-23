@@ -1,0 +1,140 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeTarget = D2AAC0C605546C1D00DB518D /* libcouverjure */;
+		addToTargets = (
+			D2AAC0C605546C1D00DB518D /* libcouverjure */,
+		);
+		codeSenseManager = 4D44680010DDBD7D004F0019 /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = 1;
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					994,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					954,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 283252690;
+			PBXWorkspaceStateSaveDate = 283252690;
+		};
+		perUserProjectItems = {
+			4D10B75E10E217C40079A305 = 4D10B75E10E217C40079A305 /* PBXTextBookmark */;
+			4D4468B510DEE9E0004F0019 = 4D4468B510DEE9E0004F0019 /* PBXTextBookmark */;
+			4D44691610E214C6004F0019 = 4D44691610E214C6004F0019 /* PBXTextBookmark */;
+			4D67AE5610E217DB008D49B9 /* PBXTextBookmark */ = 4D67AE5610E217DB008D49B9 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 4D4467FF10DDBD7D004F0019 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	4D10B75E10E217C40079A305 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D44687A10DDC8ED004F0019 /* nativehelper.c */;
+		name = "nativehelper.c: 20";
+		rLen = 0;
+		rLoc = 493;
+		rType = 0;
+		vrLen = 1018;
+		vrLoc = 958;
+	};
+	4D4467FF10DDBD7D004F0019 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	4D44680010DDBD7D004F0019 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	4D44687A10DDC8ED004F0019 /* nativehelper.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 1140}}";
+			sepNavSelRange = "{493, 0}";
+			sepNavVisRange = "{958, 987}";
+			sepNavWindowFrame = "{{150, 71}, {915, 731}}";
+		};
+	};
+	4D44688110DDC9B7004F0019 /* CoreNative_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {672, 392}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 147}";
+		};
+	};
+	4D4468B510DEE9E0004F0019 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D44688110DDC9B7004F0019 /* CoreNative_Prefix.pch */;
+		name = "Native_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 147;
+		vrLoc = 0;
+	};
+	4D44691610E214C6004F0019 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D44687A10DDC8ED004F0019 /* nativehelper.c */;
+		name = "nativehelper.c: 20";
+		rLen = 0;
+		rLoc = 493;
+		rType = 0;
+		vrLen = 898;
+		vrLoc = 1047;
+	};
+	4D67AE5610E217DB008D49B9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D44687A10DDC8ED004F0019 /* nativehelper.c */;
+		name = "nativehelper.c: 20";
+		rLen = 0;
+		rLoc = 493;
+		rType = 0;
+		vrLen = 987;
+		vrLoc = 958;
+	};
+	D2AAC0C605546C1D00DB518D /* libcouverjure */ = {
+		activeExec = 0;
+	};
+}

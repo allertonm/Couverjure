@@ -1,0 +1,187 @@
+<project name="clojure" default="all" xmlns:mvn="urn:maven-artifact-ant">
+
+  <description>
+    Build with "ant jar" and then start the
+    REPL with: "java -cp clojure.jar clojure.main".
+    You will need to install the Maven Ant
+    Tasks to ${ant.home}/lib in order to execute
+    the nightly-build or stable-build targets.
+  </description>
+
+  <property name="src" location="src"/>
+  <property name="jsrc" location="${src}/jvm"/>
+  <property name="cljsrc" location="${src}/clj"/>
+  <property name="build" location="classes"/>
+
+  <!-- version related properties -->
+  <property file="${cljsrc}/clojure/version.properties"/>
+  <!-- ensures all version properties are present -->
+  <fail unless="clojure.version.major"/>
+  <fail unless="clojure.version.minor"/>
+  <fail unless="clojure.version.interim"/>
+
+  <condition property="clojure.version.incremental.label"
+             value=".${clojure.version.incremental}"
+             else="">
+  	<length string="${clojure.version.incremental}" when="greater" length="0" />
+  </condition>
+  <condition property="clojure.version.qualifier.label"
+             value="-${clojure.version.qualifier}"
+             else="">
+  	<length string="${clojure.version.qualifier}" when="greater" length="0" />
+  </condition>
+  <condition property="clojure.version.interim.label"
+             value="-SNAPSHOT"
+	         else="">
+    <!-- We place -SNAPSHOT whenever interim is not set to false, not only
+         if interim is set to true (this is less typo prone in the worst case -->
+  	<not><equals arg1="${clojure.version.interim}" arg2="false" trim="true"/></not>
+  </condition>
+	
+  <property name="clojure.version.label" 
+    value="${clojure.version.major}.${clojure.version.minor}${clojure.version.incremental.label}${clojure.version.qualifier.label}${clojure.version.interim.label}"/>
+	
+  <!-- general filterset for use when clojure version must be copied -->
+  <filterset id="clojure-version-filterset">
+    <filter token="clojure-version" value="${clojure.version.label}"/>
+  </filterset>
+	
+  <property name="clojure_noversion_jar" location="clojure.jar"/>
+  <property name="slim_noversion_jar" location="clojure-slim.jar"/>
+  <property name="src_noversion_jar" location="clojure-sources.jar"/>
+  <property name="clojure_jar" location="clojure-${clojure.version.label}.jar"/>
+  <property name="slim_jar" location="clojure-slim-${clojure.version.label}.jar"/>
+  <property name="src_jar" location="clojure-sources-${clojure.version.label}.jar"/>
+
+
+  <!-- These make sense for building on tapestry.formos.com -->
+
+  <property name="snapshot.repo.dir" location="/var/www/maven-snapshot-repository"/>
+  <property name="stable.repo.dir" location="/var/www/maven-repository"/>
+
+  <target name="init" depends="clean">
+    <tstamp/>
+    <mkdir dir="${build}"/>
+  	<antcall target="init-version"/>
+  </target>
+
+  <target name="init-version">
+    <copy file="pom-template.xml" 
+          tofile="pom.xml">
+    	<filterset refid="clojure-version-filterset"/>
+    </copy>
+  	<!--prevents users from modifying accidentally the generated pom.xml
+  	    works only on linux.-->
+  	<chmod file="pom.xml" perm="ugo-w"/>
+  </target>
+
+  <target name="compile-java" depends="init"
+          description="Compile Java sources.">
+    <javac srcdir="${jsrc}" destdir="${build}" includeJavaRuntime="yes"
+           debug="true" target="1.5"/>
+  </target>
+
+  <target name="compile-clojure" depends="compile-java"
+          description="Compile Clojure sources.">
+    <java classname="clojure.lang.Compile"
+          classpath="${build}:${cljsrc}">
+      <sysproperty key="clojure.compile.path" value="${build}"/>
+      <arg value="clojure.core"/>
+      <arg value="clojure.main"/>
+      <arg value="clojure.set"/>
+      <arg value="clojure.xml"/>
+      <arg value="clojure.zip"/>
+      <arg value="clojure.inspector"/>
+    </java>
+  </target>
+
+  <target name="clojure" depends="compile-clojure"
+          description="Create clojure jar file.">
+    <jar jarfile="${clojure_jar}" basedir="${build}">
+      <fileset dir="${cljsrc}">
+        <include name="**/*.clj"/>
+        <include name="clojure/version.properties"/>
+      </fileset>
+      <manifest>
+        <attribute name="Main-Class" value="clojure.main"/>
+        <attribute name="Class-Path" value="."/>
+      </manifest>
+    </jar>
+    <copy file="${clojure_jar}" tofile="${clojure_noversion_jar}" />
+  </target>
+
+  <target name="clojure-slim" depends="compile-java"
+          description="Create clojure-slim jar file (omits compiled Clojure code)">
+    <jar jarfile="${slim_jar}">
+      <fileset dir="${build}" includes="clojure/asm/**"/>
+      <fileset dir="${build}" includes="clojure/lang/**"/>
+      <fileset dir="${build}" includes="clojure/main.class"/>
+      <fileset dir="${cljsrc}">
+        <include name="**/*.clj"/>
+        <include name="clojure/version.properties"/>
+      </fileset>
+      <manifest>
+        <attribute name="Main-Class" value="clojure.main"/>
+        <attribute name="Class-Path" value="."/>
+      </manifest>
+    </jar>
+    <copy file="${slim_jar}" tofile="${slim_noversion_jar}" />
+  </target>
+
+  <target name="clojure-sources" depends="init"
+          description="Create a JAR of Java sources.">
+    <jar jarfile="${src_jar}" basedir="${jsrc}" includes="**/*">
+      <fileset dir="${cljsrc}"
+               includes="clojure/version.properties"/>
+    </jar>
+    <copy file="${src_jar}" tofile="${src_noversion_jar}" />
+  </target>
+
+  <target name="jar" depends="clojure"/>
+
+  <target name="all" depends="clojure,clojure-slim,clojure-sources"/>
+
+  <target name="clean"
+          description="Remove autogenerated files and directories.">
+    <delete dir="${build}"/>
+    <delete file="pom.xml"/>
+  </target>
+
+  <target name="-setup-maven">
+    <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"/>
+  </target>
+
+  <macrodef name="deploy">
+    <attribute name="target-dir" description="Root of Maven repository"/>
+    <sequential>
+      <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"/>
+      <mvn:deploy file="${clojure_jar}">
+        <pom file="pom.xml"/>
+        <attach file="${src_jar}" classifier="sources"/>
+        <attach file="${slim_jar}" classifier="slim"/>
+        <remoteRepository url="file:@{target-dir}"/>
+      </mvn:deploy>
+    </sequential>
+  </macrodef>
+
+  <target name="ci-build" depends="clean,all,-setup-maven"
+          description="Continous integration build, installed to local repository.">
+    <mvn:install file="${clojure_jar}">
+      <pom file="pom.xml"/>
+      <attach file="${src_jar}" classifier="sources"/>
+      <attach file="${slim_jar}" classifier="slim"/>
+    </mvn:install>
+  </target>
+
+  <target name="nightly-build" depends="ci-build"
+          description="Build and deploy to nightly (snapshot) repository.">
+    <deploy target-dir="${snapshot.repo.dir}"/>
+  </target>
+
+
+  <target name="stable-build" depends="ci-build" description="Build and deploy to stable repository.">
+    <deploy target-dir="${stable.repo.dir}"/>
+  </target>
+
+
+</project>

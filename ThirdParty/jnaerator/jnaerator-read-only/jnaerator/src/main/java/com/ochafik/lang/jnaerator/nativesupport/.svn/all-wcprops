@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport
+END
+machoexport.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport.h
+END
+dllexport.jnaerator
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/dllexport.jnaerator
+END
+dllexport.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/dllexport.h
+END
+FatMachOExport.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/FatMachOExport.java
+END
+NativeExportUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/NativeExportUtils.java
+END
+DllExport.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/DllExport.java
+END
+machoexport.jnaerator
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/!svn/ver/924/trunk/jnaerator/src/main/java/com/ochafik/lang/jnaerator/nativesupport/machoexport.jnaerator
+END

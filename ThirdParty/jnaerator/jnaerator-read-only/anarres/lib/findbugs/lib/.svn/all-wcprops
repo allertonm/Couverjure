@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib
+END
+bcel.jar
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/bcel.jar
+END
+findbugsGUI.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/findbugsGUI.jar
+END
+jsr305.jar
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/jsr305.jar
+END
+asm-commons-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/asm-commons-3.0.jar
+END
+asm-util-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/asm-util-3.0.jar
+END
+asm-tree-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/asm-tree-3.0.jar
+END
+asm-xml-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/asm-xml-3.0.jar
+END
+buggy.icns
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/buggy.icns
+END
+annotations.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/annotations.jar
+END
+dom4j-full.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/dom4j-full.jar
+END
+asm-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/asm-3.0.jar
+END
+asm-analysis-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/asm-analysis-3.0.jar
+END
+findbugs.jar
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/findbugs.jar
+END
+findbugs-ant.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/822/trunk/anarres/lib/findbugs/lib/findbugs-ant.jar
+END
