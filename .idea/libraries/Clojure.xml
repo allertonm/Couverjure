@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Clojure">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ThirdParty/clojure-1.1.0-rc2/clojure.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

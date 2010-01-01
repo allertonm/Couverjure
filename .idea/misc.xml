@@ -6,6 +6,19 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="FacetAutodetectingManager">
+    <autodetection-disabled>
+      <facet-type id="Clojure">
+        <modules>
+          <module name="Core" />
+          <module name="Core" />
+          <module name="Core" />
+          <module name="Core" />
+          <module name="Core" />
+        </modules>
+      </facet-type>
+    </autodetection-disabled>
+  </component>
   <component name="IdProvider" IDEtalkID="8CBBAC8FDECB7DD687A2ABA905E85928" />
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />

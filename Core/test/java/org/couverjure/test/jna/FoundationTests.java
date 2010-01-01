@@ -1,5 +1,6 @@
 package org.couverjure.test.jna;
 
+import org.couverjure.core.MethodImpl;
 import org.couverjure.jna.FoundationLibrary;
 import org.couverjure.jna.ObjectiveCRuntime;
 import org.couverjure.jni.NativeHelper;
@@ -58,7 +59,6 @@ public class FoundationTests {
         foundation.NSLog(nsHello);
         rt.objc_msgSend(nsHello, selRelease);
     }
-
 
     public static int finalizerCount = 0;
 
@@ -150,4 +150,72 @@ public class FoundationTests {
         rt.objc_registerClassPair(idClass);
         return idClass;
     }
+
+    @Test
+    public void testCreateNSStringSubclassUsingMethodCallback() {
+        Pointer idClass = createNSStringSubclassUsingMethodCallback(TestStateClass.class);
+        Pointer nsHello = rt.class_createInstance(idClass, 0);
+        rt.objc_msgSend(nsHello, selInit);
+        foundation.NSLog(nsHello);
+        rt.objc_msgSend(nsHello, selRelease);
+    }
+
+    private Pointer createNSStringSubclassUsingMethodCallback(final Class stateClass) {
+        final Pointer idClsNSString = rt.objc_getClass("NSString");
+        final Pointer idClass = rt.objc_allocateClassPair(idClsNSString, "CCHelloString2", 0);
+        final String hello = "Hello";
+        Callback cbLength = new MethodImpl("I@:", null) {
+            public Object callback(Object[] args) {
+                return new Integer(5);
+            }
+        };
+        Callback cbCharAtIndex = new MethodImpl("S@:I", null) {
+            public Object callback(Object[] args) {
+                return hello.charAt((Integer) args[2]);
+            }
+        };
+        boolean ok;
+        ok = rt.class_addMethod(idClass, selLength, cbLength, "I@:");
+        ok = rt.class_addMethod(idClass, selCharAtIndex, cbCharAtIndex, "S@:I");
+
+        ok = rt.class_addIvar(idClass, "jstate", 8, 3, "?");
+        {
+            Callback cbInit = new MethodImpl("@@:", null) {
+                public Object callback(Object[] args) {
+                    Pointer self = (Pointer) args[0];
+                    Pointer sel = (Pointer) args[1];
+
+                    //System.out.println("cbInit");
+                    self = rt.objc_msgSendSuper(new ObjectiveCRuntime.Super(self, idClsNSString), sel);
+                    if (self != null) {
+                        //System.out.println("setJavaIvar");
+                        Pointer ivarState = rt.class_getInstanceVariable(idClass, "jstate");
+                        Object state;
+                        try {
+                            state = stateClass.newInstance();
+                            NativeHelper.setJavaIvar(self, ivarState, state);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Assert.fail();
+                        }
+                    }
+                    return self;
+                }
+            };
+            ok = rt.class_addMethod(idClass, selInit, cbInit, "@@:");
+        }
+        Callback cbDealloc = new MethodImpl("v@:", null) {
+            public Object callback(Object[] args) {
+                Pointer self = (Pointer) args[0];
+                //System.out.println("cbDealloc");
+                Pointer ivarState = rt.class_getInstanceVariable(idClass, "jstate");
+                NativeHelper.releaseJavaIvar(self, ivarState);
+                return null;
+            }
+        };
+        ok = rt.class_addMethod(idClass, selDealloc, cbDealloc, "v@:");
+        rt.objc_registerClassPair(idClass);
+        return idClass;
+    }
+
 }

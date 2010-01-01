@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Core/Core.iml" filepath="$PROJECT_DIR$/Core/Core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Java_JNA_Cocoa/Java_JNA_Cocoa.iml" filepath="$PROJECT_DIR$/Java_JNA_Cocoa/Java_JNA_Cocoa.iml" />
     </modules>
   </component>
 </project>
