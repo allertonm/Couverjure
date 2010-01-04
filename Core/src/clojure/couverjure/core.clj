@@ -80,5 +80,22 @@
 (defn tell [id name-or-sel & args]
   (.objc_msgSend objc-runtime (unwrap-id id) (selector name-or-sel) (to-array args)))
 
+; reads a sequence as an objective-c message in the form <keyword> <arg>? (<keyword> <arg>)*
+; - combines the keywords into an obj-C selector name and collects the arguments.
+; - used by the ... macro to build actual obj-c alls and can also be used with type signatures
+(defn read-objc-msg [msg]
+  (let [[_ msg args]
+        (reduce (fn [reduced item]
+          (let [[counter names args] reduced]
+            (if (even? counter)
+              [(inc counter) (conj names item) args]
+              [(inc counter) names (conj args item)]))) [0 [] []] msg)]
+    (if (seq args)
+      [(apply str (map #(str (subs (str %) 1) ":") msg)) args]
+      [(subs (str (first msg)) 1)])))
 
+; a helper macro for building objective-c method invocations
+(defmacro ... [target & msg]
+		(let [[selector-str args] (read-objc-msg msg)]
+		     `(tell ~target ~selector-str ~@args)))
 
