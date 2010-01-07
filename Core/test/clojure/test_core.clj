@@ -28,8 +28,10 @@
 (deftest test-create-nsstring-subclass-with-tell-macro
   (let [mystring (new-objc-class :MyClass3 (objc-class :NSString))
         hello-str "Hello"]
-    (add-method mystring :length "I@:" (fn [self sel] (.length hello-str)))
-    (add-method mystring :characterAtIndex- "S@:I" (fn [self sel index] (.charAt hello-str index)))
+    ;(add-method mystring :length "I@:" (fn [self sel] (.length hello-str)))
+    ;(add-method mystring :characterAtIndex- "S@:I" (fn [self sel index] (.charAt hello-str index)))
+    (defm mystring :uint [:length] [self sel] (count hello-str))
+    (defm mystring :unichar [:characterAtIndex :uint] [self sel index] (.charAt hello-str index))
     (register-objc-class mystring)
     (let
       [hello (alloc mystring)]
