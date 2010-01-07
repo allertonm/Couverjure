@@ -34,6 +34,34 @@
     \: Pointer,
     \? Pointer })
 
+(def encoding-keyword-mapping
+  {
+    ; these are (for now) just the 64-bit encodings
+    :bool \B
+    :char \c
+    :uchar \C
+    :short \s
+    :ushort \S
+    :unichar \S
+    :int \i
+    :uint \I
+    :long \q
+    :ulong \Q
+    :longlong \q
+    :ulonglong \Q
+    :nsinteger \q
+    :nsuinteger \Q
+    :float \f
+    :double \d
+    :longdouble \d
+    :void \V
+    :char-* \*
+    :id \@
+    :class \#
+    :sel \:
+    :unknown \?
+    })
+
 ; create selectors from strings or keywords (or selectors - is a no-op)
 (defn selector [name-or-sel]
   (cond
@@ -94,8 +122,20 @@
       [(apply str (map #(str (subs (str %) 1) ":") msg)) args]
       [(subs (str (first msg)) 1)])))
 
+; reads a sequence as an objective-c method declaration in the form
+; return-type keyword [arg-type [keyword arg-type]*]?
+(defn read-objc-method-decl [return-type keys-and-arg-types]
+  (let [sig-return-type (encoding-keyword-mapping return-type)
+        [msg arg-types] (read-objc-msg keys-and-arg-types)]
+    [msg (str sig-return-type "@:" (apply str (map encoding-keyword-mapping arg-types)))]))
+
 ; a helper macro for building objective-c method invocations
 (defmacro ... [target & msg]
 		(let [[selector-str args] (read-objc-msg msg)]
 		     `(tell ~target ~selector-str ~@args)))
+
+; a helper macro for building objective-c method implementations
+(defmacro defm [class return-type spec args & body]
+  (let [[name sig] (read-objc-method-decl return-type spec)]
+    `(add-method ~class ~name ~sig (fn ~args ~@body))))
 
