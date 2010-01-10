@@ -39,4 +39,16 @@
       (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
       (.NSLog foundation (unwrap-id hello)))))
 
+(deftest test-create-nsstring-subclass-with-doto-and-macro
+  (let [hello-str "Hello World"
+        mystring
+        (doto (new-objc-class :MyClass4 (objc-class :NSString))
+          (defm :uint [:length] [self sel] (count hello-str))
+          (defm :unichar [:characterAtIndex :uint] [self sel index] (.charAt hello-str index))
+          (register-objc-class))
+        hello (alloc mystring)]
+    (... hello :init)
+    (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
+    (.NSLog foundation (unwrap-id hello))))
+
 (run-tests)

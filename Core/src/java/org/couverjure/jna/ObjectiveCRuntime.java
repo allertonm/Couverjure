@@ -20,6 +20,7 @@ public interface ObjectiveCRuntime extends Library {
 
     Pointer class_getClassMethod(Pointer idClass, Pointer selector);
 
+    Pointer object_getClass(Pointer object);
 
 
     public static class Super extends Structure {

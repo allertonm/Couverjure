@@ -8,6 +8,8 @@
 (def foundation (Native/loadLibrary "Foundation" FoundationLibrary))
 (def objc-runtime (Native/loadLibrary "Foundation" ObjectiveCRuntime))
 
+(println "Loading Couverjure Core")
+
 ; wrap and unwrap ObjC IDs for release-on-finalize
 (defn wrap-id [ptr] (RetainReleaseID. ptr))
 (defn unwrap-id [id] (.getNativeId id))
@@ -79,6 +81,9 @@
 (defn objc-class [name]
   (wrap-id (.objc_getClass objc-runtime (objc-class-name name))))
 
+; obtain the class of an ObjC object
+(defn class-of [id] (wrap-id (.object_getClass objc-runtime (unwrap-id id))))
+
 ; create but do not register a new ObjC class
 (defn new-objc-class [name base-class]
   (wrap-id (.objc_allocateClassPair objc-runtime (unwrap-id base-class) (objc-class-name name) 0)))
@@ -98,6 +103,7 @@
 
 ; add a named method implementation to a class
 (defn add-method [class name sig fn]
+  (println "add-method " class " name " name " sig " sig)
   (let [sel (selector name)]
     (.class_addMethod objc-runtime (unwrap-id class) sel (method-impl sig fn) sig)))
 
@@ -106,6 +112,7 @@
 
 ; send a message to an object
 (defn tell [id name-or-sel & args]
+  (println "tell " id " name " name-or-sel " args " args)
   (.objc_msgSend objc-runtime (unwrap-id id) (selector name-or-sel) (to-array args)))
 
 ; reads a sequence as an objective-c message in the form <keyword> <arg>? (<keyword> <arg>)*

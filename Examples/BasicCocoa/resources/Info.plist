@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>CFBundleName</key>
+        <string>BasicCocoa</string>
+        <key>CFBundleDisplayName</key>
+        <string>BasicCocoa</string>
+        <key>CFBundleIdentifier</key>
+        <string>org.couverjure.examples.basiccocoa</string>
+        <key>CFBundleVersion</key>
+        <string>0.0</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>CFBundleExecutable</key>
+        <string>BasicCocoa</string>
+        <key>NSPrincipalClass</key>
+        <string>NSApplication</string>
+        <key>Java</key>
+        <dict>
+            <key>ClassPath</key>
+            <string>
+                :$APP_PACKAGE/Contents/Resources/lib/couverjure.jar:$APP_PACKAGE/Contents/Resources/lib/jna.jar:$APP_PACKAGE/Contents/Resources/lib/clojure.jar:$APP_PACKAGE/Contents/Resources/lib/BasicCocoa.jar:/System/Library/Java
+            </string>
+
+            <key>JVMVersion</key>
+            <string>1.6+</string>
+
+            <key>JVMArchs</key>
+            <array>
+                <string>x86_64</string>
+            </array>
+
+            <key>LSArchitecturePriority</key>
+            <array>
+                <string>x86_64</string>
+            </array>
+
+            <key>MainClass</key>
+            <string>clojure.main</string>
+
+            <key>Arguments</key>
+            <string>@/couverjure/examples/basiccocoa.clj</string>
+            <key>Properties</key>
+            <dict>
+            </dict>
+            <!-- <key>VMOptions</key>
+            <array>
+                <string>-Xdebug</string>
+                <string>-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005</string>
+            </array> -->
+        </dict>
+    </dict>
+</plist>
