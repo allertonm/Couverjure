@@ -5,7 +5,10 @@
   (doto (new-objc-class "SimpleAppDelegate" (objc-class :NSObject))
     (defm :void [:applicationDidFinishLaunching :id] [self sel notification]
       (println "App Did Finish Launching"))
+    (defm :void [:setWindow :id] [self sel window] (println "setWindow: " window))
     (register-objc-class)))
+
+(def NSThread (objc-class :NSThread))
 
 (let [ThreadAdapter
       (doto (new-objc-class (str (gensym)) (objc-class :NSObject))
