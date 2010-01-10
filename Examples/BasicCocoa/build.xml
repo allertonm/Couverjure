@@ -34,9 +34,15 @@
         -->
         <chmod file="build/${appname}.app/Contents/MacOS/BasicCocoa" perm="+x"/>
         <copy file="resources/Info.plist" todir="build/${appname}.app/Contents"/>
-        <copy todir="build/${appname}.app/Contents/Resources/en.lproj/BasicCocoa.nib">
+        
+        <exec executable="ibtool">
+            <arg value="--compile"/>
+            <arg value="build/${appname}.app/Contents/Resources/en.lproj/BasicCocoa.nib"/>
+            <arg value="resources/BasicCocoa.xib"/>
+        </exec>
+        <!-- <copy todir="build/${appname}.app/Contents/Resources/en.lproj/BasicCocoa.nib">
             <fileset dir="resources/BasicCocoa.nib"/>
-        </copy>
+        </copy> -->
         <copy file="${clojure}/clojure.jar" todir="${applibs}"/>
         <copy file="${jna}/jna.jar" todir="${applibs}"/>
         <copy file="${couverjure}/couverjure.jar" todir="${applibs}"/>
