@@ -1,15 +1,11 @@
 (ns couverjure.examples.basiccocoa
   (:use couverjure.core couverjure.appkit))
 
-(println *command-line-args*)
-
-(def NSThread (objc-class :NSThread))
-(println "isMainThread:" (... NSThread :isMainThread))
-(println "mainThread:" (... NSThread :mainThread))
-(println "currentThread:" (... NSThread :currentThread))
-(println (. (Thread/currentThread) getName))
-
-(.NSLog foundation (unwrap-id (wrap-id (.CFStringCreateWithCString foundation nil "Hello World" 0))))
+(def SimpleAppDelegate
+  (doto (new-objc-class "SimpleAppDelegate" (objc-class :NSObject))
+    (defm :void [:applicationDidFinishLaunching :id] [self sel notification]
+      (println "App Did Finish Launching"))
+    (register-objc-class)))
 
 (let [ThreadAdapter
       (doto (new-objc-class (str (gensym)) (objc-class :NSObject))

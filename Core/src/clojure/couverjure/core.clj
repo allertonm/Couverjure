@@ -56,7 +56,7 @@
     :float \f
     :double \d
     :longdouble \d
-    :void \V
+    :void \v
     :char-* \*
     :id \@
     :class \#

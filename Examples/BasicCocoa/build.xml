@@ -25,6 +25,7 @@
         <mkdir dir="build/${appname}.app/Contents"/>
         <mkdir dir="build/${appname}.app/Contents/MacOS"/>
         <mkdir dir="build/${appname}.app/Contents/Resources"/>
+        <mkdir dir="build/${appname}.app/Contents/Resources/en.lproj"/>
         <mkdir dir="build/${appname}.app/Contents/Resources/lib"/>
         <mkdir dir="build/${appname}.app/Contents/Frameworks"/>
         <copy file="/System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub" tofile="build/${appname}.app/Contents/MacOS/BasicCocoa"/>
@@ -33,6 +34,9 @@
         -->
         <chmod file="build/${appname}.app/Contents/MacOS/BasicCocoa" perm="+x"/>
         <copy file="resources/Info.plist" todir="build/${appname}.app/Contents"/>
+        <copy todir="build/${appname}.app/Contents/Resources/en.lproj/BasicCocoa.nib">
+            <fileset dir="resources/BasicCocoa.nib"/>
+        </copy>
         <copy file="${clojure}/clojure.jar" todir="${applibs}"/>
         <copy file="${jna}/jna.jar" todir="${applibs}"/>
         <copy file="${couverjure}/couverjure.jar" todir="${applibs}"/>
