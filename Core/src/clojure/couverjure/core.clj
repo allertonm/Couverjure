@@ -13,6 +13,7 @@
 ; wrap and unwrap ObjC IDs for release-on-finalize
 (defn wrap-id [ptr] (RetainReleaseID. ptr))
 (defn unwrap-id [id] (.getNativeId id))
+(defn retain [id] (doto (wrap-id id) (.retain)))
 
 ; this map defines the Java/JNA types that correspond to single-char Objective-C type encodings
 (def simple-objc-encodings 

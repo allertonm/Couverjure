@@ -25,12 +25,19 @@
     </target>
 
     <target name="native-headers" depends="compile">
+        <mkdir dir="src/native"/>
         <javah outputfile="src/native/nativehelper.h" verbose="yes" force="yes" classpath="bin" classpathref="javah_classpath">
           <class name="org.couverjure.jni.NativeHelper"/>
         </javah>
     </target>
 
-    <target name="package" depends="compile" >
+    <target name="native-lib" depends="native-headers">
+        <exec executable="xcodebuild" dir="../CoreNative">
+            <arg value="-alltargets"/>
+        </exec>
+    </target>
+
+    <target name="package" depends="compile, native-lib" >
         <jar jarfile="couverjure.jar" >
             <fileset dir="bin" />
             <fileset dir="src/clojure" />

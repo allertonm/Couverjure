@@ -7,6 +7,10 @@ public class RetainReleaseID extends ID {
         super(nativeId);
     }
 
+    public void retain() {
+        Core.foundation.CFRetain(nativeId);
+    }
+
     public void finalize() throws Throwable {
         Core.foundation.CFRelease(nativeId);
         super.finalize();

@@ -47,6 +47,8 @@
             <string>@/couverjure/examples/basiccocoa.clj</string>
             <key>Properties</key>
             <dict>
+                <key>java.library.path</key>
+                <string>$APP_PACKAGE/Contents/Frameworks</string>
             </dict>
             <!-- <key>VMOptions</key>
             <array>

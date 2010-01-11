@@ -3,6 +3,7 @@
     <property name="jna" value="../../ThirdParty/jna"/>
     <property name="clojure" value="../../ThirdParty/clojure-1.1.0-rc2"/>
     <property name="couverjure" value="../../Core"/>
+    <property name="corenative" value="../../CoreNative"/>
     <property name="appname" value="BasicCocoa"/>
     <property environment="env"/>
 
@@ -49,6 +50,8 @@
         <jar jarfile="${applibs}/${appname}.jar">
             <fileset dir="src/clojure"/>
         </jar>
+
+        <copy file="${corenative}/build/Release/libcouverjure.jnilib" todir="build/${appname}.app/Contents/Frameworks"/>
      </target>
 
     <target name="runForDebug">
