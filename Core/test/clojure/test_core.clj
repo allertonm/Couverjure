@@ -51,4 +51,15 @@
     (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
     (.NSLog foundation (unwrap-id hello))))
 
+(deftest test-new-implementation-macro
+  (let [hello-str "Hello World"
+        mystring
+        (implementation (str (gensym)) (objc-class :NSString)
+          (method [:uint :length] [] (count hello-str))
+          (method [:unichar :characterAtIndex :uint] [index] (.charAt hello-str index)))
+        hello (alloc mystring)]
+    (... hello :init)
+    (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
+    (.NSLog foundation (unwrap-id hello))))
+
 (run-tests)

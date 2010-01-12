@@ -147,3 +147,16 @@
   (let [[name sig] (read-objc-method-decl return-type spec)]
     `(add-method ~class ~name ~sig (fn ~args ~@body))))
 
+; a helper macro for building objective-c method implementations
+(defmacro method [class spec args & body]
+  (let [[name sig] (read-objc-method-decl (first spec) (rest spec))]
+    `(add-method ~class ~name ~sig (fn [~(symbol "self") ~(symbol "sel") ~@args] ~@body))))
+
+(defmacro implementation [class-name base-class & body]
+  `(doto (new-objc-class (objc-class-name ~class-name) ~base-class)
+      ~@body
+    (register-objc-class)))
+
+(defmacro defimplementation [class-symbol base-class & body]
+  `(def ~class-symbol (implementation ~(str class-symbol) ~base-class ~@body)))
+
