@@ -6,25 +6,25 @@ import org.couverjure.jna.FoundationLibrary;
 import org.couverjure.jna.ObjectiveCRuntime;
 import org.couverjure.jni.NativeHelper;
 
-public class Core {
-    public static FoundationLibrary foundation;
-    public static ObjectiveCRuntime objcRuntime;
+import java.lang.reflect.Type;
 
-    static {
+public class Core {
+    public FoundationLibrary foundation;
+    public ObjectiveCRuntime objcRuntime;
+
+    public static final Core CORE = new Core();
+
+    public Core() {
         foundation = (FoundationLibrary) Native.loadLibrary("Foundation", FoundationLibrary.class);
         objcRuntime = (ObjectiveCRuntime) Native.loadLibrary("Foundation", ObjectiveCRuntime.class);
         NativeHelper.initHelper();
     }
 
-    public static ID getClass(String name) {
-        return id(objcRuntime.objc_getClass(name));
+    public ID id(Pointer nativeId) {
+        return new RetainReleaseID(nativeId);
     }
 
-    public static ID createInstance(ID idClass) {
-        return id(objcRuntime.class_createInstance(idClass.getNativeId(), 0));
-    }
-
-    private static ID id(Pointer pointer) {
-        return new RetainReleaseID(pointer);
+    public Type pointerType() {
+        return Pointer.class;
     }
 }

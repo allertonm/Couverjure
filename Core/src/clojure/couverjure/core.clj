@@ -1,17 +1,20 @@
 (ns couverjure.core
   (:import
     (org.couverjure.jna FoundationLibrary ObjectiveCRuntime)
-    (org.couverjure.core ID RetainReleaseID)
+    (org.couverjure.core Core Core64 ID)
     (com.sun.jna Native CallbackProxy Pointer)))
 
 ; load foundation and objc-runtime libraries
-(def foundation (Native/loadLibrary "Foundation" FoundationLibrary))
-(def objc-runtime (Native/loadLibrary "Foundation" ObjectiveCRuntime))
+(def core (Core64.))
+(def foundation (.foundation core))
+(def objc-runtime (.objcRuntime core))
+
+(def pointer-type (.pointerType core))
 
 (println "Loading Couverjure Core")
 
 ; wrap and unwrap ObjC IDs for release-on-finalize
-(defn wrap-id [ptr] (RetainReleaseID. ptr))
+(defn wrap-id [ptr] (.id core ptr))
 (defn unwrap-id [id] (.getNativeId id))
 (defn retain [id] (doto (wrap-id id) (.retain)))
 
@@ -32,10 +35,10 @@
    \B Boolean/TYPE,
    \v Void/TYPE,
    \* String,
-   \@ Pointer,
-   \# Pointer,
-   \: Pointer,
-   \? Pointer})
+   \@ pointer-type,
+   \# pointer-type,
+   \: pointer-type,
+   \? pointer-type})
 
 (def encoding-keyword-mapping
   {

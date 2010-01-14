@@ -1,8 +1,7 @@
 (ns couverjure.webkit
   (:import
-    (com.sun.jna Native)
-    (org.couverjure.jna WebKit)))
+    (com.sun.jna Native Library)))
 
 (println "Loading Couverjure WebKit")
 
-(def webkit (Native/loadLibrary "WebKit" WebKit))
+(def webkit (Native/loadLibrary "WebKit" Library))

@@ -2,17 +2,23 @@ package org.couverjure.core;
 
 import com.sun.jna.Pointer;
 
-public class RetainReleaseID extends ID {
+public class RetainReleaseID implements ID {
+    protected Pointer nativeId;
+
     public RetainReleaseID(Pointer nativeId) {
-        super(nativeId);
+        this.nativeId = nativeId;
     }
 
     public void retain() {
-        Core.foundation.CFRetain(nativeId);
+        Core.CORE.foundation.CFRetain(nativeId);
     }
 
     public void finalize() throws Throwable {
-        Core.foundation.CFRelease(nativeId);
+        Core.CORE.foundation.CFRelease(nativeId);
         super.finalize();
+    }
+
+    public Pointer getNativeId() {
+        return nativeId;
     }
 }
