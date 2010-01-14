@@ -8,14 +8,16 @@
     (method [:void :applicationDidFinishLaunching :id] [notification]
       (println "App Did Finish Launching"))
     (method [:void :setWindow :id] [window]
-      (reset! main-window (retain window)))
+      (println "setWindow")
+      (reset! main-window window))
     (method [:void :setWebView :id] [web-view]
-      (reset! main-web-view (retain web-view)))
+      (println "setWebView")
+      (reset! main-web-view web-view))
     (method [:void :backForward :id] [segmented-control]
       ; TODO: we can't write this method properly because we can't get the result from [segmented-control :selectedSegment]
       (println "backForward:"))
     (method [:void :address :id] [text-field]
-      (... (deref main-web-view) :takeStringURLFrom text-field)))
+      (... (deref main-web-view) :takeStringURLFrom (unwrap-id text-field))))
 
 (def NSThread (objc-class :NSThread))
 

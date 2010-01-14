@@ -1,11 +1,12 @@
 (ns couverjure.test
   (:use couverjure.core clojure.test))
 
+; this test exercises the low level functions without macros
 (deftest test-create-nsstring-subclass
-  (let [mystring (new-objc-class :MyClass (objc-class :NSString))
+  (let [mystring (new-objc-class (str (gensym)) (objc-class :NSString))
         hello-str "Hello"]
-    (add-method mystring :length "I@:" (fn [self sel] (.length hello-str)))
-    (add-method mystring :characterAtIndex- "S@:I" (fn [self sel index] (.charAt hello-str index)))
+    (add-method mystring :length [:uint :id :sel] (fn [self sel] (count hello-str)))
+    (add-method mystring :characterAtIndex- [:unichar :id :sel :uint] (fn [self sel index] (nth hello-str index)))
     (register-objc-class mystring)
     (let
       [hello (alloc mystring)]
@@ -13,50 +14,12 @@
       (let [cai (tell hello :characterAtIndex- 0)] (.println System/out cai))
       (.NSLog foundation (unwrap-id hello)))))
 
-(deftest test-create-nsstring-subclass-with-doto
-  (let [hello-str "Hello World"
-        mystring
-        (doto (new-objc-class :MyClass2 (objc-class :NSString))
-          (add-method :length "I@:" (fn [self sel] (.length hello-str)))
-          (add-method :characterAtIndex- "S@:I" (fn [self sel index] (.charAt hello-str index)))
-          (register-objc-class))
-        hello (alloc mystring)]
-    (tell hello :init)
-    (let [cai (tell hello :characterAtIndex- 0)] (.println System/out cai))
-    (.NSLog foundation (unwrap-id hello))))
-
-(deftest test-create-nsstring-subclass-with-tell-macro
-  (let [mystring (new-objc-class :MyClass3 (objc-class :NSString))
-        hello-str "Hello"]
-    ;(add-method mystring :length "I@:" (fn [self sel] (.length hello-str)))
-    ;(add-method mystring :characterAtIndex- "S@:I" (fn [self sel index] (.charAt hello-str index)))
-    (defm mystring :uint [:length] [self sel] (count hello-str))
-    (defm mystring :unichar [:characterAtIndex :uint] [self sel index] (.charAt hello-str index))
-    (register-objc-class mystring)
-    (let
-      [hello (alloc mystring)]
-      (... hello :init)
-      (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
-      (.NSLog foundation (unwrap-id hello)))))
-
-(deftest test-create-nsstring-subclass-with-doto-and-macro
-  (let [hello-str "Hello World"
-        mystring
-        (doto (new-objc-class :MyClass4 (objc-class :NSString))
-          (defm :uint [:length] [self sel] (count hello-str))
-          (defm :unichar [:characterAtIndex :uint] [self sel index] (.charAt hello-str index))
-          (register-objc-class))
-        hello (alloc mystring)]
-    (... hello :init)
-    (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
-    (.NSLog foundation (unwrap-id hello))))
-
 (deftest test-new-implementation-macro
   (let [hello-str "Hello World"
         mystring
         (implementation (str (gensym)) (objc-class :NSString)
           (method [:uint :length] [] (count hello-str))
-          (method [:unichar :characterAtIndex :uint] [index] (.charAt hello-str index)))
+          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
         hello (alloc mystring)]
     (... hello :init)
     (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))

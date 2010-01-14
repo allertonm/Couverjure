@@ -16,26 +16,26 @@
 (defn retain [id] (doto (wrap-id id) (.retain)))
 
 ; this map defines the Java/JNA types that correspond to single-char Objective-C type encodings
-(def simple-objc-encodings 
-  { \c Byte/TYPE,
-    \i Integer/TYPE,
-    \s Short/TYPE,
-    \l Integer/TYPE,
-    \q Long/TYPE,
-    \C Byte/TYPE,
-    \I Integer/TYPE,
-    \S Short/TYPE,
-    \L Integer/TYPE,
-    \Q Long/TYPE,
-    \f Float/TYPE,
-    \d Double/TYPE,
-    \B Boolean/TYPE,
-    \v Void/TYPE,
-    \* String,
-    \@ Pointer,
-    \# Pointer,
-    \: Pointer,
-    \? Pointer })
+(def simple-objc-encodings
+  {\c Byte/TYPE,
+   \i Integer/TYPE,
+   \s Short/TYPE,
+   \l Integer/TYPE,
+   \q Long/TYPE,
+   \C Byte/TYPE,
+   \I Integer/TYPE,
+   \S Short/TYPE,
+   \L Integer/TYPE,
+   \Q Long/TYPE,
+   \f Float/TYPE,
+   \d Double/TYPE,
+   \B Boolean/TYPE,
+   \v Void/TYPE,
+   \* String,
+   \@ Pointer,
+   \# Pointer,
+   \: Pointer,
+   \? Pointer})
 
 (def encoding-keyword-mapping
   {
@@ -65,6 +65,14 @@
     :unknown \?
     })
 
+(defn to-java-type [kw]
+  (simple-objc-encodings (encoding-keyword-mapping kw)))
+
+; converts a type signature from keyword form to an objc runtime signature string
+(defn to-objc-sig [sig]
+  (apply str (map encoding-keyword-mapping sig)))
+
+
 ; create selectors from strings or keywords (or selectors - is a no-op)
 (defn selector [name-or-sel]
   (cond
@@ -93,27 +101,36 @@
 (defn register-objc-class [class]
   (.objc_registerClassPair objc-runtime (unwrap-id class)))
 
+(defn wrap-method-arg [arg sig]
+  (if (= sig :id) (retain arg) arg))
+
+(defn wrap-method [wrapped-fn sig args]
+  (apply
+    wrapped-fn
+    (for [i (range 0 (count args))]
+      (wrap-method-arg (nth args i) (nth sig (inc i))))))
+
 ; make an ObjC method implementation from a function
-(defn method-impl [sig fn]
-  (let [param-types (into-array Class (map simple-objc-encodings (.substring sig 1)))
-        return-type (simple-objc-encodings (.charAt sig 0))]
+(defn method-callback-proxy [sig fn]
+  (let [param-types (into-array Class (map to-java-type (rest sig)))
+        return-type (to-java-type (first sig))]
     (proxy [CallbackProxy] []
-      (callback ([args] (apply fn (seq args))))
+      (callback ([args]
+        (wrap-method fn sig (seq args))))
       (getParameterTypes ([] param-types))
       (getReturnType ([] return-type)))))
 
 ; add a named method implementation to a class
 (defn add-method [class name sig fn]
-  (println "add-method " class " name " name " sig " sig)
+  ;(println "add-method " class " name " name " sig " sig)
   (let [sel (selector name)]
-    (.class_addMethod objc-runtime (unwrap-id class) sel (method-impl sig fn) sig)))
+    (.class_addMethod objc-runtime (unwrap-id class) sel (method-callback-proxy sig fn) (to-objc-sig sig))))
 
 ; instantiate a class
 (defn alloc [class] (wrap-id (.class_createInstance objc-runtime (unwrap-id class) 0)))
 
 ; send a message to an object
 (defn tell [id name-or-sel & args]
-  (println "tell " id " name " name-or-sel " args " args)
   (.objc_msgSend objc-runtime (unwrap-id id) (selector name-or-sel) (to-array args)))
 
 ; reads a sequence as an objective-c message in the form <keyword> <arg>? (<keyword> <arg>)*
@@ -133,19 +150,13 @@
 ; reads a sequence as an objective-c method declaration in the form
 ; return-type keyword [arg-type [keyword arg-type]*]?
 (defn read-objc-method-decl [return-type keys-and-arg-types]
-  (let [sig-return-type (encoding-keyword-mapping return-type)
-        [msg arg-types] (read-objc-msg keys-and-arg-types)]
-    [msg (str sig-return-type "@:" (apply str (map encoding-keyword-mapping arg-types)))]))
+  (let [[msg arg-types] (read-objc-msg keys-and-arg-types)]
+    [msg (apply vector (concat [return-type :id :sel] arg-types))]))
 
 ; a helper macro for building objective-c method invocations
 (defmacro ... [target & msg]
-		(let [[selector-str args] (read-objc-msg msg)]
-		     `(tell ~target ~selector-str ~@args)))
-
-; a helper macro for building objective-c method implementations
-(defmacro defm [class return-type spec args & body]
-  (let [[name sig] (read-objc-method-decl return-type spec)]
-    `(add-method ~class ~name ~sig (fn ~args ~@body))))
+  (let [[selector-str args] (read-objc-msg msg)]
+    `(tell ~target ~selector-str ~@args)))
 
 ; a helper macro for building objective-c method implementations
 (defmacro method [class spec args & body]
@@ -154,7 +165,7 @@
 
 (defmacro implementation [class-name base-class & body]
   `(doto (new-objc-class (objc-class-name ~class-name) ~base-class)
-      ~@body
+    ~@body
     (register-objc-class)))
 
 (defmacro defimplementation [class-symbol base-class & body]
