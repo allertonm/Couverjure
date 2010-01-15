@@ -20,7 +20,7 @@
         0 (>> web-view :goBack)
         1 (>> web-view :goForward))))
   (method [:void :address :id] [text-field]
-    (>> (deref main-web-view) :takeStringURLFrom (unwrap-id text-field))))
+    (>> (deref main-web-view) :takeStringURLFrom text-field)))
 
 (def NSThread (objc-class :NSThread))
 

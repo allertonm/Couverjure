@@ -14,9 +14,9 @@
 (println "Loading Couverjure Core")
 
 ; wrap and unwrap ObjC IDs for release-on-finalize
-(defn wrap-id [ptr] (.id core ptr))
-(defn unwrap-id [id] (.getNativeId id))
-(defn retain [id] (doto (wrap-id id) (.retain)))
+(defn wrap-id [ptr] (if ptr (.id core ptr) nil))
+(defn unwrap-id [id] (if id (.getNativeId id) 0))
+(defn retain [id] (if id (doto (wrap-id id) (.retain)) nil))
 
 ; this map defines the Java/JNA types that correspond to single-char Objective-C type encodings
 (def simple-objc-encodings
@@ -133,8 +133,34 @@
 (defn alloc [class] (wrap-id (.class_createInstance objc-runtime (unwrap-id class) 0)))
 
 ; send a message to an object
-(defn tell [id name-or-sel & args]
+(defn send-msg [id name-or-sel & args]
   (.objc_msgSend objc-runtime (unwrap-id id) (selector name-or-sel) (to-array args)))
+
+; sends a message to an object, introspecting at runtime to discover the method signature
+; and coercing arguments and return value correctly
+(defn dynamic-send-msg [id name-or-sel & args]
+  (let [sel (selector name-or-sel)
+        target-class (class-of id)
+        target-method (.class_getInstanceMethod objc-runtime (unwrap-id target-class) sel)
+        ; the replaceAll here is a complete hack, but will get us by for now
+        ; see thread at http://lists.apple.com/archives/objc-language/2009/Apr/msg00141.html
+        objc-sig (.replaceAll (.method_getTypeEncoding objc-runtime target-method) "\\d" "")
+        arg-sig (drop 3 objc-sig)
+        dummy (println (format "dynamic-send-msg %s %s" name-or-sel objc-sig))
+        wrapped-args
+        (for [i (range 0 (count args))]
+          (let [arg (nth args i)]
+            (condp = (nth arg-sig i)
+              \@ (unwrap-id arg)
+              \# (unwrap-id arg)
+              arg)))
+        raw-result (.objc_msgSend objc-runtime (unwrap-id id) sel (to-array wrapped-args))]
+        (condp = (first objc-sig)
+          \@ (retain raw-result)
+          \# (retain raw-result)
+          \B (not= 0 raw-result)
+          raw-result)
+    ))
 
 ; reads a sequence as an objective-c message in the form <keyword> <arg>? (<keyword> <arg>)*
 ; - combines the keywords into an obj-C selector name and collects the arguments.
@@ -159,7 +185,7 @@
 ; a helper macro for building objective-c method invocations
 (defmacro >> [target & msg]
   (let [[selector-str args] (read-objc-msg msg)]
-    `(tell ~target ~selector-str ~@args)))
+    `(dynamic-send-msg ~target ~selector-str ~@args)))
 
 ; a helper macro for building objective-c method implementations
 (defmacro method [class spec args & body]
