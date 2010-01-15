@@ -21,8 +21,8 @@
           (method [:uint :length] [] (count hello-str))
           (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
         hello (alloc mystring)]
-    (... hello :init)
-    (let [cai (... hello :characterAtIndex 0)] (.println System/out cai))
+    (>> hello :init)
+    (let [cai (>> hello :characterAtIndex 0)] (.println System/out cai))
     (.NSLog foundation (unwrap-id hello))))
 
 (run-tests)

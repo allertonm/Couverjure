@@ -157,7 +157,7 @@
     [msg (apply vector (concat [return-type :id :sel] arg-types))]))
 
 ; a helper macro for building objective-c method invocations
-(defmacro ... [target & msg]
+(defmacro >> [target & msg]
   (let [[selector-str args] (read-objc-msg msg)]
     `(tell ~target ~selector-str ~@args)))
 
