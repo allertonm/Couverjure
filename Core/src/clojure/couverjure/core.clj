@@ -10,6 +10,8 @@
 (def objc-runtime (.objcRuntime core))
 
 (def pointer-type (.pointerType core))
+(def super-type (.superType core))
+(def id-type (.idType core))
 
 (println "Loading Couverjure Core")
 
@@ -108,10 +110,14 @@
   (if (= sig :id) (retain arg) arg))
 
 (defn wrap-method [wrapped-fn sig args]
-  (apply
-    wrapped-fn
-    (for [i (range 0 (count args))]
-      (wrap-method-arg (nth args i) (nth sig (inc i))))))
+  (let [result
+        (apply
+          wrapped-fn
+          (for [i (range 0 (count args))]
+            (wrap-method-arg (nth args i) (nth sig (inc i)))))]
+    (condp = (first sig)
+      :id (unwrap-id result)
+      result)))
 
 ; make an ObjC method implementation from a function
 (defn method-callback-proxy [sig fn]
@@ -138,28 +144,37 @@
 
 ; sends a message to an object, introspecting at runtime to discover the method signature
 ; and coercing arguments and return value correctly
-(defn dynamic-send-msg [id name-or-sel & args]
-  (let [sel (selector name-or-sel)
-        target-class (class-of id)
-        target-method (.class_getInstanceMethod objc-runtime (unwrap-id target-class) sel)
+(defn dynamic-send-msg [wrapped-id-or-super name-or-sel & args]
+  (let [super? (instance? super-type wrapped-id-or-super)
+        sel (selector name-or-sel)
+        super (if super? wrapped-id-or-super)
+        id (when-not super? (unwrap-id wrapped-id-or-super))
+        target-class
+          (if super?
+            (.clazz super)
+            (.object_getClass objc-runtime id))
+        target-method (.class_getInstanceMethod objc-runtime target-class sel)
         ; the replaceAll here is a complete hack, but will get us by for now
         ; see thread at http://lists.apple.com/archives/objc-language/2009/Apr/msg00141.html
         objc-sig (.replaceAll (.method_getTypeEncoding objc-runtime target-method) "\\d" "")
         arg-sig (drop 3 objc-sig)
-        dummy (println (format "dynamic-send-msg %s %s" name-or-sel objc-sig))
         wrapped-args
-        (for [i (range 0 (count args))]
-          (let [arg (nth args i)]
-            (condp = (nth arg-sig i)
-              \@ (unwrap-id arg)
-              \# (unwrap-id arg)
-              arg)))
-        raw-result (.objc_msgSend objc-runtime (unwrap-id id) sel (to-array wrapped-args))]
-        (condp = (first objc-sig)
-          \@ (retain raw-result)
-          \# (retain raw-result)
-          \B (not= 0 raw-result)
-          raw-result)
+          (for [i (range 0 (count args))]
+            (let [arg (nth args i)]
+              (condp = (nth arg-sig i)
+                \@ (unwrap-id arg)
+                \# (unwrap-id arg)
+                arg)))
+        wrapped-args-array (to-array wrapped-args)
+        raw-result
+          (if super?
+            (.objc_msgSendSuper objc-runtime super sel wrapped-args-array)
+            (.objc_msgSend objc-runtime id sel wrapped-args-array))]
+    (condp = (first objc-sig)
+      \@ (retain raw-result)
+      \# (retain raw-result)
+      \B (not= 0 raw-result)
+      raw-result)
     ))
 
 ; reads a sequence as an objective-c message in the form <keyword> <arg>? (<keyword> <arg>)*
@@ -187,10 +202,26 @@
   (let [[selector-str args] (read-objc-msg msg)]
     `(dynamic-send-msg ~target ~selector-str ~@args)))
 
+(defmacro >>super [target & msg]
+  (let [[selector-str args] (read-objc-msg msg)]
+    `(dynamic-send-msg (super ~target) ~selector-str ~@args)))
+
+(defn super [wrapped-id]
+  (let [receiver (unwrap-id wrapped-id)
+        receiver-class (.object_getClass objc-runtime receiver)
+        super-class (.class_getSuperclass objc-runtime receiver-class)]
+    (.makeSuper core receiver super-class)))
+
+(defmacro >>super [target & msg]
+  (let [[selector-str args] (read-objc-msg msg)]
+    `(dynamic-send-msg (super ~target) ~selector-str ~@args)))
+
 ; a helper macro for building objective-c method implementations
 (defmacro method [class spec args & body]
   (let [[name sig] (read-objc-method-decl (first spec) (rest spec))]
-    `(add-method ~class ~name ~sig (fn [~(symbol "self") ~(symbol "sel") ~@args] ~@body))))
+    `(add-method ~class ~name ~sig
+      (fn [~(symbol "self") ~(symbol "sel") ~@args]
+        ~@body))))
 
 (defmacro implementation [class-name base-class & body]
   `(doto (new-objc-class (objc-class-name ~class-name) ~base-class)

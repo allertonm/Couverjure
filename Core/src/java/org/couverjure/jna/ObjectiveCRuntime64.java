@@ -13,15 +13,18 @@ public interface ObjectiveCRuntime64 extends Library {
     long objc_msgSend(long receiver, long selector, Object a1);
     long objc_msgSend(long receiver, long selector, Object... args);
     long objc_msgSendSuper(Super objc_super, long sel, Object... args);
+
     boolean class_addMethod(long idClass, long selName, Callback imp, String types);
     boolean class_addIvar(long idClass, String name, int size, int align, String type);
     long class_createInstance(long idClass, int extraBytes);
-    Pointer class_getInstanceVariable(long idClass, String s);
-    long sel_registerName(String s);
     long class_getInstanceMethod(long idClass, long sel);
-    String method_getTypeEncoding(long method);
-
     long class_getClassMethod(long idClass, Pointer selector);
+    Pointer class_getInstanceVariable(long idClass, String s);
+    long class_getSuperclass(long idClass);
+
+    long sel_registerName(String s);
+
+    String method_getTypeEncoding(long method);
 
     long object_getClass(long object);
 

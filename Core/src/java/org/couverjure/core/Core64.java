@@ -1,10 +1,7 @@
 package org.couverjure.core;
 
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
 import org.couverjure.jna.Foundation64;
-import org.couverjure.jna.FoundationLibrary;
-import org.couverjure.jna.ObjectiveCRuntime;
 import org.couverjure.jna.ObjectiveCRuntime64;
 import org.couverjure.jni.NativeHelper;
 
@@ -13,6 +10,9 @@ import java.lang.reflect.Type;
 public class Core64 {
     public Foundation64 foundation;
     public ObjectiveCRuntime64 objcRuntime;
+    public Type pointerType = Long.TYPE;
+    public Type superType = ObjectiveCRuntime64.Super.class;
+    public Type idType = RefCountedId64.class;
 
     public static final Core64 CORE = new Core64();
 
@@ -26,7 +26,7 @@ public class Core64 {
         return new RefCountedId64(nativeId);
     }
 
-    public Type pointerType() {
-        return Long.TYPE;
+    public ObjectiveCRuntime64.Super makeSuper(long receiver, long clazz) {
+        return new ObjectiveCRuntime64.Super(receiver, clazz); 
     }
 }

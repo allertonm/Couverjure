@@ -36,6 +36,22 @@
     (let [cai (dynamic-send-msg hello :characterAtIndex- 0)] (.println System/out cai))
     (.NSLog foundation (unwrap-id hello))))
 
+(deftest test-super-init
+  (let [hello-str "Hello World"
+        mystring
+        (implementation (str (gensym)) (objc-class :NSString)
+          (method [:id :init] []
+            (let [_self (>>super self :init)]
+              (println "self: " _self)
+              _self))
+          (method [:uint :length] [] (count hello-str))
+          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
+        hello (alloc mystring)]
+    (>> hello :init)
+    (let [cai (>> hello :characterAtIndex 0)] (.println System/out cai))
+    (.NSLog foundation (unwrap-id hello))))
+
+
 (deftest test-thread-adapter
   (let [ThreadAdapter
       (implementation (str (gensym)) (objc-class :NSObject)
