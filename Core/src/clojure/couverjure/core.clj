@@ -1,3 +1,29 @@
+;    Copyright 2010 Mark Allerton. All rights reserved.
+;
+;    Redistribution and use in source and binary forms, with or without modification, are
+;    permitted provided that the following conditions are met:
+;
+;       1. Redistributions of source code must retain the above copyright notice, this list of
+;          conditions and the following disclaimer.
+;
+;       2. Redistributions in binary form must reproduce the above copyright notice, this list
+;          of conditions and the following disclaimer in the documentation and/or other materials
+;          provided with the distribution.
+;
+;    THIS SOFTWARE IS PROVIDED BY MARK ALLERTON ``AS IS'' AND ANY EXPRESS OR IMPLIED
+;    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+;    FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+;    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+;    ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+;    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+;    ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;
+;    The views and conclusions contained in the software and documentation are those of the
+;    authors and should not be interpreted as representing official policies, either expressed
+;    or implied, of Mark Allerton.
+  
 (ns couverjure.core
   (:import
     (org.couverjure.core Core64 ID)
@@ -243,9 +269,6 @@
         ;(let [~(symbol "properties") (get-ivar ~(symbol "self") (:state-ivar-name ~class-def))]
           ~@body))))
 
-(defmacro ivar [class-def name]
-  `(.class_addIvar objc-runtime (unwrap-id (:class ~class-def)) ~(to-name name) (.pointerSize core) (.pointerAlign core) "?"))
-
 (defn write-accessor-name [prop-name-or-kw]
   (let [name (to-name prop-name-or-kw)
         capitalized (str (Character/toUpperCase (first name)) (subs name 1))]
@@ -265,12 +288,6 @@
         (fn [self sel id]
           (dosync (ref-set (name (properties self)) id)))))
     ))
-  ;`(dosync (alter (:properties ~class-def) conj { :name ~name :opt ~ref-or-atom })))
-
-(defmacro implementation2 [class-name base-class & body]
-  `(doto (new-objc-class (to-name ~class-name) ~base-class)
-    ~@body
-    (register-objc-class)))
 
 (defmacro implementation [class-name base-class & body]
   `(let [new-class# (new-objc-class (to-name ~class-name) ~base-class)
