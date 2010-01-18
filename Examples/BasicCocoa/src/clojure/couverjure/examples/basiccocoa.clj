@@ -5,22 +5,22 @@
 (def main-web-view (atom nil))
 
 (defimplementation SimpleAppDelegate (objc-class :NSObject)
+  (property :window :atom)
+  (property :webView :atom)
+  (method [:id :init] []
+    (let [_self (>>super self :init)]
+      (init _self {:window (atom nil) :webView (atom nil)})
+      _self))
   (method [:void :applicationDidFinishLaunching :id] [notification]
     (println "App Did Finish Launching"))
-  (method [:void :setWindow :id] [window]
-    (println "setWindow")
-    (reset! main-window window))
-  (method [:void :setWebView :id] [web-view]
-    (println "setWebView")
-    (reset! main-web-view web-view))
   (method [:void :backForward :id] [segmented-control]
     (println "backForward:")
-    (let [web-view (deref main-web-view)]
+    (let [web-view (deref ((properties self) :webView))]
       (condp = (>> segmented-control :selectedSegment)
         0 (>> web-view :goBack)
         1 (>> web-view :goForward))))
   (method [:void :address :id] [text-field]
-    (>> (deref main-web-view) :takeStringURLFrom text-field)))
+    (>> (deref ((properties self) :webView)) :takeStringURLFrom text-field)))
 
 (def NSThread (objc-class :NSThread))
 

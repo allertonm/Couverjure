@@ -27,7 +27,7 @@
     <target name="native-headers" depends="compile">
         <mkdir dir="src/native"/>
         <javah outputfile="src/native/nativehelper.h" verbose="yes" force="yes" classpath="bin" classpathref="javah_classpath">
-          <class name="org.couverjure.jni.NativeHelper"/>
+          <class name="org.couverjure.jni.NativeHelper64"/>
         </javah>
     </target>
 

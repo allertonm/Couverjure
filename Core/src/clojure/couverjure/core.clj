@@ -1,13 +1,13 @@
 (ns couverjure.core
   (:import
-    (org.couverjure.jna FoundationLibrary ObjectiveCRuntime)
-    (org.couverjure.core Core Core64 ID)
+    (org.couverjure.core Core64 ID)
     (com.sun.jna Native CallbackProxy Pointer)))
 
 ; load foundation and objc-runtime libraries
 (def core (Core64.))
 (def foundation (.foundation core))
 (def objc-runtime (.objcRuntime core))
+(def native-helper (.nativeHelper core))
 
 (def pointer-type (.pointerType core))
 (def super-type (.superType core))
@@ -85,22 +85,22 @@
     (keyword? name-or-sel) (.sel_registerName objc-runtime (.replace (.substring (str name-or-sel) 1) \- \:))
     (instance? Pointer name-or-sel) name-or-sel))
 
-; make an ObjC classname from a string or keyword
-(defn objc-class-name [name-or-kw]
+; make a simple name (i.e not a selector name) from a string or keyword
+(defn to-name [name-or-kw]
   (if (keyword? name-or-kw)
     (.substring (str name-or-kw) 1)
     name-or-kw))
 
 ; obtain an ObjC class reference
 (defn objc-class [name]
-  (wrap-id (.objc_getClass objc-runtime (objc-class-name name))))
+  (wrap-id (.objc_getClass objc-runtime (to-name name))))
 
 ; obtain the class of an ObjC object
 (defn class-of [id] (wrap-id (.object_getClass objc-runtime (unwrap-id id))))
 
 ; create but do not register a new ObjC class
 (defn new-objc-class [name base-class]
-  (wrap-id (.objc_allocateClassPair objc-runtime (unwrap-id base-class) (objc-class-name name) 0)))
+  (wrap-id (.objc_allocateClassPair objc-runtime (unwrap-id base-class) (to-name name) 0)))
 
 ; register an ObjC class
 (defn register-objc-class [class]
@@ -110,19 +110,26 @@
   (if (= sig :id) (retain arg) arg))
 
 (defn wrap-method [wrapped-fn sig args]
+  (try
   (let [result
         (apply
           wrapped-fn
           (for [i (range 0 (count args))]
             (wrap-method-arg (nth args i) (nth sig (inc i)))))]
     (condp = (first sig)
+      :void nil
       :id (unwrap-id result)
-      result)))
+      result))
+    (catch Throwable e
+      (println (format "Caught exception %s "))
+      (.printStackTrace e)
+      nil)))
 
 ; make an ObjC method implementation from a function
 (defn method-callback-proxy [sig fn]
   (let [param-types (into-array Class (map to-java-type (rest sig)))
         return-type (to-java-type (first sig))]
+    ;(println "method-callback-proxy %s rt: %s" (str sig) return-type)
     (proxy [CallbackProxy] []
       (callback ([args]
         (wrap-method fn sig (seq args))))
@@ -142,6 +149,20 @@
 (defn send-msg [id name-or-sel & args]
   (.objc_msgSend objc-runtime (unwrap-id id) (selector name-or-sel) (to-array args)))
 
+; managing instance variables
+(defn get-ivar [wrapped-id ivar-name]
+  (let [id (unwrap-id wrapped-id)]
+    (.getJavaIvarByName native-helper id ivar-name)))
+
+(defn init-ivar [wrapped-id ivar-name value]
+  (let [id (unwrap-id wrapped-id)]
+    (.setJavaIvarByName native-helper id ivar-name value)))
+
+(defn release-ivar [wrapped-id ivar-name]
+  (let [id (unwrap-id wrapped-id)]
+    (.releaseJavaIvarByName native-helper id ivar-name)))
+
+
 ; sends a message to an object, introspecting at runtime to discover the method signature
 ; and coercing arguments and return value correctly
 (defn dynamic-send-msg [wrapped-id-or-super name-or-sel & args]
@@ -150,26 +171,28 @@
         super (if super? wrapped-id-or-super)
         id (when-not super? (unwrap-id wrapped-id-or-super))
         target-class
-          (if super?
-            (.clazz super)
-            (.object_getClass objc-runtime id))
+        (if super?
+          (.clazz super)
+          (.object_getClass objc-runtime id))
         target-method (.class_getInstanceMethod objc-runtime target-class sel)
+        _ (if (= target-method 0) (throw (Exception. (format "Method %s not found" name-or-sel))))
         ; the replaceAll here is a complete hack, but will get us by for now
         ; see thread at http://lists.apple.com/archives/objc-language/2009/Apr/msg00141.html
         objc-sig (.replaceAll (.method_getTypeEncoding objc-runtime target-method) "\\d" "")
+        ;dummy (println "objc-sig: " objc-sig)
         arg-sig (drop 3 objc-sig)
         wrapped-args
-          (for [i (range 0 (count args))]
-            (let [arg (nth args i)]
-              (condp = (nth arg-sig i)
-                \@ (unwrap-id arg)
-                \# (unwrap-id arg)
-                arg)))
+        (for [i (range 0 (count args))]
+          (let [arg (nth args i)]
+            (condp = (nth arg-sig i)
+              \@ (unwrap-id arg)
+              \# (unwrap-id arg)
+              arg)))
         wrapped-args-array (to-array wrapped-args)
         raw-result
-          (if super?
-            (.objc_msgSendSuper objc-runtime super sel wrapped-args-array)
-            (.objc_msgSend objc-runtime id sel wrapped-args-array))]
+        (if super?
+          (.objc_msgSendSuper objc-runtime super sel wrapped-args-array)
+          (.objc_msgSend objc-runtime id sel wrapped-args-array))]
     (condp = (first objc-sig)
       \@ (retain raw-result)
       \# (retain raw-result)
@@ -202,10 +225,6 @@
   (let [[selector-str args] (read-objc-msg msg)]
     `(dynamic-send-msg ~target ~selector-str ~@args)))
 
-(defmacro >>super [target & msg]
-  (let [[selector-str args] (read-objc-msg msg)]
-    `(dynamic-send-msg (super ~target) ~selector-str ~@args)))
-
 (defn super [wrapped-id]
   (let [receiver (unwrap-id wrapped-id)
         receiver-class (.object_getClass objc-runtime receiver)
@@ -217,16 +236,55 @@
     `(dynamic-send-msg (super ~target) ~selector-str ~@args)))
 
 ; a helper macro for building objective-c method implementations
-(defmacro method [class spec args & body]
+(defmacro method [class-def spec args & body]
   (let [[name sig] (read-objc-method-decl (first spec) (rest spec))]
-    `(add-method ~class ~name ~sig
+    `(add-method (:class ~class-def) ~name ~sig
       (fn [~(symbol "self") ~(symbol "sel") ~@args]
-        ~@body))))
+        ;(let [~(symbol "properties") (get-ivar ~(symbol "self") (:state-ivar-name ~class-def))]
+          ~@body))))
 
-(defmacro implementation [class-name base-class & body]
-  `(doto (new-objc-class (objc-class-name ~class-name) ~base-class)
+(defmacro ivar [class-def name]
+  `(.class_addIvar objc-runtime (unwrap-id (:class ~class-def)) ~(to-name name) (.pointerSize core) (.pointerAlign core) "?"))
+
+(defn write-accessor-name [prop-name-or-kw]
+  (let [name (to-name prop-name-or-kw)
+        capitalized (str (Character/toUpperCase (first name)) (subs name 1))]
+    (str "set" capitalized ":")))
+
+(defn property [class-def name ref-or-atom]
+  (let [properties (fn [self] (get-ivar self (:state-ivar-name class-def)))]
+    (add-method (:class class-def) (to-name name) [:id :id :sel]
+      (fn [self sel] (deref (name (properties self)))))
+    (condp = ref-or-atom
+      :atom
+      (add-method (:class class-def) (write-accessor-name name) [:void :id :sel :id]
+        (fn [self sel id]
+          (reset! (name (properties self)) id)))
+      :ref
+      (add-method (:class class-def) (write-accessor-name name) [:void :id :sel :id]
+        (fn [self sel id]
+          (dosync (ref-set (name (properties self)) id)))))
+    ))
+  ;`(dosync (alter (:properties ~class-def) conj { :name ~name :opt ~ref-or-atom })))
+
+(defmacro implementation2 [class-name base-class & body]
+  `(doto (new-objc-class (to-name ~class-name) ~base-class)
     ~@body
     (register-objc-class)))
+
+(defmacro implementation [class-name base-class & body]
+  `(let [new-class# (new-objc-class (to-name ~class-name) ~base-class)
+         state-ivar-name# (str (gensym))
+         ok# (.class_addIvar objc-runtime (unwrap-id new-class#) state-ivar-name# (.pointerSize core) (.pointerAlign core) "?")
+         class-def# { :class new-class# :state-ivar-name state-ivar-name#  }
+         ~(symbol "properties") (fn [self#] (get-ivar self# state-ivar-name#))
+         ~(symbol "init") (fn [self# initial-state#] (init-ivar self# state-ivar-name# initial-state#))]
+    (doto class-def#
+      ~@body)
+    ;(generate-property-accessors class-def#)
+    (method class-def# [:void :dealloc] [] (release-ivar ~(symbol "self") state-ivar-name#))
+    (register-objc-class new-class#)
+    new-class#))
 
 (defmacro defimplementation [class-symbol base-class & body]
   `(def ~class-symbol (implementation ~(str class-symbol) ~base-class ~@body)))

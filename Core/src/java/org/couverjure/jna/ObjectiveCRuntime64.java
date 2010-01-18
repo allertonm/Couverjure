@@ -4,6 +4,7 @@ import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
+import com.sun.jna.ptr.LongByReference;
 
 public interface ObjectiveCRuntime64 extends Library {
     long objc_getClass(String name);
@@ -27,6 +28,8 @@ public interface ObjectiveCRuntime64 extends Library {
     String method_getTypeEncoding(long method);
 
     long object_getClass(long object);
+    long object_getInstanceVariable(long object, String name, LongByReference outValue);
+    long object_setInstanceVariable(long object, String name, long value);
 
     public static class Super extends Structure {
         public long receiver;
