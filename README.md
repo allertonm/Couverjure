@@ -58,6 +58,7 @@ Also, readers of the code should be prepared to be horrified by my lack of idiom
 ## Areas for future work ##
 
 * Clean the code up a bit
+* Improve interpretation of method signatures to deal with structs and ref/out types - and look at whether keywords or java.lang.reflect.Types are better for defining signatures on the Clojure side of the fence.
 * Investigate whether it's possible to hide some of the CPU architecture dependencies in the JNA layer (for example, by creating custom type mapping for ID types that is both architecture sensitive *and* allows us to do all the things we need to be able to do with something typed "id", namely sometimes cast it to int, char, boolean or even a pointer to string.)
 * Investigate using either struct-maps or datatypes to represent IDs, classes, self and super references on the Clojure side. 
 I'd like "self" to have some special behaviour associated with it - for example, direct access to object state, but also to be usable like an id - similar to the way (super self) can be used like an id now. This calls for some polymorphism which is currently missing.
