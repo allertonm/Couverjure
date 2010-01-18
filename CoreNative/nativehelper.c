@@ -24,13 +24,9 @@ static jfieldID jf_Pointer_peer;
  * Method:    initHelper
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper_initHelper(JNIEnv *env, jclass jclass) {
+JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper64_initHelper(JNIEnv *env, jclass jclass) {
 	CacheClass(jc_Pointer, "com/sun/jna/Pointer");
 	CacheField(jf_Pointer_peer, jc_Pointer, "peer", "J");
-}
-
-void* pointerToNative(JNIEnv* env, jobject pointer) {
-	return pointer ? ADDRESS((*env)->GetLongField(env, pointer, jf_Pointer_peer)) : NULL;
 }
 
 /*
@@ -38,19 +34,32 @@ void* pointerToNative(JNIEnv* env, jobject pointer) {
  * Method:    setInstanceVar
  * Signature: (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;Ljava/lang/Object;)V
  */
-JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper_setJavaIvar
-(JNIEnv* env, jclass cls, jobject p_id, jobject p_ivar, jobject lobj) {
-	id object;
-	Ivar ivar;
-	ptrdiff_t offset;
+JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper64_setJavaIvar
+(JNIEnv* env, jobject jobj, jlong object, jlong ivar, jobject lobj) {
 	jobject gobj;
 	
-	if (p_id && p_ivar && lobj) {
-		object = pointerToNative(env, p_id);
-		ivar = pointerToNative(env, p_ivar);
-		offset = ivar_getOffset(ivar);
+	if (object && ivar && lobj) {
 		gobj = (*env)->NewGlobalRef(env, lobj);
-		*((jobject*) (((void*)object) + offset)) = gobj;
+		object_setIvar((id) object, (Ivar) ivar, (id) gobj);
+		//offset = ivar_getOffset((Ivar) ivar);
+		//*((jobject*) (((void*)object) + offset)) = gobj;
+	}
+}
+
+/*
+ * Class:     org_couverjure_jni_NativeHelper64
+ * Method:    setJavaIvarByName
+ * Signature: (JLjava/lang/String;Ljava/lang/Object;)V
+ */
+JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper64_setJavaIvarByName
+(JNIEnv *env, jobject jobj, jlong object, jstring jivarName, jobject lobj) {
+	const char *ivarName;
+	jobject gobj;
+
+	if (object && jivarName) {
+		ivarName = (*env)->GetStringUTFChars(env, jivarName, 0);
+		gobj = (*env)->NewGlobalRef(env, lobj);
+		object_setInstanceVariable((id) object, ivarName, (id) gobj);
 	}
 }
 
@@ -59,20 +68,58 @@ JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper_setJavaIvar
  * Method:    releaseInstanceVar
  * Signature: (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)V
  */
-JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper_releaseJavaIvar
-(JNIEnv *env, jclass cls, jobject p_id, jobject p_ivar) {
-	id object;
-	Ivar ivar;
-	ptrdiff_t offset;
+JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper64_releaseJavaIvar
+(JNIEnv *env, jobject jobj, jlong object, jlong ivar) {
 	jobject gobj;
 	
-	if (p_id && p_ivar) {
-		object = pointerToNative(env, p_id);
-		ivar = pointerToNative(env, p_ivar);
-		offset = ivar_getOffset(ivar);
-		gobj = *((jobject*) (((void*)object) + offset));
+	if (object && ivar) {
+		//offset = ivar_getOffset((Ivar) ivar);
+		gobj = (jobject) object_getIvar((id) object, (Ivar) ivar);
+		//gobj = *((jobject*) (((void*)object) + offset));
 		(*env)->DeleteGlobalRef(env, gobj);
 	}
 }
+
+/*
+ * Class:     org_couverjure_jni_NativeHelper64
+ * Method:    releaseJavaIvarByName
+ * Signature: (JLjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_org_couverjure_jni_NativeHelper64_releaseJavaIvarByName
+(JNIEnv *env, jobject jobj, jlong object, jstring jivarName) {
+	const char *ivarName;
+	void *value;
+	jobject gobj;
+	
+	if (object && jivarName) {
+		ivarName = (*env)->GetStringUTFChars(env, jivarName, 0);
+		object_getInstanceVariable((id) object, ivarName, (void**) &value);
+		gobj = (jobject) value;
+		(*env)->DeleteGlobalRef(env, gobj);
+	}
+}
+
+/*
+ * Class:     org_couverjure_jni_NativeHelper64
+ * Method:    getJavaIvarByName
+ * Signature: (JLjava/lang/String;)Ljava/lang/Object;
+ */
+JNIEXPORT jobject JNICALL Java_org_couverjure_jni_NativeHelper64_getJavaIvarByName
+(JNIEnv *env, jobject jobj, jlong object, jstring jivarName) {
+	const char *ivarName;
+	void *value;
+	jobject gobj;
+	
+	if (object && jivarName) {
+		ivarName = (*env)->GetStringUTFChars(env, jivarName, 0);
+		object_getInstanceVariable((id) object, ivarName, (void**) &value);
+		gobj = (jobject) value;
+		return gobj;
+	}
+	
+	return NULL;
+}
+
+
 
 
