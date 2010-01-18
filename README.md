@@ -26,7 +26,7 @@ Couverture is the French word for "coverage", and is also used to refer to the h
 
 # What does the code using Couverjure look like?
 
-Your best bet for now is to take a look at [the BasicCocoa example](Examples/BasicCocoa/src/clojure)
+Your best bet for now is to take a look at [the BasicCocoa example](Couverjure/Examples/BasicCocoa/src/clojure)
 
 # Status of the code
 
