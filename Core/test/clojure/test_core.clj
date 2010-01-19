@@ -42,8 +42,8 @@
     (register-objc-class mystring)
     (let
       [hello (alloc mystring)]
-      (send-msg hello :init)
-      (let [cai (send-msg hello :characterAtIndex- 0)] (is (= cai 72)))
+      (dynamic-send-msg hello :init)
+      (let [cai (dynamic-send-msg hello :characterAtIndex- 0)] (is (= cai 72)))
       (is (>> hello :isEqual test-nsstring))
       (.NSLog foundation (unwrap-id hello)))))
 
