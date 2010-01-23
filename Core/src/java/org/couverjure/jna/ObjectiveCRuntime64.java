@@ -22,10 +22,13 @@ public interface ObjectiveCRuntime64 extends Library {
     long class_getClassMethod(long idClass, Pointer selector);
     Pointer class_getInstanceVariable(long idClass, String s);
     long class_getSuperclass(long idClass);
+    Pointer class_copyMethodList(long idClass, LongByReference outCount);
 
     long sel_registerName(String s);
+    String sel_getName(long sel);
 
     String method_getTypeEncoding(long method);
+    long method_getName(long method);
 
     long object_getClass(long object);
     long object_getInstanceVariable(long object, String name, LongByReference outValue);
