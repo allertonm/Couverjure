@@ -31,70 +31,95 @@
 ; ObjC method type encoding parsing, without introducing extra dependencies
 ;
 
-(defn in-set [chars]
-  "Returns a parser that matches a character from the given set"
-  (fn [in]
-    (if (chars (first in)) [(first in) (rest in)] [nil in])))
+(defn char-set
+  "Returns a set including all of the characters in the range"
+  [first last]
+  (set (map char (range (int first) (inc (int last))))))
 
-(defn single-char [char]
+(defn in-set
+  "Returns a parser that matches a character from the given set"
+  ([char-set transform]
+    (fn [in]
+      (if (char-set (first in)) [(transform (first in)) (rest in)] [nil in])))
+  ([char-set]
+    (in-set char-set identity)))
+
+(defn single-char
   "Returns a parser that matches the given character"
-  (fn [in]
-    (if (= char (first in)) [char (rest in)] [nil in])))
+  ([char transform]
+    (fn [in]
+      (if (= char (first in)) [char (rest in)] [nil in])))
+  ([char]
+    (single-char char identity)))
 
 (declare pattern)
 
-(defn to-parser [term]
+(defn to-parser
   "Takes a term, which may be one of a) a character, b) a string or c) a parser, and returns a parser.
   In cases a & b, the returned parser will match the given character or string. In case c we return
   the supplied parser unchanged. This function is used to massage the arguments to choice, repeat and
   series so that code using them can be more readable."
+  [term]
   (condp instance? term
     Character (single-char term)
-    String (apply pattern (map single-char term))
+    String (pattern (map single-char term))
     term))
 
-(defn choice [& terms]
+(defn choice
   "Returns a parser which will attempt to match one of the supplied terms"
-  (let [_ps (map to-parser terms)]
-    (fn [in]
-      (loop [ps _ps]
-        (let [p (first ps)]
-          (if p
-            (let [[token rem] (p in)]
-              (if token
-                [token, rem]
-                (recur (rest ps))))
-            [nil, in]))))))
+  ([terms transform]
+    (let [_ps (map to-parser terms)]
+      (fn [in]
+        (loop [ps _ps]
+          (let [p (first ps)]
+            (if p
+              (let [[token rem] (p in)]
+                (if token
+                  [ (transform token) rem ]
+                  (recur (rest ps))))
+              [nil, in]))))))
+  ([terms]
+    (choice terms identity)))
 
-(defn series [term]
+(defn series
   "Returns a parser which will attempt to match one or more of the supplied term"
-  (let [p (to-parser term)]
-    (fn [_in]
-      (loop [in _in, tokens nil]
-        (let [[token rest] (p in)]
-          (if token
-            (recur rest (conj (if (nil? tokens) [] tokens) token))
-            [tokens rest]))))))
+  ([term transform]
+    (let [p (to-parser term)]
+      (fn [_in]
+        (loop [in _in, tokens nil]
+          (let [[token rem] (p in)]
+            (if token
+              (recur rem (conj (if (nil? tokens) [] tokens) token))
+              [(if tokens (transform tokens)) rem]))))))
+  ([term]
+    (series term identity)))
 
-(defn pattern [& terms]
+(defn pattern
   "Returns a parser which will match each of the supplied terms in sequence."
-  (let [_ps (map to-parser terms)]
-    (fn [_in]
-      (loop [in _in, tokens nil, ps _ps]
-        (let [p (first ps)]
-          (if p
-            (let [[token rem] (p in)]
-              (if token
-                (recur rem (conj (if (nil? tokens) [] tokens) token) (rest ps))
-                [nil, _in]))
-            [tokens, in]))))))
+  ([terms transform]
+    (let [_ps (map to-parser terms)]
+      (fn [_in]
+        (loop [in _in, tokens nil, ps _ps]
+          (let [p (first ps)]
+            (if p
+              (let [[token rem] (p in)]
+                (if token
+                  (recur rem (conj (if (nil? tokens) [] tokens) token) (rest ps))
+                  [nil, _in]))
+              [(transform tokens), in]))))))
+  ([terms]
+    (pattern terms identity)))
 
-(defn option [term]
+(defn option
   "Returns a parser that will optionally match the supplied term (i.e it will
   always 'succeed' at parsing, but will not return any tokens if the term is not matched"
-  (fn [in]
-    (let [result (term in)
-          [tokens _] result]
-      (if tokens
-        result
-        [[] in]))))
+  ([term transform]
+    (let [p (to-parser term)]
+      (fn [in]
+        (let [result (p in)
+              [tokens _] result]
+          (if tokens
+            result
+            [:nothing in])))))
+  ([term]
+    (option term identity)))

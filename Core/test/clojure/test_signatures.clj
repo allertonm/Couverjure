@@ -48,6 +48,7 @@
 
 (deftest test-structure-encoding
   (let [result (method-signature-encoding "v56@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16@48")]
+    (println result)
     (is (= 5 (count (first result))))
     (is (empty? (second result)))))
 
@@ -66,9 +67,13 @@
     (is (empty? (second result)))))
 
 (deftest test-structure-arg
-  (let [parser (pattern \{ (choice alpha digit) \= (series primitive) \})
+  (let [parser (pattern [ \{ (choice [ alpha digit ]) \= (series primitive) \} ])
         result (parser "{1=dd}")]
     (is (empty? (second result)))))
+
+(deftest test-option-number
+  (let [parser (option number)]
+    (number "H")))
 
 
 (defn test-all-method-sigs [class]
@@ -81,8 +86,12 @@
       (for [[encoding, failure]
             (filter (fn [[encoding, result]] (not (empty? (second result))))
               (for [method method-list]
+
                 (let [encoding (.method_getTypeEncoding objc-runtime method)]
-                  [ encoding, (method-signature-encoding encoding) ])))]
+                  (try
+                    [encoding, (method-signature-encoding encoding)]
+                    (catch Throwable e [encoding, [nil, (.toString e)]]))
+                  )))]
         (println encoding "\n" (second failure))))))
 
 (deftest test-method-sigs
