@@ -88,13 +88,15 @@
 (def primitive (in-set #{ \c \i \s \l \q \C \I \S \L \Q \f \d \B \v \* \@ \# \: \? } #(primitive-type (primitive-encodings %))))
 (def qualifier (in-set #{ \r \n \N \o \O \R \V } #(qualifier-encodings %)))
 
-(def number (series digit #(Integer/parseInt (apply str %))))
 (def type-name
   (choice [
     (series
-      (choice [ alpha digit \_ ]))
-    "?" ] ; use string rather than char, so both sides of the choice result in sequences
-    #(apply str %)))
+      (choice [ alpha digit \_ ])
+       #(apply str %))
+    (single-char \? #(:no-name))
+    ]))
+
+(def number (series digit #(Integer/parseInt (apply str %))))
 
 (def array-count number)
 (def offset number)

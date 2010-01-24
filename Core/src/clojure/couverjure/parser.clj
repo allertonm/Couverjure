@@ -31,16 +31,26 @@
 ; ObjC method type encoding parsing, without introducing extra dependencies
 ;
 
+; This is basically a simple Parser Combinator library
+; What we mean by this is that parsers are a family of functions that take a sequence
+; (normally but not limited to a sequence of chars and return a result
+;   [ token(s) rest-of-seq ] if the parser matched the start of the sequence, or
+;   nil if they did not
+; These can be combined together to create parser functions that match more complex structures
+; - the library provides functions which combine parsers into series (repeats), patterns (sequences)
+; and options - and the results of these can themselves be combined.
+
 (defn char-set
   "Returns a set including all of the characters in the range"
   [first last]
   (set (map char (range (int first) (inc (int last))))))
 
+(def not-matched [nil nil])
 (defn in-set
   "Returns a parser that matches a character from the given set"
   ([char-set transform]
     (fn [in]
-      (if (char-set (first in)) [(transform (first in)) (rest in)] [nil in])))
+      (if (char-set (first in)) [(transform (first in)) (rest in)] nil)))
   ([char-set]
     (in-set char-set identity)))
 
@@ -48,7 +58,7 @@
   "Returns a parser that matches the given character"
   ([char transform]
     (fn [in]
-      (if (= char (first in)) [char (rest in)] [nil in])))
+      (if (= char (first in)) [char (rest in)] nil)))
   ([char]
     (single-char char identity)))
 
@@ -77,7 +87,7 @@
                 (if token
                   [ (transform token) rem ]
                   (recur (rest ps))))
-              [nil, in]))))))
+              ))))))
   ([terms]
     (choice terms identity)))
 
@@ -89,8 +99,10 @@
         (loop [in _in, tokens nil]
           (let [[token rem] (p in)]
             (if token
-              (recur rem (conj (if (nil? tokens) [] tokens) token))
-              [(if tokens (transform tokens)) rem]))))))
+              (recur rem (conj (or tokens []) token))
+              (if tokens
+                [ (transform tokens) in ])
+              ))))))
   ([term]
     (series term identity)))
 
@@ -104,22 +116,18 @@
             (if p
               (let [[token rem] (p in)]
                 (if token
-                  (recur rem (conj (if (nil? tokens) [] tokens) token) (rest ps))
-                  [nil, _in]))
-              [(transform tokens), in]))))))
+                  (recur rem (conj (or tokens []) token) (rest ps))))
+              (if tokens [(transform tokens), in]))))
+        )))
   ([terms]
     (pattern terms identity)))
 
 (defn option
   "Returns a parser that will optionally match the supplied term (i.e it will
-  always 'succeed' at parsing, but will not return any tokens if the term is not matched"
+  always 'succeed' at parsing, but will return the token :nothing if the term is not matched"
   ([term transform]
     (let [p (to-parser term)]
       (fn [in]
-        (let [result (p in)
-              [tokens _] result]
-          (if tokens
-            result
-            [:nothing in])))))
+        (or (p in) [:nothing in]))))
   ([term]
     (option term identity)))
