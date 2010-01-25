@@ -5,7 +5,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/ThirdParty/jna/src/jnalib/src" />
+      <root url="file://$PROJECT_DIR$/../Couverjure_Reference/src/jnalib/src" />
     </SOURCES>
   </library>
 </component>

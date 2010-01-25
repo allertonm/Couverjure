@@ -7,7 +7,7 @@ package org.couverjure.core;
  * Time: 12:23:14 AM
  * To change this template use File | Settings | File Templates.
  */
-public class RefCountedId64 implements ID {
+public class RefCountedId64 {
     private long nativeId;
 
     public RefCountedId64(long nativeId) {

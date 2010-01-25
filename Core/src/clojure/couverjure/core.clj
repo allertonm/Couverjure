@@ -26,11 +26,11 @@
 
 (ns couverjure.core
   (:import
-    (org.couverjure.core Core64 ID)
+    (org.couverjure.core Core ID ClassID Selector MethodImplProxy)
     (com.sun.jna Native CallbackProxy Pointer)))
 
 ; load foundation and objc-runtime libraries
-(def core (Core64.))
+(def core (Core.))
 
 ;
 ; Dealing with architecture specifics
@@ -41,11 +41,11 @@
 ; us from adding type hints to the JNA calls - which means performance of these calls will
 ; be slow.
 (def foundation (.foundation core))
-(def objc-runtime (.objcRuntime core))
+(def objc-runtime (.foundation core))
 (def native-helper (.nativeHelper core))
 
 ; get arch specific values from the core
-(def pointer-type (.pointerType core))
+;(def pointer-type (.pointerType core))
 (def super-type (.superType core))
 (def id-type (.idType core))
 
@@ -56,7 +56,8 @@
 ;
 
 (defn wrap-id [ptr] (if ptr (.id core ptr) nil))
-(defn unwrap-id [id] (if id (.getNativeId id) 0))
+;(defn unwrap-id [id] (if id (.getNativeId id) 0))
+(defn unwrap-id [id] id)
 (defn retain [id] (if id (doto (wrap-id id) (.retain)) nil))
 
 
@@ -81,10 +82,15 @@
    \B Boolean/TYPE,
    \v Void/TYPE,
    \* String,
-   \@ pointer-type,
-   \# pointer-type,
-   \: pointer-type,
-   \? pointer-type})
+;   \@ pointer-type,
+;   \# pointer-type,
+;   \: pointer-type,
+;   \? pointer-type
+  \@ ID
+  \# ClassID
+  \: Selector
+  \? Pointer
+  })
 
 ; map keywords to signature characters
 (def encoding-keyword-mapping
@@ -208,6 +214,7 @@
 (defn wrap-method-arg
   "Wrap a single method argument with the given signature"
   [arg sig]
+  ;(println "wrap-method-arg " arg " sig " sig)
   (if (= sig :id) (retain arg) arg))
 
 (defn wrap-method
@@ -225,7 +232,7 @@ the necessary coercions of the arguments and return value based on the method si
         :id (unwrap-id result)
         result))
     (catch Throwable e
-      (println (format "Caught exception %s "))
+      (println (format "Caught exception %s " e))
       (.printStackTrace e)
       nil)))
 
@@ -234,12 +241,13 @@ the necessary coercions of the arguments and return value based on the method si
   [sig fn]
   (let [param-types (into-array Class (map to-java-type (rest sig)))
         return-type (to-java-type (first sig))]
-    ;(println "method-callback-proxy %s rt: %s" (str sig) return-type)
-    (proxy [CallbackProxy] []
-      (callback ([args]
-        (wrap-method fn sig (seq args))))
-      (getParameterTypes ([] param-types))
-      (getReturnType ([] return-type)))))
+    ;(println "method-callback-proxy: " sig param-types (map str param-types) return-type)
+    (proxy [MethodImplProxy] [return-type param-types]
+      (method ([args]
+        ;(println "callback: " sig param-types (map str param-types) return-type)
+        (wrap-method fn sig (seq args)))))))
+      ;(getParameterTypes ([] (into-array Class param-types))) ; surprisingly, JNA modifies the array you return, when using TypeMappers
+      ;(getReturnType ([] return-type)))))
 
 (defn add-method
   "Add a method to a class with the given name, signature and implementation function"
@@ -380,7 +388,15 @@ This is currently the core mechanism for message dispatch"
     (condp = (first objc-sig)
       \@ (retain raw-result)
       \# (retain raw-result)
-      \B (not= 0 raw-result)
+      \B (.asBoolean raw-result)
+      \s (.asShort raw-result)
+      \S (.asShort raw-result)
+      \i (.asInt raw-result)
+      \I (.asInt raw-result)
+      \l (.asInt raw-result)
+      \L (.asInt raw-result)
+      \q (.asLong raw-result)
+      \Q (.asLong raw-result)
       raw-result)
     ))
 

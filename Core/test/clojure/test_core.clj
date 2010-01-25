@@ -30,8 +30,10 @@
 (def NSString (objc-class :NSString))
 (def NSObject (objc-class :NSObject))
 
-(def test-nsstring (wrap-id (.CFStringCreateWithCString foundation 0 "Hello World" 0)))
-(def test-nsstring2 (wrap-id (.CFStringCreateWithCString foundation 0 "Hello World2" 0)))
+(println (.CFStringCreateWithCString foundation nil "Hello World" 0))
+
+(def test-nsstring (wrap-id (.CFStringCreateWithCString foundation nil "Hello World" 0)))
+(def test-nsstring2 (wrap-id (.CFStringCreateWithCString foundation nil "Hello World2" 0)))
 
 ; this test exercises the low level functions without macros
 (deftest test-create-nsstring-subclass
@@ -87,6 +89,9 @@
     (is (>> hello :isEqual test-nsstring))
     (.NSLog foundation (unwrap-id hello))))
 
+(comment
+
+
 (deftest test-state
   (let [mystring
         (implementation (str (gensym)) NSString
@@ -119,6 +124,7 @@
     (let [read-property (>> test :testString)]
       (is (>> read-property :isEqual test-nsstring2 )))
     ))
+  )
 
 (deftest test-macroexpand-implementation
   (let [hello-str "hello"
