@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jna/!svn/ver/1021/trunk/jnalib/src/com/sun/jna/examples
+END
+FileUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jna/!svn/ver/683/trunk/jnalib/src/com/sun/jna/examples/FileUtils.java
+END
+ShapedWindowDemo.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/647/trunk/jnalib/src/com/sun/jna/examples/ShapedWindowDemo.java
+END
+AlphaMaskDemo.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/492/trunk/jnalib/src/com/sun/jna/examples/AlphaMaskDemo.java
+END
+CLibrary.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/7/trunk/jnalib/src/com/sun/jna/examples/CLibrary.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jna/!svn/ver/279/trunk/jnalib/src/com/sun/jna/examples/package.html
+END
+KeyboardUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/741/trunk/jnalib/src/com/sun/jna/examples/KeyboardUtils.java
+END
+BalloonManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/337/trunk/jnalib/src/com/sun/jna/examples/BalloonManager.java
+END
+RasterRangesUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/533/trunk/jnalib/src/com/sun/jna/examples/RasterRangesUtils.java
+END
+BalloonManagerDemo.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/333/trunk/jnalib/src/com/sun/jna/examples/BalloonManagerDemo.java
+END
+FileMonitor.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/683/trunk/jnalib/src/com/sun/jna/examples/FileMonitor.java
+END
+AlphaMaskDemo.jnlp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/404/trunk/jnalib/src/com/sun/jna/examples/AlphaMaskDemo.jnlp
+END
+AlphaMaskDemo2.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/629/trunk/jnalib/src/com/sun/jna/examples/AlphaMaskDemo2.java
+END
+WindowUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/996/trunk/jnalib/src/com/sun/jna/examples/WindowUtils.java
+END
+tardis.png
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/7/trunk/jnalib/src/com/sun/jna/examples/tardis.png
+END
+X11AlphaMaskTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/88/trunk/jnalib/src/com/sun/jna/examples/X11AlphaMaskTest.java
+END

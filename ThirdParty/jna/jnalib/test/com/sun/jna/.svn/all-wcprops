@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/jna/!svn/ver/1022/trunk/jnalib/test/com/sun/jna
+END
+IntegerTypeTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jna/!svn/ver/620/trunk/jnalib/test/com/sun/jna/IntegerTypeTest.java
+END
+DirectReturnTypesTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/932/trunk/jnalib/test/com/sun/jna/DirectReturnTypesTest.java
+END
+StructureTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/1022/trunk/jnalib/test/com/sun/jna/StructureTest.java
+END
+LibraryTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/404/trunk/jnalib/test/com/sun/jna/LibraryTest.java
+END
+ReturnTypesTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jna/!svn/ver/927/trunk/jnalib/test/com/sun/jna/ReturnTypesTest.java
+END
+LibraryLoadTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jna/!svn/ver/967/trunk/jnalib/test/com/sun/jna/LibraryLoadTest.java
+END
+VarArgsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/241/trunk/jnalib/test/com/sun/jna/VarArgsTest.java
+END
+MemoryTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/962/trunk/jnalib/test/com/sun/jna/MemoryTest.java
+END
+DirectArgumentsMarshalTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/971/trunk/jnalib/test/com/sun/jna/DirectArgumentsMarshalTest.java
+END
+DirectTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/932/trunk/jnalib/test/com/sun/jna/DirectTest.java
+END
+DirectCallbacksTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/932/trunk/jnalib/test/com/sun/jna/DirectCallbacksTest.java
+END
+DirectByReferenceArgumentsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/932/trunk/jnalib/test/com/sun/jna/DirectByReferenceArgumentsTest.java
+END
+VMCrashProtectionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/279/trunk/jnalib/test/com/sun/jna/VMCrashProtectionTest.java
+END
+NativeLibraryTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jna/!svn/ver/942/trunk/jnalib/test/com/sun/jna/NativeLibraryTest.java
+END
+JNAUnloadTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/913/trunk/jnalib/test/com/sun/jna/JNAUnloadTest.java
+END
+ArgumentsMarshalTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/992/trunk/jnalib/test/com/sun/jna/ArgumentsMarshalTest.java
+END
+LastErrorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/892/trunk/jnalib/test/com/sun/jna/LastErrorTest.java
+END
+HeadlessLoadLibraryTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/420/trunk/jnalib/test/com/sun/jna/HeadlessLoadLibraryTest.java
+END
+CallbacksTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/972/trunk/jnalib/test/com/sun/jna/CallbacksTest.java
+END
+ByReferenceArgumentsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/899/trunk/jnalib/test/com/sun/jna/ByReferenceArgumentsTest.java
+END
+PointerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/992/trunk/jnalib/test/com/sun/jna/PointerTest.java
+END
+DirectTypeMapperTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/932/trunk/jnalib/test/com/sun/jna/DirectTypeMapperTest.java
+END
+DirectStructureByValueTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/975/trunk/jnalib/test/com/sun/jna/DirectStructureByValueTest.java
+END
+TypeMapperTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/913/trunk/jnalib/test/com/sun/jna/TypeMapperTest.java
+END
+NativeTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/929/trunk/jnalib/test/com/sun/jna/NativeTest.java
+END
+UnionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/928/trunk/jnalib/test/com/sun/jna/UnionTest.java
+END
+StructureByValueTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/975/trunk/jnalib/test/com/sun/jna/StructureByValueTest.java
+END
+WebStartTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/1011/trunk/jnalib/test/com/sun/jna/WebStartTest.java
+END

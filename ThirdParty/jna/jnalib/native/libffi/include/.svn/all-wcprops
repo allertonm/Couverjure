@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/jna/!svn/ver/946/trunk/jnalib/native/libffi/include
+END
+ffi.h.in
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/include/ffi.h.in
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/946/trunk/jnalib/native/libffi/include/Makefile.in
+END
+ffi_common.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/788/trunk/jnalib/native/libffi/include/ffi_common.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/745/trunk/jnalib/native/libffi/include/Makefile.am
+END

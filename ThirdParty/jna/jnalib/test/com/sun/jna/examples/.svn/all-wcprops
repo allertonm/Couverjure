@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/jna/!svn/ver/963/trunk/jnalib/test/com/sun/jna/examples
+END
+FileUtilsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/683/trunk/jnalib/test/com/sun/jna/examples/FileUtilsTest.java
+END
+KeyboardUtilsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/320/trunk/jnalib/test/com/sun/jna/examples/KeyboardUtilsTest.java
+END
+RasterRangesUtilsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jna/!svn/ver/533/trunk/jnalib/test/com/sun/jna/examples/RasterRangesUtilsTest.java
+END
+FileMonitorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/554/trunk/jnalib/test/com/sun/jna/examples/FileMonitorTest.java
+END
+WindowUtilsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/503/trunk/jnalib/test/com/sun/jna/examples/WindowUtilsTest.java
+END

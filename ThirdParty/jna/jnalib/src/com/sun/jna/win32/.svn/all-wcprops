@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/jna/!svn/ver/542/trunk/jnalib/src/com/sun/jna/win32
+END
+W32APIFunctionMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/158/trunk/jnalib/src/com/sun/jna/win32/W32APIFunctionMapper.java
+END
+StdCallFunctionMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/542/trunk/jnalib/src/com/sun/jna/win32/StdCallFunctionMapper.java
+END
+StdCall.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/7/trunk/jnalib/src/com/sun/jna/win32/StdCall.java
+END
+StdCallLibrary.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/128/trunk/jnalib/src/com/sun/jna/win32/StdCallLibrary.java
+END
+W32APITypeMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/508/trunk/jnalib/src/com/sun/jna/win32/W32APITypeMapper.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/279/trunk/jnalib/src/com/sun/jna/win32/package.html
+END

@@ -1,0 +1,317 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna
+END
+NativeMapped.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/NativeMapped.html
+END
+NativeString.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/NativeString.html
+END
+InvocationMapper.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/InvocationMapper.html
+END
+FromNativeContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/FromNativeContext.html
+END
+StructureWriteContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/StructureWriteContext.html
+END
+Library.Handler.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Library.Handler.html
+END
+Pointer.html
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Pointer.html
+END
+Native.DeleteNativeLibrary.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Native.DeleteNativeLibrary.html
+END
+Platform.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Platform.html
+END
+MethodParameterContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/MethodParameterContext.html
+END
+Native.html
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Native.html
+END
+Structure.StructField.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Structure.StructField.html
+END
+package-tree.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/package-tree.html
+END
+Union.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Union.html
+END
+DefaultTypeMapper.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/DefaultTypeMapper.html
+END
+ToNativeContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/ToNativeContext.html
+END
+CallbackResultContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/CallbackResultContext.html
+END
+Structure.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Structure.html
+END
+Function.PostCallRead.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Function.PostCallRead.html
+END
+Structure.FFIType.size_t.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Structure.FFIType.size_t.html
+END
+FromNativeConverter.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/FromNativeConverter.html
+END
+Library.html
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Library.html
+END
+StringArray.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/StringArray.html
+END
+Structure.FFIType.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Structure.FFIType.html
+END
+Native.ffi_callback.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Native.ffi_callback.html
+END
+NativeLong.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/NativeLong.html
+END
+Structure.ByValue.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Structure.ByValue.html
+END
+Memory.html
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Memory.html
+END
+TypeConverter.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/TypeConverter.html
+END
+AltCallingConvention.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/AltCallingConvention.html
+END
+ToNativeConverter.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/ToNativeConverter.html
+END
+PointerType.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/PointerType.html
+END
+package-frame.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jna/!svn/ver/951/trunk/www/javadoc/com/sun/jna/package-frame.html
+END
+MethodResultContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/MethodResultContext.html
+END
+Function.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Function.html
+END
+TypeMapper.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/TypeMapper.html
+END
+package-summary.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/package-summary.html
+END
+Callback.UncaughtExceptionHandler.html
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Callback.UncaughtExceptionHandler.html
+END
+Structure.ByReference.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Structure.ByReference.html
+END
+FunctionResultContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/FunctionResultContext.html
+END
+FunctionMapper.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/FunctionMapper.html
+END
+FunctionParameterContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/FunctionParameterContext.html
+END
+LastErrorException.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/LastErrorException.html
+END
+Callback.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/Callback.html
+END
+WString.html
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/WString.html
+END
+CallbackProxy.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/CallbackProxy.html
+END
+IntegerType.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/IntegerType.html
+END
+StructureReadContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/StructureReadContext.html
+END
+CallbackParameterContext.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/CallbackParameterContext.html
+END
+NativeMappedConverter.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/NativeMappedConverter.html
+END
+CallbackReference.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/CallbackReference.html
+END
+NativeLibrary.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/1015/trunk/www/javadoc/com/sun/jna/NativeLibrary.html
+END

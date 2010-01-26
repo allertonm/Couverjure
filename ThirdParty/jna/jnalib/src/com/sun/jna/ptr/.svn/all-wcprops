@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr
+END
+FloatByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/FloatByReference.java
+END
+NativeLongByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/NativeLongByReference.java
+END
+DoubleByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/DoubleByReference.java
+END
+IntByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/IntByReference.java
+END
+ByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/ByReference.java
+END
+ShortByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/ShortByReference.java
+END
+LongByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/LongByReference.java
+END
+PointerByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/PointerByReference.java
+END
+ByteByReference.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/jna/!svn/ver/340/trunk/jnalib/src/com/sun/jna/ptr/ByteByReference.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jna/!svn/ver/279/trunk/jnalib/src/com/sun/jna/ptr/package.html
+END

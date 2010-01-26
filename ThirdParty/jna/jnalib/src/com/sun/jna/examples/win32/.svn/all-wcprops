@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jna/!svn/ver/1021/trunk/jnalib/src/com/sun/jna/examples/win32
+END
+User32.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/985/trunk/jnalib/src/com/sun/jna/examples/win32/User32.java
+END
+W32API.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/963/trunk/jnalib/src/com/sun/jna/examples/win32/W32API.java
+END
+Kernel32.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/jna/!svn/ver/1021/trunk/jnalib/src/com/sun/jna/examples/win32/Kernel32.java
+END
+GDI32.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jna/!svn/ver/533/trunk/jnalib/src/com/sun/jna/examples/win32/GDI32.java
+END
+W32Errors.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/7/trunk/jnalib/src/com/sun/jna/examples/win32/W32Errors.java
+END
+Shell32.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/954/trunk/jnalib/src/com/sun/jna/examples/win32/Shell32.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jna/!svn/ver/279/trunk/jnalib/src/com/sun/jna/examples/win32/package.html
+END

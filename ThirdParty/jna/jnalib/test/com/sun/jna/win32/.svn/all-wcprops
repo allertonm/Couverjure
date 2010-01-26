@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/jna/!svn/ver/683/trunk/jnalib/test/com/sun/jna/win32
+END
+W32StdCallTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/jna/!svn/ver/541/trunk/jnalib/test/com/sun/jna/win32/W32StdCallTest.java
+END
+W32APIMapperTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/jna/!svn/ver/683/trunk/jnalib/test/com/sun/jna/win32/W32APIMapperTest.java
+END

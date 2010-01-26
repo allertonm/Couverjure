@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jna/!svn/ver/303/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna
+END
+WINNT.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/WINNT.java
+END
+LMERR.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/LMERR.java
+END
+Netapi32.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/Netapi32.java
+END
+WINERROR.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/WINERROR.java
+END
+Kernel32b.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/Kernel32b.java
+END
+WINBASE.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/WINBASE.java
+END
+WINSVC.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/WINSVC.java
+END
+Advapi32.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/303/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/Advapi32.java
+END
+LMACCESS.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/LMACCESS.java
+END
+WINREG.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/WINREG.java
+END
+Options.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/Options.java
+END
+LMCONS.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jna/!svn/ver/293/trunk/jnalib/contrib/ntservice/src/jnacontrib/jna/LMCONS.java
+END
