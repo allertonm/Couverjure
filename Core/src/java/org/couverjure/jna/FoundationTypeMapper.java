@@ -64,9 +64,9 @@ public class FoundationTypeMapper extends DefaultTypeMapper {
     class FPToConverter64 extends FPConverter64 implements ToNativeConverter {
         public Object toNative(Object o, ToNativeContext toNativeContext) {
             if (o != null) {
-            return ((FoundationPointer) o).getAddress();
+                return ((FoundationPointer) o).getAddress();
             } else {
-                return 0;
+                return new Long(0);
             }
         }
     }

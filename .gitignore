@@ -4,4 +4,5 @@ CoreNative/build/
 Core/bin/
 Core/src/native/nativehelper.h
 Reference/
+nbproject/
 
