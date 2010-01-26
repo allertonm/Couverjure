@@ -1,9 +1,0 @@
-src/x86/darwin64.lo src/x86/darwin64.o:  \
- /Users/mark/Work/Couverjure/ThirdParty/jna/jnalib/native/libffi/src/x86/darwin64.S \
-  fficonfig.h include/ffi.h include/ffitarget.h
-
-fficonfig.h:
-
-include/ffi.h:
-
-include/ffitarget.h:

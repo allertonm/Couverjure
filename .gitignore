@@ -1,0 +1,7 @@
+.DS_Store
+bin/
+CoreNative/build/
+Core/bin/
+Core/src/native/nativehelper.h
+Reference/
+

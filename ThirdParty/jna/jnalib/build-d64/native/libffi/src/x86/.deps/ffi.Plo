@@ -1,2 +1,0 @@
-src/x86/ffi.lo src/x86/ffi.o:  \
- /Users/mark/Work/Couverjure/ThirdParty/jna/jnalib/native/libffi/src/x86/ffi.c

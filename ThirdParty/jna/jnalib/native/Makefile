@@ -183,7 +183,8 @@ JNISFX=.jnilib
 ifneq ($(SDKROOT),)
 SYSLIBROOT=-Wl,-syslibroot,$(SDKROOT)
 ISYSROOT=-isysroot $(SDKROOT)
-ARCHFLAGS=-arch ppc -arch i386
+#ARCHFLAGS=-arch ppc -arch i386
+ARCHFLAGS=
 ifneq ($(findstring 10.5,$(SDKROOT)),)
 ALT_ARCHS+=x86_64 
 ARCHFLAGS+=-arch x86_64
@@ -194,7 +195,7 @@ CDEFINES+=-DTARGET_RT_MAC_CFM=0 -DFFI_MMAP_EXEC_WRIT
 LDFLAGS=$(ARCHFLAGS) -dynamiclib -o $@ -framework JavaVM \
   -compatibility_version $(shell echo ${VERSION}|sed 's/^\([0-9][0-9]*\).*/\1/g') \
   -current_version $(VERSION) \
-  -mmacosx-version-min=10.3 \
+  -mmacosx-version-min=10.5 \
   -install_name ${@F} \
   $(SYSLIBROOT)
 # JAWT linkage handled by -framework JavaVM
@@ -255,9 +256,9 @@ ifneq ($(SDKROOT),)
 	  if [ ! -f $(BUILD)/libffi.$$arch/Makefile ]; then \
 	    echo "Configuring libffi ($$arch)"; \
 	    (cd $(BUILD)/libffi.$$arch \
-	     && CC="$(CC)" CFLAGS="-arch $$arch $(ISYSROOT) $(COPT) $(CDEBUG)" CPPFLAGS="$(CDEFINES)" \
-                LDFLAGS="-arch $$arch" \
-               $(FFI_SRC)/configure $(FFI_CONFIG) --host=$$arch-apple-darwin --disable-dependency-tracking); \
+	     && CC="$(CC)" CFLAGS="-arch $$arch $(ISYSROOT) $(COPT) $(CDEBUG) -mmacosx-version-min=10.5" CPPFLAGS="$(CDEFINES)" \
+                LDFLAGS="-arch $$arch -mmacosx-version-min=10.5" \
+               $(FFI_SRC)/configure $(FFI_CONFIG) --host=$$arch-apple-darwin --disable-dependency-tracking ) ; \
 	  fi; \
 	  $(MAKE) -C $(BUILD)/libffi.$$arch; \
 	done

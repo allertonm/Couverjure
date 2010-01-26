@@ -1,1 +1,0 @@
-/Users/mark/Work/Couverjure/ThirdParty/jna/jnalib/native/libffi/src/powerpc/ffitarget.h

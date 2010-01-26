@@ -1,2 +1,0 @@
-src/x86/darwin.lo src/x86/darwin.o:  \
- /Users/mark/Work/Couverjure/ThirdParty/jna/jnalib/native/libffi/src/x86/darwin.S

@@ -356,7 +356,7 @@
     <condition property="make.SDKROOT" value="SDKROOT=${SDKROOT}">
       <isset property="SDKROOT"/>
     </condition>
-]    <condition property="make.SDKROOT"
+    <condition property="make.SDKROOT"
 	       value="SDKROOT=/Developer/SDKs/MacOSX10.5.sdk">
       <available file="/Developer/SDKs/MacOSX10.5.sdk"/>
     </condition>
