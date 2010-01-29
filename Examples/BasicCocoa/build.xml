@@ -1,6 +1,6 @@
 <project name="BasicCocoa" basedir="." default="package">
 
-    <property name="jna" value="../../ThirdParty/jna"/>
+    <property name="jna" value="../../ThirdParty/jna/jnalib/"/>
     <property name="clojure" value="../../ThirdParty/clojure-1.1.0-rc2"/>
     <property name="couverjure" value="../../Core"/>
     <property name="corenative" value="../../CoreNative"/>
@@ -8,7 +8,7 @@
     <property environment="env"/>
 
     <path id="libs">
-        <path location="${jna}/jna.jar"/>
+        <path location="${jna}/build-d64/jna.jar"/>
         <path location="${clojure}/clojure.jar"/>
     </path>
 
@@ -45,7 +45,7 @@
             <fileset dir="resources/BasicCocoa.nib"/>
         </copy> -->
         <copy file="${clojure}/clojure.jar" todir="${applibs}"/>
-        <copy file="${jna}/jna.jar" todir="${applibs}"/>
+        <copy file="${jna}/build-d64/jna.jar" todir="${applibs}"/>
         <copy file="${couverjure}/couverjure.jar" todir="${applibs}"/>
         <jar jarfile="${applibs}/${appname}.jar">
             <fileset dir="src/clojure"/>

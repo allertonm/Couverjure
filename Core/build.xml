@@ -1,11 +1,11 @@
 <project name="Native" basedir="." default="package">
 
-    <property name="jna" value="../ThirdParty/jna"/>
+    <property name="jna" value="../ThirdParty/jna/jnalib"/>
     <property name="clojure" value="../ThirdParty/clojure-1.1.0-rc2"/>
     <property environment="env"/>
 
     <path id="libs">
-        <path location="${jna}/jna.jar"/>
+        <path location="${jna}/build-d64/jna.jar"/>
         <path location="${clojure}/clojure.jar"/>
     </path>
     <path id="javah_classpath">

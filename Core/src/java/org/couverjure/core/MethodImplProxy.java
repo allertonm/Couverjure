@@ -9,21 +9,24 @@ import java.lang.reflect.Method;
 
 public abstract class MethodImplProxy implements CallbackProxy {
     public static TypeMapper TYPE_MAPPER = FoundationTypeMapper.getTypeMapper();
+    public static boolean DEBUG = false;
 
     private int arity;
     private Class returnType;
     private Class[] parameterTypes;
     private FromNativeConverter[] paramConverters;
     private ToNativeConverter resultConverter;
+    private String debugName;
 
     //private java.lang.reflect.Method callbackMethod;
     //private ToNativeConverter toNative;
     //private FromNativeConverter[] fromNative;
 
-    public MethodImplProxy(Class returnType, Class[] parameterTypes) {
+    public MethodImplProxy(String debugName, Class returnType, Class[] parameterTypes) {
         this.returnType = returnType;
         this.parameterTypes = parameterTypes;
         this.arity = parameterTypes.length;
+        this.debugName = debugName;
         initConverters();
     }
 
@@ -38,6 +41,7 @@ public abstract class MethodImplProxy implements CallbackProxy {
 
     public Object callback(Object[] nativeArgs) {
         try {
+            if (DEBUG) System.out.println("MethodImplProxy.callback: " + debugName); 
             Object[] convertedArgs = new Object[arity];
 
             for (int i = 0; i < arity; i++) {
@@ -56,7 +60,8 @@ public abstract class MethodImplProxy implements CallbackProxy {
                 return result;
             }
         } catch (Throwable t) {
-            //Native.getCallbackExceptionHandler().uncaughtException(null, t);
+            System.out.println(String.format("Caught exception %s in implementation of method %s", t, debugName));
+            if (DEBUG) t.printStackTrace();
             return null;
         }
     }
@@ -69,5 +74,9 @@ public abstract class MethodImplProxy implements CallbackProxy {
 
     public Class getReturnType() {
         return returnType;
+    }
+
+    public void finalize() {
+        System.out.println("In MethodImplProxy.finalize! Ooops.");
     }
 }

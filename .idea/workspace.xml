@@ -2,16 +2,31 @@
 <project version="4">
   <component name="ChangeListManager" verified="true">
     <list default="true" readonly="true" id="ebe75556-5259-41bd-b738-1077b7f8cc7b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java" afterPath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/RefCountedId64.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Ivar.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java" afterPath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/JNA.xml" afterPath="$PROJECT_DIR$/.idea/libraries/JNA.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/test/clojure/test_core.clj" afterPath="$PROJECT_DIR$/Core/test/clojure/test_core.clj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj" afterPath="$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ID.java" afterPath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ID.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/FoundationPointer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation64.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/ObjectiveCRuntime64.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java" afterPath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/RefCountedID.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core64.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Method.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java" afterPath="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Selector.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/MethodImplProxy.java" afterPath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/MethodImplProxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/build.xml" afterPath="$PROJECT_DIR$/Core/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Examples/BasicCocoa/build.xml" afterPath="$PROJECT_DIR$/Examples/BasicCocoa/build.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ClassID.java" afterPath="" />
     </list>
     <ignored path="Java_JNA_Cocoa/bin/" />
-    <ignored path="CocoaClojure.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="Core/bin/" />
+    <ignored path="CocoaClojure.iws" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,32 +45,6 @@
     <line_breakpoints>
       <breakpoint url="file://$PROJECT_DIR$/Core/test/clojure/test_signatures.clj" line="78" class="Class at test_signatures.clj:78" package="">
         <option name="ENABLED" value="false" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java" line="65" class="org.couverjure.core.Core" package="org.couverjure.core">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj" line="385" class="clojure.core$_DOT__DOT___4758" package="clojure">
-        <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
         <option name="SUSPEND_POLICY" value="SuspendAll" />
@@ -93,33 +82,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Structure.java" line="552" class="com.sun.jna.Structure" package="com.sun.jna">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java" line="53" class="org.couverjure.jna.Foundation.Super" package="org.couverjure.jna">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Structure.java" line="806" class="com.sun.jna.Structure" package="com.sun.jna">
+      <breakpoint url="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java" line="66" class="org.couverjure.core.Core" package="org.couverjure.core">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -194,21 +157,35 @@
       <file leaf-file-name="Foundation.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="0" selection-start="2051" selection-end="2051" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="52" column="0" selection-start="1957" selection-end="1957" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FoundationTypeMapper.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MethodImplProxy.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/MethodImplProxy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="63" column="64" selection-start="2313" selection-end="2313" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ID.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/ID.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FoundationTypeMapper.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="16" selection-start="2669" selection-end="2669" vertical-scroll-proportion="0.5136816">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="31" column="0" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -216,70 +193,54 @@
       <file leaf-file-name="core.clj" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="385" column="0" selection-start="13773" selection-end="13773" vertical-scroll-proportion="-10.36">
+            <state line="206" column="102" selection-start="6092" selection-end="6092" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Reflector.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/ThirdParty/clojure-1.1.0-rc2/clojure.jar!/clojure/lang/Reflector.class">
+      <file leaf-file-name="test_core.clj" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/test/clojure/test_core.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="33" selection-start="3532" selection-end="3532" vertical-scroll-proportion="0.0">
+            <state line="142" column="34" selection-start="6150" selection-end="6150" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Function.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Function.java">
+      <file leaf-file-name="Architecture.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Architecture.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="461" column="0" selection-start="18689" selection-end="18689" vertical-scroll-proportion="0.0">
+            <state line="2" column="12" selection-start="41" selection-end="41" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Structure.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Structure.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="810" column="0" selection-start="30508" selection-end="30508" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Pointer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Pointer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="889" column="0" selection-start="34002" selection-end="34002" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Memory.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Memory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="165" column="0" selection-start="5492" selection-end="5492" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Long.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/src.jar!/src/java/lang/Long.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="709" column="0" selection-start="25974" selection-end="25974" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Core.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Core.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="0" selection-start="2856" selection-end="2856" vertical-scroll-proportion="0.0">
+            <state line="43" column="39" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.3384075">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="129" selection-start="1056" selection-end="1056" vertical-scroll-proportion="-22.173914">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Examples/BasicCocoa/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="37" selection-start="2273" selection-end="2273" vertical-scroll-proportion="-34.739132">
               <folding />
             </state>
           </provider>
@@ -295,22 +256,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/RefCountedId64.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core64.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ObjectiveCClass.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ClassID.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Method.java" />
         <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Selector.java" />
         <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Ivar.java" />
+        <option value="$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Pointer.java" />
+        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ClassID.java" />
         <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/RefCountedID.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java" />
+        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/CastableID.java" />
+        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Receiver.java" />
+        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java" />
+        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java" />
         <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/MethodImplProxy.java" />
+        <option value="$PROJECT_DIR$/Core/test/clojure/test_core.clj" />
+        <option value="$PROJECT_DIR$/Core/build.xml" />
+        <option value="$PROJECT_DIR$/Examples/BasicCocoa/build.xml" />
         <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/ID.java" />
         <option value="$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj" />
-        <option value="$PROJECT_DIR$/Core/test/clojure/test_core.clj" />
-        <option value="$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Pointer.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java" />
-        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java" />
+        <option value="$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java" />
       </list>
     </option>
   </component>
@@ -378,38 +339,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Couverjure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Couverjure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clojure" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -511,26 +440,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clojure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="couverjure" />
+              <option name="myItemId" value="BasicCocoa" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Favorites" />
     </panes>
   </component>
@@ -800,28 +717,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="397" y="29" width="1660" height="1489" extended-state="0" />
+    <frame x="439" y="39" width="1647" height="1439" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25255474" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26969698" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25623584" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.104234524" sideWeight="0.6507937" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37518248" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2560606" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10387985" sideWeight="0.6810606" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37518248" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32955405" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2728647" sideWeight="0.9909502" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Clojure REPL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20332578" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2719697" sideWeight="0.9909502" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22736156" sideWeight="0.6507937" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22718808" sideWeight="0.6832117" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20794538" sideWeight="0.619708" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20963705" sideWeight="0.6810606" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31167883" sideWeight="0.9925512" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31363636" sideWeight="0.9925512" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Clojure REPL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20332578" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -839,7 +756,7 @@
     <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Work in progress on improving use of JNA. Some unit tests still broken." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug in typemapper (returning int 0 instead of long 0 for null ptr.)" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -876,6 +793,7 @@
     <MESSAGE value="Building a syntax tree for type encodings" />
     <MESSAGE value="Some code tidying in the parser" />
     <MESSAGE value="Work in progress on improving use of JNA. Some unit tests still broken." />
+    <MESSAGE value="Fixing bug in typemapper (returning int 0 instead of long 0 for null ptr.)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -901,116 +819,90 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/src.jar!/src/java/lang/reflect/Method.java">
+    <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Structure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="207" column="0" selection-start="7674" selection-end="7674" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/src.jar!/src/java/lang/reflect/InvocationTargetException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1661" selection-end="1661" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Couverjure_Reference/src/jnalib/src/com/sun/jna/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="461" column="0" selection-start="18689" selection-end="18689" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Couverjure_Reference/src/jnalib/src/com/sun/jna/Structure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="523" column="0" selection-start="19333" selection-end="19333" vertical-scroll-proportion="0.32589838">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Couverjure_Reference/src/jnalib/src/com/sun/jna/Library.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="0" selection-start="7295" selection-end="7295" vertical-scroll-proportion="0.32603407">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/ThirdParty/clojure-1.1.0-rc2/clojure.jar!/clojure/lang/Var.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="28" selection-start="4421" selection-end="4421" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/ThirdParty/clojure-1.1.0-rc2/clojure.jar!/clojure/lang/Reflector.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="33" selection-start="3532" selection-end="3532" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="385" column="0" selection-start="13773" selection-end="13773" vertical-scroll-proportion="-10.36">
-          <folding />
-        </state>
+        <state line="552" column="0" selection-start="20272" selection-end="20272" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Function.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="461" column="0" selection-start="18689" selection-end="18689" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/src.jar!/src/java/lang/Long.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="709" column="0" selection-start="25974" selection-end="25974" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Pointer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="889" column="0" selection-start="34002" selection-end="34002" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="461" column="0" selection-start="18689" selection-end="18689" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Memory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="0" selection-start="5492" selection-end="5492" vertical-scroll-proportion="0.0">
+        <state line="165" column="0" selection-start="5492" selection-end="5492" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Pointer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="11" selection-start="2305" selection-end="2305" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/MethodImplProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="64" selection-start="2313" selection-end="2313" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java">
+    <entry file="file://$PROJECT_DIR$/Core/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2856" selection-end="2856" vertical-scroll-proportion="0.0">
+        <state line="30" column="129" selection-start="1056" selection-end="1056" vertical-scroll-proportion="-22.173914">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java">
+    <entry file="file://$PROJECT_DIR$/Examples/BasicCocoa/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="2051" selection-end="2051" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="47" column="37" selection-start="2273" selection-end="2273" vertical-scroll-proportion="-34.739132">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ThirdParty/jna/jnalib/src/com/sun/jna/Structure.java">
+    <entry file="file://$PROJECT_DIR$/Core/test/clojure/test_core.clj">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="810" column="0" selection-start="30508" selection-end="30508" vertical-scroll-proportion="0.0">
+        <state line="142" column="34" selection-start="6150" selection-end="6150" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Architecture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="12" selection-start="41" selection-end="41" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/FoundationTypeMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="16" selection-start="2669" selection-end="2669" vertical-scroll-proportion="0.5136816">
+        <state line="31" column="0" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/ID.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/src/clojure/couverjure/core.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="206" column="102" selection-start="6092" selection-end="6092" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/jna/Foundation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="0" selection-start="1957" selection-end="1957" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/src/java/org/couverjure/core/Core.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="39" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.3384075">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

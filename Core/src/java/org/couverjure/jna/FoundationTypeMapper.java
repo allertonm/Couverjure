@@ -28,18 +28,7 @@ public class FoundationTypeMapper extends DefaultTypeMapper {
             case I386:
                 throw new UnsupportedOperationException("32-bit architectures not yet supported.");
             case X86_64:
-                ToNativeConverter toConverter = new FPToConverter64();
-                toConverters.put(FoundationPointer.class, toConverter);
-                toConverters.put(Selector.class, toConverter);
-                toConverters.put(Method.class, toConverter);
-                toConverters.put(ClassID.class, toConverter);
-                toConverters.put(RefCountedID.class, toConverter);
-                toConverters.put(ID.class, toConverter);
-                FromNativeConverter fpFromConverter = new FPFromConverter64();
-                fromConverters.put(FoundationPointer.class, fpFromConverter);
-                fromConverters.put(Selector.class, new SelectorFromConverter64());
-                fromConverters.put(Method.class, new MethodFromConverter64());
-                fromConverters.put(ClassID.class, new ClassIDFromConverter64());
+                toConverters.put(ID.class, new IDToConverter64());
                 fromConverters.put(ID.class, new IDFromConverter64());
                 break;
         }
@@ -49,57 +38,30 @@ public class FoundationTypeMapper extends DefaultTypeMapper {
         this(Architecture.X86_64);
     }
 
-    class FPConverter64 {
+    class IDToConverter64 implements ToNativeConverter {
+        public Object toNative(Object o, ToNativeContext toNativeContext) {
+            if (o != null) {
+                return ((ID) o).getAddress();
+            } else {
+                return new Long(0);
+            }
+        }
+
         public Class nativeType() {
             return Long.TYPE;
         }
     }
 
-    class FPFromConverter64 extends FPConverter64 implements FromNativeConverter {
+    class IDFromConverter64 implements FromNativeConverter {
         public Object fromNative(Object o, FromNativeContext fromNativeContext) {
-            return new FoundationPointer((Long) o);
+            return new ID((Long) o);
+        }
+
+
+        public Class nativeType() {
+            return Long.TYPE;
         }
     }
-
-    class FPToConverter64 extends FPConverter64 implements ToNativeConverter {
-        public Object toNative(Object o, ToNativeContext toNativeContext) {
-            if (o != null) {
-                return ((FoundationPointer) o).getAddress();
-            } else {
-                return new Long(0);
-            }
-        }
-    }
-
-    class IDFromConverter64 extends FPFromConverter64 {
-        public Object fromNative(Object o, FromNativeContext fromNativeContext) {
-            return new RefCountedID((Long) o);
-        }
-    }
-
-    class ClassIDFromConverter64 extends FPFromConverter64 {
-        public Object fromNative(Object o, FromNativeContext fromNativeContext) {
-            return new ClassID((Long) o);
-        }
-    }
-
-    class SelectorFromConverter64 extends FPFromConverter64 {
-        public Object fromNative(Object o, FromNativeContext fromNativeContext) {
-            return new Selector((Long) o);
-        }
-    }
-
-    class MethodFromConverter64 extends FPFromConverter64 {
-        public Object fromNative(Object o, FromNativeContext fromNativeContext) {
-            return new Method((Long) o);
-        }
-    }
-
-    /*class IDToConverter64 extends FPToConverter64 {
-        public Object toNative(Object o, ToNativeContext toNativeContext) {
-            return ((RefCountedId64) o).getNativeId();
-        }
-    }*/
 
     @Override
     public FromNativeConverter getFromNativeConverter(Class javaType) {

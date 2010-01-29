@@ -30,11 +30,10 @@ package org.couverjure.core;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import com.sun.jna.Pointer;
 import com.sun.jna.ptr.LongByReference;
 import org.couverjure.jna.Foundation;
-import org.couverjure.jna.Foundation64;
 import org.couverjure.jna.FoundationTypeMapper;
-import org.couverjure.jna.ObjectiveCRuntime64;
 import org.couverjure.jni.NativeHelper64;
 
 import java.lang.reflect.Type;
@@ -42,11 +41,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Core {
+    public static boolean DEBUG = false;
+    
     public Foundation foundation;
     public NativeHelper64 nativeHelper;
 //    public Type pointerType = Long.TYPE;
     public Type superType = Foundation.Super.class;
-    public Type idType = RefCountedID.class;
+    public Type idType = ID.class;
     public long pointerSize = 8;
     public int pointerAlign = 3;
 
@@ -62,7 +63,7 @@ public class Core {
         //nativeHelper.initHelper();
     }
 
-    public Foundation.Super makeSuper(ID receiver, ID clazz) {
+    public Foundation.Super makeSuper(ID receiver, Pointer clazz) {
         return new Foundation.Super(receiver, clazz);
     }
 

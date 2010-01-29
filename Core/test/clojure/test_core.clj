@@ -32,8 +32,8 @@
 
 (println (.CFStringCreateWithCString foundation nil "Hello World" 0))
 
-(def test-nsstring (wrap-id (.CFStringCreateWithCString foundation nil "Hello World" 0)))
-(def test-nsstring2 (wrap-id (.CFStringCreateWithCString foundation nil "Hello World2" 0)))
+(def test-nsstring (.CFStringCreateWithCString foundation nil "Hello World" 0))
+(def test-nsstring2 (.CFStringCreateWithCString foundation nil "Hello World2" 0))
 
 ; this test exercises the low level functions without macros
 (deftest test-create-nsstring-subclass
@@ -47,7 +47,7 @@
       (dynamic-send-msg hello :init)
       (let [cai (dynamic-send-msg hello :characterAtIndex- 0)] (is (= cai 72)))
       (is (>> hello :isEqual test-nsstring))
-      (.NSLog foundation (unwrap-id hello)))))
+      (.NSLog foundation hello))))
 
 (deftest test-new-implementation-macro
   (let [hello-str "Hello World"
@@ -59,7 +59,7 @@
     (>> hello :init)
     (let [cai (>> hello :characterAtIndex 0)] (is (= cai 72)))
     (is (>> hello :isEqual test-nsstring))
-    (.NSLog foundation (unwrap-id hello))))
+    (.NSLog foundation hello)))
 
 (deftest test-dynamic-send-msg
   (let [hello-str "Hello World"
@@ -71,13 +71,14 @@
     (dynamic-send-msg hello :init)
     (let [cai (dynamic-send-msg hello :characterAtIndex- 0)] (is (= cai 72)))
     (is (>> hello :isEqual test-nsstring))
-    (.NSLog foundation (unwrap-id hello))))
+    (.NSLog foundation hello)))
 
 (deftest test-super-init
   (let [hello-str "Hello World"
         mystring
         (implementation (str (gensym)) NSString
           (method [:id :init] []
+            (println "in init: " self)
             (let [_self (>>super self :init)]
               (println "self: " _self)
               _self))
@@ -87,10 +88,7 @@
     (>> hello :init)
     (let [cai (>> hello :characterAtIndex 0)] (is (= cai 72)))
     (is (>> hello :isEqual test-nsstring))
-    (.NSLog foundation (unwrap-id hello))))
-
-(comment
-
+    (.NSLog foundation hello)))
 
 (deftest test-state
   (let [mystring
@@ -106,7 +104,7 @@
     (>> hello :init)
     (let [cai (>> hello :characterAtIndex 0)] (is (= cai 72)))
     (is (>> hello :isEqual test-nsstring))
-    (.NSLog foundation (unwrap-id hello))))
+    (.NSLog foundation hello)))
 
 (deftest test-property-accessors
   (let [test-class
@@ -114,32 +112,36 @@
           (property :testString :atom)
           (method [:id :init] []
             (let [_self (>>super self :init)]
-              (init _self {:testString (atom test-nsstring) })
+              (init _self {:testString (atom test-nsstring)})
               _self)))
         test (alloc test-class)]
     (>> test :init)
     (let [read-property (>> test :testString)]
-      (is (>> read-property :isEqual test-nsstring )))
+      (is (>> read-property :isEqual test-nsstring)))
     (is (do (>> test :setTestString test-nsstring2) true) "Set accessor ran without exceptions")
     (let [read-property (>> test :testString)]
-      (is (>> read-property :isEqual test-nsstring2 )))
+      (is (>> read-property :isEqual test-nsstring2)))
     ))
+(comment
   )
 
-(deftest test-macroexpand-implementation
-  (let [hello-str "hello"
-        m1 (macroexpand-1 '(implementation (str (gensym)) NSString
-      (method [:id :init] []
-        (let [_self (>>super self :init)]
-          (println "self: " _self)
-          _self))
-      (method [:uint :length] [] (count hello-str))
-      (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index))))
-        m2 (macroexpand m1)
-        m3 (macroexpand m2)]
-    (println m1)
-    (println m2)
-    (println m3)))
+(comment
+  ; this helped me have a look at how the macros were expanding
+  (deftest test-macroexpand-implementation
+    (let [hello-str "hello"
+          m1 (macroexpand-1 '(implementation (str (gensym)) NSString
+        (method [:id :init] []
+          (let [_self (>>super self :init)]
+            (println "self: " _self)
+            _self))
+        (method [:uint :length] [] (count hello-str))
+        (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index))))
+          m2 (macroexpand m1)
+          m3 (macroexpand m2)]
+      (println m1)
+      (println m2)
+      (println m3)))
+  )
 
 
 (deftest test-thread-adapter
@@ -154,4 +156,4 @@
 (defmethod report :begin-test-var [m] (println "beginning test " (:var m)))
 ; (defmethod report :end-test-var [m] (println "ending test " (:var m)))
 
-(run-tests )
+(run-tests)
