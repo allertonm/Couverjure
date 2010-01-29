@@ -2,7 +2,7 @@
   (:use couverjure.core)
   (:import
     (com.sun.jna Native)
-    (org.couverjure.jna AppKit)))
+    (org.couverjure.core AppKit)))
 
 (println "Loading Couverjure AppKit")
 

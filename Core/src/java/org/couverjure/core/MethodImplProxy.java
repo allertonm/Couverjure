@@ -1,11 +1,7 @@
 package org.couverjure.core;
 
 import com.sun.jna.*;
-import org.couverjure.jna.Foundation;
-import org.couverjure.jna.FoundationTypeMapper;
-
-import java.lang.reflect.*;
-import java.lang.reflect.Method;
+import org.couverjure.core.FoundationTypeMapper;
 
 public abstract class MethodImplProxy implements CallbackProxy {
     public static TypeMapper TYPE_MAPPER = FoundationTypeMapper.getTypeMapper();

@@ -9,7 +9,7 @@
         <path location="${clojure}/clojure.jar"/>
     </path>
     <path id="javah_classpath">
-        <path location="${jna}/jna.jar"/>
+        <path location="${jna}/build-d64/jna.jar"/>
         <path location="bin"/>
     </path>
 

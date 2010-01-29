@@ -1,4 +1,4 @@
-package org.couverjure.jna;
+package org.couverjure.core;
 
 import com.sun.jna.*;
 import com.sun.jna.ptr.LongByReference;

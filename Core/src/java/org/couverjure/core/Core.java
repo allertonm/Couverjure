@@ -32,8 +32,6 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.LongByReference;
-import org.couverjure.jna.Foundation;
-import org.couverjure.jna.FoundationTypeMapper;
 import org.couverjure.jni.NativeHelper64;
 
 import java.lang.reflect.Type;
@@ -59,8 +57,6 @@ public class Core {
         foundation = (Foundation) Native.loadLibrary("Foundation", Foundation.class, foundationOptions);
         nativeHelper = new NativeHelper64();
         nativeHelper.initHelper();
-        //nativeHelper = new NativeHelper64();
-        //nativeHelper.initHelper();
     }
 
     public Foundation.Super makeSuper(ID receiver, Pointer clazz) {
