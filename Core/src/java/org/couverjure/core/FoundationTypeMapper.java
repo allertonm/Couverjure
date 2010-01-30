@@ -8,7 +8,7 @@ import java.util.Map;
 public class FoundationTypeMapper extends DefaultTypeMapper {
     private static FoundationTypeMapper singleton = new FoundationTypeMapper();
 
-    private Architecture architecture = Architecture.X86_64;
+    private Core.Architecture architecture = Core.Architecture.X86_64;
     private FromNativeConverter idFromNativeConverter;
     private ToNativeConverter idToNativeConverter;
     private Map<Class, FromNativeConverter> fromConverters;
@@ -18,7 +18,7 @@ public class FoundationTypeMapper extends DefaultTypeMapper {
         return singleton;
     }
 
-    public FoundationTypeMapper(Architecture arch) {
+    public FoundationTypeMapper(Core.Architecture arch) {
         this.architecture = arch;
         this.toConverters = new HashMap<Class, ToNativeConverter>();
         this.fromConverters = new HashMap<Class, FromNativeConverter>();
@@ -34,7 +34,7 @@ public class FoundationTypeMapper extends DefaultTypeMapper {
     }
 
     public FoundationTypeMapper() {
-        this(Architecture.X86_64);
+        this(Core.Architecture.X86_64);
     }
 
     class IDToConverter64 implements ToNativeConverter {

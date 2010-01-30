@@ -42,7 +42,7 @@
 ; be slow.
 (def foundation (.foundation core))
 (def objc-runtime (.foundation core))
-(def native-helper (.nativeHelper core))
+(def native-helper (.ivarHelper core))
 
 ; get arch specific values from the core
 (def super-type (.superType core))
@@ -71,11 +71,11 @@
    \B Boolean/TYPE,
    \v Void/TYPE,
    \* String,
-  \@ ID
-  \# Pointer
-  \: Pointer
-  \? Pointer
-  })
+   \@ ID
+   \# Pointer
+   \: Pointer
+   \? Pointer
+   })
 
 ; map keywords to signature characters
 (def encoding-keyword-mapping
@@ -177,17 +177,20 @@
 (defn get-ivar
   "Gets the value of the named ivar as a java object"
   [id ivar-name]
-    (.getJavaIvarByName native-helper (.getAddress id) ivar-name))
+  ;(println "get-ivar: " id)
+  (.getJavaIvarByName native-helper id ivar-name))
 
 (defn init-ivar
   "Initializes the named ivar with a java object"
   [id ivar-name value]
-    (.setJavaIvarByName native-helper (.getAddress id) ivar-name value))
+  ;(println "init-ivar: " id)
+  (.setJavaIvarByName native-helper id ivar-name value))
 
 (defn release-ivar
   "Releases the java object associated with the named ivar."
   [id ivar-name]
-    (.releaseJavaIvarByName native-helper (.getAddress id) ivar-name))
+  ;(println "release-ivar: " id)
+  (.releaseJavaIvarByName native-helper id ivar-name))
 
 ;
 ; Building method implmentations
@@ -197,12 +200,12 @@
   "This function is invoked first when a method implemntation is invoked - it handles
 the necessary coercions of the arguments and return value based on the method signature"
   [wrapped-fn sig args]
-    (let [result
-          (apply
-            wrapped-fn
-            (for [arg args]
-              (if (instance? ID arg) (.retain arg) arg)))]
-      (if (= :void (first sig)) nil result)))
+  (let [result
+        (apply
+          wrapped-fn
+          (for [arg args]
+            (if (instance? ID arg) (.retain arg) arg)))]
+    (if (= :void (first sig)) nil result)))
 
 (defn method-callback-proxy
   "Builds an instance of JNA's CallbackProxy for the given method signature and implementation function"
@@ -294,7 +297,7 @@ The body of the implementation should consist of a set of (method) or (property)
          ~(symbol "init") (fn [self# initial-state#] (init-ivar self# state-ivar-name# initial-state#))]
     (doto class-def#
       ~@body)
-    (method class-def# [:void :dealloc] [] );(release-ivar ~(symbol "self") state-ivar-name#))
+    (method class-def# [:void :dealloc] []) ;(release-ivar ~(symbol "self") state-ivar-name#))
     (register-objc-class new-class#)
     new-class#))
 

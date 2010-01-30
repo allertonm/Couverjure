@@ -32,7 +32,6 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.LongByReference;
-import org.couverjure.jni.NativeHelper64;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -40,10 +39,14 @@ import java.util.Map;
 
 public class Core {
     public static boolean DEBUG = false;
+
+    public static enum Architecture {
+        PPC, I386, X86_64
+    }
     
     public Foundation foundation;
-    public NativeHelper64 nativeHelper;
-//    public Type pointerType = Long.TYPE;
+    public IvarHelper ivarHelper;
+
     public Type superType = Foundation.Super.class;
     public Type idType = ID.class;
     public long pointerSize = 8;
@@ -52,11 +55,11 @@ public class Core {
     public static final Core CORE = new Core();
 
     public Core() {
-        Map foundationOptions = new HashMap();
+        Map<String,Object> foundationOptions = new HashMap<String,Object>();
         foundationOptions.put(Library.OPTION_TYPE_MAPPER, FoundationTypeMapper.getTypeMapper());
         foundation = (Foundation) Native.loadLibrary("Foundation", Foundation.class, foundationOptions);
-        nativeHelper = new NativeHelper64();
-        nativeHelper.initHelper();
+        ivarHelper = new IvarHelper();
+        ivarHelper.initHelper();
     }
 
     public Foundation.Super makeSuper(ID receiver, Pointer clazz) {
