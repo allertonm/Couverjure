@@ -78,9 +78,9 @@
 
 (defn test-all-method-sigs [class]
   (let [out-count (LongByReference.)
-        method-list-ptr (.class_copyMethodList objc-runtime (unwrap-id class) out-count)
+        method-list-ptr (.class_copyMethodList objc-runtime class out-count)
         method-count (.getValue out-count)
-        method-list (seq (.getLongArray method-list-ptr 0 method-count))]
+        method-list (seq (.getPointerArray method-list-ptr 0 method-count))]
     (println "out-count " method-count " " (count method-list))
     (doall
       (for [[encoding, failure]
