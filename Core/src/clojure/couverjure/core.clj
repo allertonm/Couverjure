@@ -26,7 +26,7 @@
 
 (ns couverjure.core
   (:import
-    (org.couverjure.core Core ID MethodImplProxy)
+    (org.couverjure.core Core Foundation Foundation$Super ID MethodImplProxy)
     (com.sun.jna Native CallbackProxy Pointer)))
 
 ; load foundation and objc-runtime libraries
@@ -41,12 +41,7 @@
 ; us from adding type hints to the JNA calls - which means performance of these calls will
 ; be slow.
 (def foundation (.foundation core))
-(def objc-runtime (.foundation core))
 (def native-helper (.ivarHelper core))
-
-; get arch specific values from the core
-(def super-type (.superType core))
-(def id-type (.idType core))
 
 (println "Loading Couverjure Core")
 
@@ -124,8 +119,8 @@
   "Create method selectors from strings or keywords (or selectors - is a no-op)"
   [name-or-sel]
   (cond
-    (instance? String name-or-sel) (.sel_registerName objc-runtime name-or-sel)
-    (keyword? name-or-sel) (.sel_registerName objc-runtime (.replace (.substring (str name-or-sel) 1) \- \:))
+    (instance? String name-or-sel) (.sel_registerName foundation name-or-sel)
+    (keyword? name-or-sel) (.sel_registerName foundation (.replace (.substring (str name-or-sel) 1) \- \:))
     (instance? Pointer name-or-sel) name-or-sel))
 
 (defn to-name
@@ -149,12 +144,12 @@
 (defn objc-class
   "Get a reference to the named class"
   [name]
-  (.objc_getClass objc-runtime (to-name name)))
+  (.objc_getClass foundation (to-name name)))
 
 (defn class-of
   "Get the class of the given object"
   [id]
-  (.object_getClass objc-runtime id))
+  (.object_getClass foundation id))
 
 ;
 ; Creating and registering new classes
@@ -163,12 +158,12 @@
 (defn new-objc-class
   "Create but do not register a new ObjC class"
   [name base-class]
-  (.objc_allocateClassPair objc-runtime base-class (to-name name) 0))
+  (.objc_allocateClassPair foundation base-class (to-name name) 0))
 
 (defn register-objc-class
   "Register a class created using new-objc-class"
   [class]
-  (.objc_registerClassPair objc-runtime class))
+  (.objc_registerClassPair foundation class))
 
 ;
 ; Working with instance variables for class implementations
@@ -221,7 +216,7 @@ the necessary coercions of the arguments and return value based on the method si
   [class name sig fn]
   ;(println "add-method " class " name " name " sig " sig)
   (let [sel (selector name)]
-    (.class_addMethod objc-runtime class sel (method-callback-proxy name sig fn) (to-objc-sig sig))))
+    (.class_addMethod foundation class sel (method-callback-proxy name sig fn) (to-objc-sig sig))))
 
 ; the following two functions are used to support the "method" macro and the ">>" family of macros
 
@@ -291,7 +286,7 @@ The body of the implementation should consist of a set of (method) or (property)
   [class-name base-class & body]
   `(let [new-class# (new-objc-class (to-name ~class-name) ~base-class)
          state-ivar-name# (str (gensym))
-         ok# (.class_addIvar objc-runtime new-class# state-ivar-name# (.pointerSize core) (.pointerAlign core) "?")
+         ok# (.class_addIvar foundation new-class# state-ivar-name# (.pointerSize core) (.pointerAlign core) "?")
          class-def# {:class new-class# :state-ivar-name state-ivar-name#}
          ~(symbol "properties") (fn [self#] (get-ivar self# state-ivar-name#))
          ~(symbol "init") (fn [self# initial-state#] (init-ivar self# state-ivar-name# initial-state#))]
@@ -314,7 +309,7 @@ The body of the implementation should consist of a set of (method) or (property)
 
 (defn alloc
   "instantiate a class"
-  [class] (.class_createInstance objc-runtime class 0))
+  [class] (.class_createInstance foundation class 0))
 
 ;
 ; Method dispatch
@@ -325,22 +320,22 @@ The body of the implementation should consist of a set of (method) or (property)
 and coercing arguments and return value correctly
 This is currently the core mechanism for message dispatch"
   [id-or-super name-or-sel & args]
-  (let [super? (instance? super-type id-or-super)
+  (let [super? (instance? Foundation$Super id-or-super)
         sel (selector name-or-sel)
         target-class
         (if super?
           (.supercls id-or-super)
-          (.object_getClass objc-runtime id-or-super))
-        target-method (.class_getInstanceMethod objc-runtime target-class sel)
+          (.object_getClass foundation id-or-super))
+        target-method (.class_getInstanceMethod foundation target-class sel)
         _ (if (= target-method 0) (throw (Exception. (format "Method %s not found" name-or-sel))))
         ; the replaceAll here is a complete hack, but will get us by for now
         ; see thread at http://lists.apple.com/archives/objc-language/2009/Apr/msg00141.html
-        objc-sig (.replaceAll (.method_getTypeEncoding objc-runtime target-method) "\\d" "")
+        objc-sig (.replaceAll (.method_getTypeEncoding foundation target-method) "\\d" "")
         args-array (to-array args)
         raw-result
         (if super?
-          (.objc_msgSendSuper objc-runtime id-or-super sel args-array)
-          (.objc_msgSend objc-runtime id-or-super sel args-array))]
+          (.objc_msgSendSuper foundation id-or-super sel args-array)
+          (.objc_msgSend foundation id-or-super sel args-array))]
     (condp = (first objc-sig)
       \@ (.retain raw-result)
       \# (.retain raw-result)
@@ -360,9 +355,9 @@ This is currently the core mechanism for message dispatch"
   "Obtain a reference to the 'super' object for this instance. Send messages to this
 object to send to superclass."
   [receiver]
-  (let [receiver-class (.object_getClass objc-runtime receiver)
-        super-class (.class_getSuperclass objc-runtime receiver-class)]
-    (.makeSuper core receiver super-class)))
+  (let [receiver-class (.object_getClass foundation receiver)
+        super-class (.class_getSuperclass foundation receiver-class)]
+    (Foundation$Super. receiver super-class)))
 
 (defmacro >>
   "Builds a call to dynamic-send-message, compiling the keys from the series of key/expression pairs

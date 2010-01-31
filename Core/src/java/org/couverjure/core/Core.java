@@ -47,8 +47,6 @@ public class Core {
     public Foundation foundation;
     public IvarHelper ivarHelper;
 
-    public Type superType = Foundation.Super.class;
-    public Type idType = ID.class;
     public long pointerSize = 8;
     public int pointerAlign = 3;
 
@@ -60,17 +58,5 @@ public class Core {
         foundation = (Foundation) Native.loadLibrary("Foundation", Foundation.class, foundationOptions);
         ivarHelper = new IvarHelper();
         ivarHelper.initHelper();
-    }
-
-    public Foundation.Super makeSuper(ID receiver, Pointer clazz) {
-        return new Foundation.Super(receiver, clazz);
-    }
-
-    public LongByReference pointerByReference() {
-        return new LongByReference();
-    }
-
-    public ID id(ID in) {
-        return in;
     }
 }
