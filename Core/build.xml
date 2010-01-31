@@ -13,7 +13,11 @@
         <path location="bin"/>
     </path>
 
-    <target name="compile">
+    <target name="jna">
+        <ant antfile="${jna}/build.xml" inheritall="false" inheritrefs="false" target="jar"/>
+    </target>
+
+    <target name="compile" depends="jna">
         <mkdir dir="bin"/>
         <javac srcdir="src/java" destdir="bin" classpathref="libs" debug="true">
         	<include name="org/couverjure/**/*.java"/>
