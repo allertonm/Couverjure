@@ -25,6 +25,7 @@
 ;    or implied, of Mark Allerton.
 
 (ns couverjure.core
+  (:use couverjure.type-encoding)
   (:import
     (org.couverjure.core Core Foundation Foundation$Super ID MethodImplProxy)
     (com.sun.jna Native CallbackProxy Pointer)))
@@ -328,32 +329,28 @@ This is currently the core mechanism for message dispatch"
           (.object_getClass foundation id-or-super))
         target-method (.class_getInstanceMethod foundation target-class sel)
         _ (if (= target-method 0) (throw (Exception. (format "Method %s not found" name-or-sel))))
-        ; the replaceAll here is a complete hack, but will get us by for now
-        ; see thread at http://lists.apple.com/archives/objc-language/2009/Apr/msg00141.html
-        objc-sig (.replaceAll (.method_getTypeEncoding foundation target-method) "\\d" "")
-        return-sig (first objc-sig)
+        method-encoding (.method_getTypeEncoding foundation target-method)
+        return-sig (:element-type (first (method-argument-encoding method-encoding))) ; parse first arg from encoding
+        ;_ (println "return-sig " return-sig)
         args-array (to-array args)
         raw-result
         (if super?
           (.objc_msgSendSuper foundation id-or-super sel args-array)
           (.objc_msgSend foundation id-or-super sel args-array))]
-    (if (= return-sig \@)
-      (.retainAndReleaseOnFinalize raw-result)
-      (condp = return-sig
-        \# raw-result
-        \v nil
-        \c (.asByte raw-result)
-        \C (.asByte raw-result)
-        \B (.asBoolean raw-result)
-        \s (.asShort raw-result)
-        \S (.asShort raw-result)
-        \i (.asInt raw-result)
-        \I (.asInt raw-result)
-        \l (.asInt raw-result)
-        \L (.asInt raw-result)
-        \q (.asLong raw-result)
-        \Q (.asLong raw-result)))
-    ))
+    (if (= (:kind return-sig) :primitive)
+      (let [return-prim (:primitive-type return-sig)]
+          (condp (fn [set prim] (set prim)) return-prim
+            #{:id} (.retainAndReleaseOnFinalize raw-result)
+            #{:class :sel} raw-result
+            #{:char :uchar} (.asByte raw-result)
+            #{:short :ushort} (.asShort raw-result)
+            #{:int :uint :long :ulong} (.asInt raw-result)
+            #{:longlong :ulonglong} (.asLong raw-result)
+            #{:float} (.asFloat raw-result)
+            #{:double} (.asDouble raw-result)
+            #{:char*} (.asString raw-result)
+            #{:void} nil)))
+        ))
 
 (defn super
   "Obtain a reference to the 'super' object for this instance. Send messages to this

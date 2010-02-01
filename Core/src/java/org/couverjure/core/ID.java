@@ -30,6 +30,7 @@ package org.couverjure.core;
 
 import com.sun.jna.Pointer;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -63,11 +64,12 @@ public class ID extends Pointer {
      * The public constructor, used by the typemapper, can only create IDs with releaseOnFinalize == false
      * This is because not everything passed as ID is in fact a pointer we should call CFRelease on
      * - in particular for objc_msgSend it could be used to pass scalars, C-string pointers and class pointers.
-     *
+     * <p/>
      * It is the responsibility of the code (in couverjure.core) that receives the ID to work out based
      * on context how the ID is being used - and if it is being used as an ObjC object reference either
      * releaseOnFinalize or retainAndReleaseOnFinalize should be called to obtain a reference that will
      * release the native object on finalization.
+     *
      * @param peer the native address
      */
     public ID(long peer) {
@@ -77,6 +79,7 @@ public class ID extends Pointer {
     /**
      * This private ctor is used to create ID instances with releaseOnFinalize set. This is done via
      * the releaseOnFinalize method on an existing (assumed non-releaseOnFinalize) ID object.
+     *
      * @param peer
      * @param releaseOnFinalize
      */
@@ -93,6 +96,7 @@ public class ID extends Pointer {
      * at GC time. We're doing this at the expense of having a synchronization point (on the weak set)
      * on every marshalling of an object reference from native to clojure.
      * Time will tell if I've chosen the right side of this tradeoff :)
+     *
      * @return a release-on-finalize ID
      */
     public ID releaseOnFinalize() {
@@ -119,6 +123,7 @@ public class ID extends Pointer {
 
     /**
      * retainAndReleaseOnFinalize does a releaseOnFinalize and then retains (at most once) the result
+     *
      * @return a retained release-on-finalize ID
      */
     public ID retainAndReleaseOnFinalize() {
@@ -128,6 +133,7 @@ public class ID extends Pointer {
 
     /**
      * Coerce this ID to boolean
+     *
      * @return ID coerced to boolean
      */
     public boolean asBoolean() {
@@ -137,6 +143,7 @@ public class ID extends Pointer {
 
     /**
      * Coerce this ID to byte
+     *
      * @return ID coerced to byte
      */
     public byte asByte() {
@@ -146,6 +153,7 @@ public class ID extends Pointer {
 
     /**
      * Coerce this ID to int
+     *
      * @return ID coerced to int
      */
     public int asInt() {
@@ -155,6 +163,7 @@ public class ID extends Pointer {
 
     /**
      * Coerce this ID to short
+     *
      * @return ID coerced to short
      */
     public short asShort() {
@@ -164,7 +173,8 @@ public class ID extends Pointer {
 
     /**
      * Coerce this ID to long
-     * @return ID coerced to short
+     *
+     * @return ID coerced to long
      */
     public long asLong() {
         checkReleaseOnFinalize("asLong", false);
@@ -172,7 +182,56 @@ public class ID extends Pointer {
     }
 
     /**
+     * Coerce this ID to float
+     *
+     * @return ID coerced to double
+     */
+    public double asFloat() {
+        checkReleaseOnFinalize("asFloat", false);
+        return Float.intBitsToFloat((int) peer);
+    }
+
+    /**
+     * Coerce this ID to double
+     *
+     * @return ID coerced to double
+     */
+    public double asDouble() {
+        checkReleaseOnFinalize("asDouble", false);
+        return Double.longBitsToDouble(peer);
+    }
+
+    /**
+     * Coerce to a string. This differs from Pointer.getString in that it always reads the
+     * string from offset 0 as UTF8 and does not rely on reading a system property to get the encoding.
+     */
+    public String asString() {
+        checkReleaseOnFinalize("asString", false);
+
+        String result;
+        byte[] data;
+        long len;
+
+        try {
+            len = indexOf(0, (byte) 0);
+            if (len == -1) {
+                throw new IllegalArgumentException("Unterminated string");
+            }
+            if (len > Integer.MAX_VALUE) {
+                throw new OutOfMemoryError("String exceeds maximum length: " + len);
+            }
+            data = getByteArray(0, (int) len);
+            result = new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException(e.toString());
+        }
+        
+        return result;
+    }
+
+    /**
      * This is here to allow our TypeMapper to get access to the native address
+     *
      * @return the native address
      */
     long getAddress() {
@@ -181,6 +240,7 @@ public class ID extends Pointer {
 
     /**
      * Internal method to retain a releaseOnFinalize ID
+     *
      * @return
      */
     private synchronized ID retain() {
@@ -195,6 +255,7 @@ public class ID extends Pointer {
 
     /**
      * Handle finalization
+     *
      * @throws Throwable
      */
     public void finalize() throws Throwable {
@@ -207,6 +268,7 @@ public class ID extends Pointer {
 
     /**
      * Outputs a useful-for-debugging string representation
+     *
      * @return string representing this ID
      */
     public String toString() {
@@ -216,6 +278,7 @@ public class ID extends Pointer {
     /**
      * This method is used to check whether operations are valid given the state of releaseOnFinalize
      * - i.e you cannot coerce when releaseOnFinalize is true, and you cannot retain if not.
+     *
      * @param name
      * @param releaseOnFinalize
      */

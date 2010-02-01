@@ -32,8 +32,8 @@
 
 (println (.CFStringCreateWithCString foundation nil "Hello World" 0))
 
-(def test-nsstring (.CFStringCreateWithCString foundation nil "Hello World" 0))
-(def test-nsstring2 (.CFStringCreateWithCString foundation nil "Hello World2" 0))
+(def test-nsstring (.releaseOnFinalize (.CFStringCreateWithCString foundation nil "Hello World" 0)))
+(def test-nsstring2 (.releaseOnFinalize (.CFStringCreateWithCString foundation nil "Hello World2" 0)))
 
 ; this test exercises the low level functions without macros
 (deftest test-create-nsstring-subclass
@@ -122,6 +122,12 @@
     (let [read-property (>> test :testString)]
       (is (>> read-property :isEqual test-nsstring2)))
     ))
+
+(deftest test-string-coercion
+  ; need to sort out an autorelease pool to prevent a leak warning here
+  (let [utf8String (>> test-nsstring :UTF8String)]
+    (is (= utf8String "Hello World"))))
+
 (comment
   )
 
