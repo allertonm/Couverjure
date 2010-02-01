@@ -56,7 +56,6 @@ public class FoundationTypeMapper extends DefaultTypeMapper {
             return new ID((Long) o);
         }
 
-
         public Class nativeType() {
             return Long.TYPE;
         }

@@ -154,6 +154,7 @@
     (>> thread-adapter :performSelectorOnMainThread (selector :onMainThread) :withObject nil :waitUntilDone true)))
 
 (defmethod report :begin-test-var [m] (println "beginning test " (:var m)))
-; (defmethod report :end-test-var [m] (println "ending test " (:var m)))
+(defmethod report :end-test-var [m] (System/gc) (println "ending test " (:var m)))
 
 (run-tests)
+(System/gc)

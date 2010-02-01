@@ -199,7 +199,7 @@ the necessary coercions of the arguments and return value based on the method si
         (apply
           wrapped-fn
           (for [arg args]
-            (if (instance? ID arg) (.retain arg) arg)))]
+            (if (instance? ID arg) (.retainAndReleaseOnFinalize arg) arg)))]
     (if (= :void (first sig)) nil result)))
 
 (defn method-callback-proxy
@@ -292,7 +292,7 @@ The body of the implementation should consist of a set of (method) or (property)
          ~(symbol "init") (fn [self# initial-state#] (init-ivar self# state-ivar-name# initial-state#))]
     (doto class-def#
       ~@body)
-    (method class-def# [:void :dealloc] []) ;(release-ivar ~(symbol "self") state-ivar-name#))
+    (method class-def# [:void :dealloc] [] (release-ivar ~(symbol "self") state-ivar-name#))
     (register-objc-class new-class#)
     new-class#))
 
@@ -309,7 +309,7 @@ The body of the implementation should consist of a set of (method) or (property)
 
 (defn alloc
   "instantiate a class"
-  [class] (.class_createInstance foundation class 0))
+  [class] (.releaseOnFinalize (.class_createInstance foundation class 0)))
 
 ;
 ; Method dispatch
@@ -331,24 +331,28 @@ This is currently the core mechanism for message dispatch"
         ; the replaceAll here is a complete hack, but will get us by for now
         ; see thread at http://lists.apple.com/archives/objc-language/2009/Apr/msg00141.html
         objc-sig (.replaceAll (.method_getTypeEncoding foundation target-method) "\\d" "")
+        return-sig (first objc-sig)
         args-array (to-array args)
         raw-result
         (if super?
           (.objc_msgSendSuper foundation id-or-super sel args-array)
           (.objc_msgSend foundation id-or-super sel args-array))]
-    (condp = (first objc-sig)
-      \@ (.retain raw-result)
-      \# (.retain raw-result)
-      \B (.asBoolean raw-result)
-      \s (.asShort raw-result)
-      \S (.asShort raw-result)
-      \i (.asInt raw-result)
-      \I (.asInt raw-result)
-      \l (.asInt raw-result)
-      \L (.asInt raw-result)
-      \q (.asLong raw-result)
-      \Q (.asLong raw-result)
-      raw-result)
+    (if (= return-sig \@)
+      (.retainAndReleaseOnFinalize raw-result)
+      (condp = return-sig
+        \# raw-result
+        \v nil
+        \c (.asByte raw-result)
+        \C (.asByte raw-result)
+        \B (.asBoolean raw-result)
+        \s (.asShort raw-result)
+        \S (.asShort raw-result)
+        \i (.asInt raw-result)
+        \I (.asInt raw-result)
+        \l (.asInt raw-result)
+        \L (.asInt raw-result)
+        \q (.asLong raw-result)
+        \Q (.asLong raw-result)))
     ))
 
 (defn super
