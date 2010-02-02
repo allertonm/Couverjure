@@ -310,47 +310,74 @@ The body of the implementation should consist of a set of (method) or (property)
 
 (defn alloc
   "instantiate a class"
-  [class] (.releaseOnFinalize (.class_createInstance foundation class 0)))
+  [class] (.class_createInstance foundation class 0))
 
 ;
 ; Method dispatch
 ;
 
+(defn coerce-return-value
+  "Coerces an 'id' return value from objc_msgSend/SendSuper to the appropriate type,
+  or set releaseOnFinalize and retain"
+  [value type needs-retain?]
+  (if (= (:kind type) :primitive)
+    (let [primitive (:primitive-type type)]
+        (condp (fn [set prim] (set prim)) primitive
+          #{:id}
+          (if needs-retain?
+            (.retainAndReleaseOnFinalize value)
+            (.releaseOnFinalize value))
+          #{:class :sel} value
+          #{:char :uchar} (.asByte value)
+          #{:short :ushort} (.asShort value)
+          #{:int :uint :long :ulong} (.asInt value)
+          #{:longlong :ulonglong} (.asLong value)
+          #{:float} (.asFloat value)
+          #{:double} (.asDouble value)
+          #{:char*} (.asString value)
+          #{:void} nil))))
+
+(defn needs-retain?
+  "Given a selector name (for a method whose return type is 'id') determines whether the
+  object should be retained or not."
+  [sel-name]
+  (not (.startsWith sel-name "init"))) ; need to improve this test
+
+(defn send-msg [id sel args]
+  "Low level message send to object - does not coerce return types or handle super"
+  (let [args-array (to-array args)]
+    (.objc_msgSend foundation id sel args-array)))
+
+(defn send-super [super sel args]
+  "Low level message send to super - does not coerce return types"
+  (let [args-array (to-array args)]
+    (.objc_msgSendSuper foundation super sel args-array)))
+
 (defn dynamic-send-msg
   "Sends a message to an object, introspecting at runtime to discover the method signature
-and coercing arguments and return value correctly
-This is currently the core mechanism for message dispatch"
-  [id-or-super name-or-sel & args]
-  (let [super? (instance? Foundation$Super id-or-super)
-        sel (selector name-or-sel)
+  and coercing arguments and return value correctly
+  This is currently the core mechanism for message dispatch"
+  [id-or-super selector-str & args]
+  (let [super?
+        (instance? Foundation$Super id-or-super)
+        sel
+        (selector selector-str)
         target-class
         (if super?
           (.supercls id-or-super)
           (.object_getClass foundation id-or-super))
-        target-method (.class_getInstanceMethod foundation target-class sel)
-        _ (if (= target-method 0) (throw (Exception. (format "Method %s not found" name-or-sel))))
-        method-encoding (.method_getTypeEncoding foundation target-method)
-        return-sig (:element-type (first (method-argument-encoding method-encoding))) ; parse first arg from encoding
-        ;_ (println "return-sig " return-sig)
-        args-array (to-array args)
+        target-method
+        (.class_getInstanceMethod foundation target-class sel)
+        _ (if (= target-method 0) (throw (Exception. (format "Method %s not found" selector-str))))
+        method-encoding
+        (.method_getTypeEncoding foundation target-method)
+        return-sig
+        (:element-type (first (method-argument-encoding method-encoding))) ; parse first arg from encoding
         raw-result
         (if super?
-          (.objc_msgSendSuper foundation id-or-super sel args-array)
-          (.objc_msgSend foundation id-or-super sel args-array))]
-    (if (= (:kind return-sig) :primitive)
-      (let [return-prim (:primitive-type return-sig)]
-          (condp (fn [set prim] (set prim)) return-prim
-            #{:id} (.retainAndReleaseOnFinalize raw-result)
-            #{:class :sel} raw-result
-            #{:char :uchar} (.asByte raw-result)
-            #{:short :ushort} (.asShort raw-result)
-            #{:int :uint :long :ulong} (.asInt raw-result)
-            #{:longlong :ulonglong} (.asLong raw-result)
-            #{:float} (.asFloat raw-result)
-            #{:double} (.asDouble raw-result)
-            #{:char*} (.asString raw-result)
-            #{:void} nil)))
-        ))
+          (send-super id-or-super sel args)
+          (send-msg id-or-super sel args))]
+    (coerce-return-value raw-result return-sig (needs-retain? selector-str))))
 
 (defn super
   "Obtain a reference to the 'super' object for this instance. Send messages to this
@@ -372,6 +399,23 @@ into the method selector."
   [target & msg]
   (let [[selector-str args] (read-objc-msg msg)]
     `(dynamic-send-msg (super ~target) ~selector-str ~@args)))
+
+;
+; Macro assistance for autorelease pools
+;
+
+(def NSAutoreleasePool (objc-class "NSAutoreleasePool"))
+
+(defmacro with-autorelease-pool
+  "Wraps the body in a block that creates and releases an NSAutoreleasePool"
+  [& body]
+  ; NSAutoreleasePool requires special handling because we want the 'release'
+  ; to occur at the end of the block, not at some later point when the GC runs
+  `(let [pool# (send-msg (alloc NSAutoreleasePool) (selector "init") [])
+         result# (do ~@body)]
+    (send-msg pool# (selector "release") [])
+    result#
+    ))
 
 
 

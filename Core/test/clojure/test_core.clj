@@ -39,13 +39,13 @@
 (deftest test-create-nsstring-subclass
   (let [mystring (new-objc-class (str (gensym)) NSString)
         hello-str "Hello World"]
-    (add-method mystring :length [:uint :id :sel] (fn [self sel] (count hello-str)))
-    (add-method mystring :characterAtIndex- [:unichar :id :sel :uint] (fn [self sel index] (nth hello-str index)))
+    (add-method mystring "length" [:uint :id :sel] (fn [self sel] (count hello-str)))
+    (add-method mystring "characterAtIndex:" [:unichar :id :sel :uint] (fn [self sel index] (nth hello-str index)))
     (register-objc-class mystring)
     (let
       [hello (alloc mystring)]
-      (dynamic-send-msg hello :init)
-      (let [cai (dynamic-send-msg hello :characterAtIndex- 0)] (is (= cai 72)))
+      (dynamic-send-msg hello "init")
+      (let [cai (dynamic-send-msg hello "characterAtIndex:" 0)] (is (= cai 72)))
       (is (>> hello :isEqual test-nsstring))
       (.NSLog foundation hello))))
 
@@ -68,8 +68,8 @@
           (method [:uint :length] [] (count hello-str))
           (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
         hello (alloc mystring)]
-    (dynamic-send-msg hello :init)
-    (let [cai (dynamic-send-msg hello :characterAtIndex- 0)] (is (= cai 72)))
+    (dynamic-send-msg hello "init")
+    (let [cai (dynamic-send-msg hello "characterAtIndex:" 0)] (is (= cai 72)))
     (is (>> hello :isEqual test-nsstring))
     (.NSLog foundation hello)))
 
@@ -125,10 +125,12 @@
 
 (deftest test-string-coercion
   ; need to sort out an autorelease pool to prevent a leak warning here
-  (let [utf8String (>> test-nsstring :UTF8String)]
-    (is (= utf8String "Hello World"))))
+  (with-autorelease-pool
+    (let [utf8String (>> test-nsstring :UTF8String)]
+      (is (= utf8String "Hello World")))))
 
 (comment
+
   )
 
 (comment
