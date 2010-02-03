@@ -563,7 +563,7 @@ class CallbackReference extends WeakReference {
             || Pointer.class.isAssignableFrom(cls);
     }
     
-    private static Pointer getNativeString(Object value, boolean wide) {
+    static Pointer getNativeString(Object value, boolean wide) {
         if (value != null) {
             NativeString ns = new NativeString(value.toString(), wide);
             // Delay GC until string itself is GC'd.
