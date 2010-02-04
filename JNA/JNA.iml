@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib">
+      <sourceFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/build-d64" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/build.eclipse" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/contrib" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/nbproject" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/src/com/sun/jna/examples" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/test/com/sun/jna/examples" />
+      <excludeFolder url="file://$MODULE_DIR$/../ThirdParty/jna/jnalib/test/com/sun/jna/win32" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="JUnit" level="project" />
+  </component>
+</module>
+

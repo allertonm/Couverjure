@@ -27,8 +27,8 @@
 (ns couverjure.core
   (:use couverjure.type-encoding)
   (:import
-    (org.couverjure.core Core Foundation Foundation$Super ID MethodImplProxy)
-    (com.sun.jna Native CallbackProxy Pointer)))
+    (org.couverjure.core Core Foundation FoundationTypeMapper Foundation$Super ID MethodImplProxy)
+    (com.sun.jna Native CallbackProxy TypeMappingCallbackProxy Pointer)))
 
 ; load foundation and objc-runtime libraries
 (def core (Core.))
@@ -208,9 +208,10 @@ the necessary coercions of the arguments and return value based on the method si
   [name sig fn]
   (let [param-types (into-array Class (map to-java-type (rest sig)))
         return-type (to-java-type (first sig))]
-    (proxy [MethodImplProxy] [(str name) return-type param-types]
-      (method ([args]
-        (wrap-method fn sig (seq args)))))))
+      (proxy [MethodImplProxy] [(str name) return-type param-types]
+        (typeMappedCallback ([args]
+          (wrap-method fn sig (seq args)))))
+      ))
 
 (defn add-method
   "Add a method to a class with the given name, signature and implementation function"

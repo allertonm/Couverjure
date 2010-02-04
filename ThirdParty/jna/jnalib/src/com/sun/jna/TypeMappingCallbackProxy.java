@@ -13,38 +13,46 @@
 package com.sun.jna;
 
 /**
- * TypeMappingCallbackProxy is an implementation of CallbackProxy that chains to
- * another CallbackProxy instance and wraps invocations of that chained instance
- * with the same argument and return value marshalling as would be applied for
- * implementations of Callback.
+ * TypeMappingCallbackProxy is an implementation of CallbackProxy that handles argument
+ * and return type marshalling in the same way as done for implementations of Callback.
+ * The abstract method typeMappedCallback will be invoked with the mapped arguments.
  *
  * This is intended for use by dynamic languages where JNA's standard marshalling
  * for structures etc makes sense.
  */
 public abstract class TypeMappingCallbackProxy implements CallbackProxy {
-    private CallbackProxy chained;
+    private Class returnType;
+    private Class[] parameterTypes;
     private ToNativeConverter toNative;
     private FromNativeConverter[] fromNative;
 
-    public TypeMappingCallbackProxy(CallbackProxy chained, TypeMapper mapper) {
-        this.chained = chained;
-        Class returnType = chained.getReturnType();
-        Class[] argTypes = chained.getParameterTypes();
+    public TypeMappingCallbackProxy(Class returnType, Class[] parameterTypes, TypeMapper mapper) {
+        this.parameterTypes = parameterTypes;
+        this.returnType = returnType;
 
-        fromNative = new FromNativeConverter[argTypes.length];
+        fromNative = new FromNativeConverter[parameterTypes.length];
         if (NativeMapped.class.isAssignableFrom(returnType)) {
             toNative = NativeMappedConverter.getInstance(returnType);
         } else if (mapper != null) {
             toNative = mapper.getToNativeConverter(returnType);
         }
         for (int i = 0; i < fromNative.length; i++) {
-            if (NativeMapped.class.isAssignableFrom(argTypes[i])) {
-                fromNative[i] = new NativeMappedConverter(argTypes[i]);
+            if (NativeMapped.class.isAssignableFrom(parameterTypes[i])) {
+                fromNative[i] = new NativeMappedConverter(parameterTypes[i]);
             } else if (mapper != null) {
-                fromNative[i] = mapper.getFromNativeConverter(argTypes[i]);
+                fromNative[i] = mapper.getFromNativeConverter(parameterTypes[i]);
             }
         }
     }
+
+    /**
+     * Subclasses should override typeMappedCallback rather than callback - this
+     * method will be invoked with the mapped arguments, and its return value will also
+     * be marshalled using the type mapper.
+     * @param args, mapped using the type mapper
+     * @return return value
+     */
+    public abstract Object typeMappedCallback(Object[] args);
 
     /**
      * Called from native code.  All arguments are in an array of
@@ -56,7 +64,6 @@ public abstract class TypeMappingCallbackProxy implements CallbackProxy {
     public Object callback(Object[] args) {
         try {
             Object[] callbackArgs = new Object[args.length];
-            Class[] parameterTypes = chained.getParameterTypes();
 
             // convert basic supported types to appropriate Java parameter types
             for (int i = 0; i < args.length; i++) {
@@ -74,7 +81,7 @@ public abstract class TypeMappingCallbackProxy implements CallbackProxy {
 
             Object result = null;
 
-            result = convertResult(chained.callback(callbackArgs));
+            result = convertResult(typeMappedCallback(callbackArgs));
 
             // Synch any structure arguments back to native memory
             for (int i = 0; i < callbackArgs.length; i++) {
@@ -90,6 +97,22 @@ public abstract class TypeMappingCallbackProxy implements CallbackProxy {
             handleUncaughtException(t);
             return null;
         }
+    }
+
+    /**
+     * This implementation returns the parameter types supplied to the constructor
+     * @return the classes of the callback parameters
+     */
+    public Class[] getParameterTypes() {
+        return (Class[]) parameterTypes.clone();
+    }
+
+    /**
+     * This implementation returns the return type supplied to the constructor
+     * @return the return type class
+     */
+    public Class getReturnType() {
+        return returnType;
     }
 
     /**
@@ -158,19 +181,17 @@ public abstract class TypeMappingCallbackProxy implements CallbackProxy {
         return value;
     }
 
-    public Class[] getParameterTypes() {
-        return chained.getParameterTypes();
-    }
-
-    public Class getReturnType() {
-        return chained.getReturnType();
-    }
-
-    private void handleUncaughtException(Throwable e) {
+    /**
+     * Subclasses that hold an actual Callback reference may override this method
+     * to call Native.getCallbackExceptionHandler().uncaughtException directly with
+     * the callback.
+     * @param e
+     */
+    protected void handleUncaughtException(Throwable e) {
         // This is to pacify the existing exception handlers - which expect a Callback 
         Callback cb = new Callback() {
             public String toString() {
-                return chained.toString();
+                return TypeMappingCallbackProxy.this.toString();
             }
         };
         Native.getCallbackExceptionHandler().uncaughtException(cb, e);
