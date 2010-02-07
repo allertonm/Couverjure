@@ -25,10 +25,15 @@
 ;    or implied, of Mark Allerton.
 
 (ns couverjure.test
-  (:use couverjure.core clojure.test))
+  (:use couverjure.core clojure.test)
+  (:import
+    (com.sun.jna Memory)
+    (org.couverjure.core Foundation$NSRange$ByValue)))
 
 (def NSString (objc-class :NSString))
 (def NSObject (objc-class :NSObject))
+(def NSRange Foundation$NSRange$ByValue)
+
 
 (println (.CFStringCreateWithCString foundation nil "Hello World" 0))
 
@@ -129,8 +134,33 @@
     (let [utf8String (>> test-nsstring :UTF8String)]
       (is (= utf8String "Hello World")))))
 
-(comment
+; this test will test two things
+; 1) use of a structure argument (the NSRange arg to getCharacters:inRange:) both
+; as a sender and as a receiver
+; 2) (more minor) use of a memory buffer to receive the result
+(deftest test-using-nsrange
+  (let [hello-str "Hello World"
+        mystring
+        (implementation (str (gensym)) NSString
+          (method [:uint :length] [] (count hello-str))
+          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index))
+          (method [:void :getCharacters :unknown :range Foundation$NSRange$ByValue] [ptr range]
+            (println "getCharacters: " ptr " range: " range)
+            (>>super self :getCharacters ptr :range range)))
+        hello (alloc mystring)]
+    (>> hello :init)
+    (let [buffer (Memory. (count hello-str))]
+      (>> hello :getCharacters buffer :range (Foundation$NSRange$ByValue. 0 (count hello-str)))
+      (is (= 72 (.getShort buffer 0))))
+    ))
 
+(deftest nsstring-getcharacters-inrange
+  (let [size (count "Hello World")
+        buffer (Memory. size)]
+    (>> test-nsstring :getCharacters buffer :range (Foundation$NSRange$ByValue. 0 size))
+    (is (= 72 (.getShort buffer 0)))))
+
+(comment 
   )
 
 (comment

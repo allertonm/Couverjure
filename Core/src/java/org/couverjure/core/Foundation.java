@@ -33,19 +33,13 @@ import com.sun.jna.ptr.LongByReference;
 import org.couverjure.core.*;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mark
- * Date: Jan 24, 2010
- * Time: 12:18:17 AM
- * To change this template use File | Settings | File Templates.
+ * The Foundation class defines the interfaces on Foundation.framework that JNA will proxy to native
  */
 public interface Foundation extends Library {
     void NSLog(ID msg);
     void CFRelease(ID ref);
     void CFRetain(ID ref);
     ID CFStringCreateWithCString(Pointer allocator, String string, int encoding);
-
-    // ObjC runtime methods
 
     Pointer objc_getClass(String name);
     Pointer objc_allocateClassPair(Pointer supercls, String name, int extraBytes);
@@ -80,6 +74,43 @@ public interface Foundation extends Library {
         public Super(ID receiver, Pointer supercls) {
             this.receiver = receiver;
             this.supercls = supercls;
+        }
+    }
+
+    public static class NSRange extends Structure {
+        public static final String ENCODING = "^{NSRange=QQ}";
+
+        public NSRange(long location, long length) {
+            this.location = location;
+            this.length = length;
+        }
+
+        public NSRange() {
+        }
+
+        public long location;
+        public long length;
+
+        public static class ByValue extends NSRange implements Structure.ByValue {
+            public static final String ENCODING = "{NSRange=QQ}";
+
+            public ByValue() {
+            }
+
+            public ByValue(long location, long length) {
+                super(location, length);
+            }
+        }
+
+        public static class ByReference extends NSRange implements Structure.ByReference {
+            public static final String ENCODING = "^^{NSRange}";
+
+            public ByReference() {
+            }
+
+            public ByReference(long location, long length) {
+                super(location, length);
+            }
         }
     }
 }
