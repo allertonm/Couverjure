@@ -45,7 +45,6 @@
   [first last]
   (set (map char (range (int first) (inc (int last))))))
 
-(def not-matched [nil nil])
 (defn in-set
   "Returns a parser that matches a character from the given set"
   ([char-set transform]

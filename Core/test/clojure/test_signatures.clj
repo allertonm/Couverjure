@@ -78,7 +78,7 @@
 
 (defn test-all-method-sigs [class]
   (let [out-count (LongByReference.)
-        method-list-ptr (.class_copyMethodList objc-runtime class out-count)
+        method-list-ptr (.class_copyMethodList foundation class out-count)
         method-count (.getValue out-count)
         method-list (seq (.getPointerArray method-list-ptr 0 method-count))]
     (println "out-count " method-count " " (count method-list))
@@ -87,7 +87,7 @@
             (filter (fn [[encoding, result]] (not (empty? (second result))))
               (for [method method-list]
 
-                (let [encoding (.method_getTypeEncoding objc-runtime method)]
+                (let [encoding (.method_getTypeEncoding foundation method)]
                   (try
                     [encoding, (method-signature-encoding encoding)]
                     (catch Throwable e [encoding, [nil, (.toString e)]]))
