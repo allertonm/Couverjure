@@ -50,14 +50,16 @@ The best description of the current code status is "demonstration" or "proof of 
 * Current implementation of "super" will break if you derive from a class implemented in Clojure
 * Does not support any kind of property apart from "id" types
 * Using copy methods will leak objects
-* Does not support any argument or return type that cannot be represented by a single character type encoding (this means structure types such as NSRange and also byref or inout types are not yet supported) (Updated 06-02-2010: structure arguments are now supported, but the current mechanism for introducing new structures and their ObjC encoding is pretty clunky, and the next phase of work will look at how to improve this.)
+* Does not support any argument or return type that cannot be represented by a single character type encoding (this means structure types such as NSRange and also byref or inout types are not yet supported) 
+_Updated 06-02-2010: structure arguments are now supported, but the current mechanism for introducing new structures and their ObjC encoding is pretty clunky, and the next phase of work will look at how to improve this._
 * Does not support GC-only frameworks
 
 Also, readers of the code should be prepared to be horrified by my lack of idiomatic Clojure and also the fact that the code is all over the map (basically my first priority has been to make it work rather than make it pretty.)
 
 ## Areas for future work ##
 
-* Improve interpretation of method signatures to deal with structs and ref/out types - and look at whether keywords or java.lang.reflect.Types are better for defining signatures on the Clojure side of the fence. (Updated 06-02-2010: the code now includes a full parser for Objective-C type encodings, but currently this is only employed to interpret return types - but this will support some later phases of the work.)
+* Improve interpretation of method signatures to deal with structs and ref/out types - and look at whether keywords or java.lang.reflect.Types are better for defining signatures on the Clojure side of the fence. 
+_Updated 06-02-2010: the code now includes a full parser for Objective-C type encodings, but currently this is only employed to interpret return types - but this will support some later phases of the work._
 * Read BridgeSupport XML files to automatically generate JNA-based interfaces to non-Objective-C framework interfaces. This will probably involve generating Java source code in the first version, but I'd like to get to a completely dynamic solution, perhaps using clj-native.
 * Investigate using either struct-maps or datatypes to represent IDs, classes, self and super references on the Clojure side. 
 I'd like "self" to have some special behaviour associated with it - for example, direct access to object state, but also to be usable like an id - similar to the way (super self) can be used like an id now. This calls for some polymorphism which is currently missing.
@@ -80,7 +82,11 @@ I'm putting this up using the [Simplified BSD license](http://en.wikipedia.org/w
 
 # A note on JNA usage
 
-This repo contains a modified version of [JNA](https://jna.dev.java.net/) - and Couverjure now requires this modified version in order to function. The changes support using JNA's callback argument marshalling when using the CallbackProxy interface rather than deriving from Callback, through a new class TypeMappingCallbackProxy. This functionality cannot currently be implemented using the 'official' JNA's public API because it requires access to functionality that is either protected or package private. The intention is ultimately to contribute these changes back to JNA, but as things stand the quality is merely 'good enough' for Couverjure's current usage, but missing some features that would make it ready for prime-time (in particular, no context is supplied to TypeMapper implementations).
+This repo contains a modified version of [JNA](https://jna.dev.java.net/) - and Couverjure now requires this modified version in order to function. 
 
-The JNA changes are (like JNA) released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/copyleft/lesser.html)
+For those interested in the technical details: the changes support using JNA's callback argument marshalling when using the CallbackProxy interface rather than deriving from Callback, through a new class TypeMappingCallbackProxy. This functionality cannot currently be implemented using the 'official' JNA's public API because it requires access to functionality that is either protected or package private. 
+
+The intention is ultimately to contribute these changes back to JNA, but as things stand the quality is merely 'good enough' for Couverjure's current usage, but missing some features that would make it ready for prime-time (in particular, no context is supplied to TypeMapper implementations).
+
+The JNA changes are (like JNA itself) released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/copyleft/lesser.html)
 
