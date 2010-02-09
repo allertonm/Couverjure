@@ -75,6 +75,11 @@
   (let [parser (option number)]
     (number "H")))
 
+(deftest test-fieldname-breakage
+  "{_NSRange=QQ}24@0:8Q16"
+    (let [result (method-signature-encoding "{_NSRange=QQ}24@0:8Q16")]
+    (is (= 4 (count (first result))))
+    (is (empty? (second result)))))
 
 (defn test-all-method-sigs [class]
   (let [out-count (LongByReference.)
@@ -94,9 +99,11 @@
                   )))]
         (println encoding "\n" (second failure))))))
 
+(comment
 (deftest test-method-sigs
   (test-all-method-sigs NSString)
   (test-all-method-sigs NSObject))
+  )
 
 
 (defmethod report :begin-test-var [m] (println "beginning test " (:var m)))

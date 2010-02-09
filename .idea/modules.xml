@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Examples/BasicCocoa/BasicCocoa.iml" filepath="$PROJECT_DIR$/Examples/BasicCocoa/BasicCocoa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BridgeSupport/BridgeSupport.iml" filepath="$PROJECT_DIR$/BridgeSupport/BridgeSupport.iml" />
       <module fileurl="file://$PROJECT_DIR$/Core/Core.iml" filepath="$PROJECT_DIR$/Core/Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/CoreNative/CoreNative.iml" filepath="$PROJECT_DIR$/CoreNative/CoreNative.iml" />
     </modules>

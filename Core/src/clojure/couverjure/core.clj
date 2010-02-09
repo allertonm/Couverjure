@@ -327,7 +327,7 @@ The body of the implementation should consist of a set of (method) or (property)
   or set releaseOnFinalize and retain"
   [value type needs-retain?]
   (if (= (:kind type) :primitive)
-    (let [primitive (:primitive-type type)]
+    (let [primitive (:type type)]
         (condp (fn [set prim] (set prim)) primitive
           #{:id}
           (if needs-retain?
@@ -378,7 +378,7 @@ The body of the implementation should consist of a set of (method) or (property)
         method-encoding
         (.method_getTypeEncoding foundation target-method)
         return-sig
-        (:element-type (first (method-argument-encoding method-encoding))) ; parse first arg from encoding
+        (:type (first (method-argument-encoding method-encoding))) ; parse first arg from encoding
         raw-result
         (if super?
           (send-super id-or-super sel args)

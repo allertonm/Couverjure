@@ -1,0 +1,68 @@
+<project name="BridgeSupport" basedir="." default="gen_all_bridge_metadata">
+    <property name="generated" value="generated"/>
+    <property name="bin" value="bin"/>
+
+
+    <target name="gen_bridge_metadata">
+        <exec executable="gen_bridge_metadata">
+            <arg value="--64-bit"/>
+            <arg value="-f"/>
+            <arg value="${framework.name}"/>
+            <arg value="-F"/>
+            <arg value="final"/>
+            <arg value="-o"/>
+            <arg value="${generated}/bridgesupport/${framework.name}.bridgesupport"/>
+        </exec>
+    </target>
+
+    <target name="gen_bridge_metadata_dylib">
+        <exec executable="gen_bridge_metadata">
+            <arg value="-f"/>
+            <arg value="${framework.name}"/>
+            <arg value="-F"/>
+            <arg value="dylib"/>
+            <arg value="-o"/>
+            <arg value="${bin}/${framework.name}_BridgeSupport.dylib"/>
+        </exec>
+    </target>
+
+    <target name="gen_bridge_xml_and_dylib">
+        <antcall target="gen_bridge_metadata"/>
+        <antcall target="gen_bridge_metadata_dylib"/>
+    </target>
+
+    <target name="gen_all_bridge_metadata">
+        <antcall target="gen_bridge_xml_and_dylib">
+            <param name="framework.name" value="Foundation"/>
+        </antcall>
+        <antcall target="gen_bridge_xml_and_dylib">
+            <param name="framework.name" value="AppKit"/>
+        </antcall>
+    </target>
+
+    <target name="get_bridgesupport">
+        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}.bridgesupport" todir="${generated}/bridgesupport"/>
+    </target>
+
+    <target name="get_all_bridgesupport">
+        <antcall target="get_bridgesupport">
+            <param name="framework.name" value="Foundation"/>
+        </antcall>
+        <antcall target="get_bridgesupport">
+            <param name="framework.name" value="AppKit"/>
+        </antcall>
+    </target>
+
+    <target name="setupdirs">
+        <mkdir dir="${bin}"/>
+        <mkdir dir="${generated}"/>
+        <mkdir dir="${generated}/java"/>
+        <mkdir dir="${generated}/clojure"/>
+        <mkdir dir="${generated}/bridgesupport"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${bin}"/>
+        <delete dir="${generated}"/>
+    </target>
+</project>
