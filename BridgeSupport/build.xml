@@ -2,6 +2,22 @@
     <property name="generated" value="generated"/>
     <property name="bin" value="bin"/>
 
+    <property name="jna" value="../ThirdParty/jna/jnalib"/>
+    <property name="core" value="../Core"/>
+    <property name="clojure" value="../ThirdParty/clojure-1.1.0-rc2"/>
+    <property environment="env"/>
+
+    <path id="libs-for-generated">
+        <path location="${jna}/build-d64/jna.jar"/>
+        <path location="${core}/couverjure.jar"/>
+    </path>
+
+    <path id="libs-for-bstool">
+        <path location="${clojure}/clojure.jar"/>
+        <path location="${core}/couverjure.jar"/>
+        <path location="${jna}/build-d64/jna.jar"/>
+        <path location="src/clojure"/>
+    </path>
 
     <target name="gen_bridge_metadata">
         <exec executable="gen_bridge_metadata">
@@ -51,6 +67,30 @@
         <antcall target="get_bridgesupport">
             <param name="framework.name" value="AppKit"/>
         </antcall>
+    </target>
+
+    <target name="bstool">
+        <java classname="clojure.main" classpathref="libs-for-bstool" fork="true">
+            <arg value="@/couverjure/tools/bstool.clj"/>
+            <arg value="${bstool.bsfile}"/>
+            <arg value="${bstool.outdir}"/>
+            <arg value="${bstool.namespace}"/>
+        </java>
+    </target>
+
+    <target name="bstool-all" depends="clean,get_all_bridgesupport">
+        <antcall  target="bstool">
+            <param name="bstool.bsfile" value="${generated}/bridgesupport/Foundation.bridgesupport"/>
+            <param name="bstool.outdir" value="${generated}/java"/>
+            <param name="bstool.namespace" value="org.couverjure.cocoa"/>
+        </antcall>
+    </target>
+
+    <target name="compile-generated" depends="bstool-all">
+        <mkdir dir="${bin}"/>
+        <javac srcdir="${generated}/java" destdir="${bin}" classpathref="libs-for-generated" debug="true">
+        	<include name="**/*.java"/>
+        </javac>
     </target>
 
     <target name="setupdirs">
