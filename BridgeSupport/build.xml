@@ -81,7 +81,7 @@
     <target name="bstool-all" depends="clean,get_all_bridgesupport">
         <antcall  target="bstool">
             <param name="bstool.bsfile" value="${generated}/bridgesupport/Foundation.bridgesupport"/>
-            <param name="bstool.outdir" value="${generated}/java"/>
+            <param name="bstool.outdir" value="${generated}"/>
             <param name="bstool.namespace" value="org.couverjure.cocoa"/>
         </antcall>
     </target>
