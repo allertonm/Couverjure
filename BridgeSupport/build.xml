@@ -74,7 +74,8 @@
             <arg value="@/couverjure/tools/bstool.clj"/>
             <arg value="${bstool.bsfile}"/>
             <arg value="${bstool.outdir}"/>
-            <arg value="${bstool.namespace}"/>
+            <arg value="${bstool.java_namespace}"/>
+            <arg value="${bstool.clj_namespace}"/>
         </java>
     </target>
 
@@ -82,7 +83,8 @@
         <antcall  target="bstool">
             <param name="bstool.bsfile" value="${generated}/bridgesupport/Foundation.bridgesupport"/>
             <param name="bstool.outdir" value="${generated}"/>
-            <param name="bstool.namespace" value="org.couverjure.cocoa"/>
+            <param name="bstool.java_namespace" value="org.couverjure.cocoa"/>
+            <param name="bstool.clj_namespace" value="couverjure.cocoa"/>
         </antcall>
     </target>
 

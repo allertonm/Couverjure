@@ -1,3 +1,29 @@
+;    Copyright 2010 Mark Allerton. All rights reserved.
+;
+;    Redistribution and use in source and binary forms, with or without modification, are
+;    permitted provided that the following conditions are met:
+;
+;       1. Redistributions of source code must retain the above copyright notice, this list of
+;          conditions and the following disclaimer.
+;
+;       2. Redistributions in binary form must reproduce the above copyright notice, this list
+;          of conditions and the following disclaimer in the documentation and/or other materials
+;          provided with the distribution.
+;
+;    THIS SOFTWARE IS PROVIDED BY MARK ALLERTON ``AS IS'' AND ANY EXPRESS OR IMPLIED
+;    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+;    FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> OR
+;    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+;    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+;    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+;    ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+;    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+;    ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;
+;    The views and conclusions contained in the software and documentation are those of the
+;    authors and should not be interpreted as representing official policies, either expressed
+;    or implied, of Mark Allerton.
+
 (ns couverjure.tools.bsgen
   (:use clojure.xml couverjure.type-encoding)
   (:import (java.io File FileWriter PrintWriter)))
@@ -11,31 +37,101 @@
 ; generate a reference to a type (i.e XX)
 (defmulti gen-java-ref :kind)
 
-(defmethod gen-java :structure [s]
-  (java.text.MessageFormat/format
-    (str
-      "public class {0} '{'\n"
-      "    public static class ByRef extends {0} implements Structure.ByReference '{'};\n"
-      "    public static class ByVal extends {0} implements Structure.ByValue '{'};\n"
-      "{1}'}'")
-    (to-array [(:name s) (apply str (map gen-java (:fields s)))])))
+(def jtab "    ")
+(def ctab "  ")
 
-(defmethod gen-java :field [f]
+(defn java-struct-ctor [s]
+  (str
+    jtab "public " (:name s) "("
+    (apply str
+      (interpose
+        ", "
+        (for [f (:fields s)]
+          (str (gen-java-ref (:type f)) " " (:name f)))))
+    ") {\n"
+    (apply str
+      (for [f (:fields s)]
+        (str jtab jtab "this." (:name f) " = " (:name f) ";\n")))
+    jtab "}\n"))
+
+(defn java-struct-copy-ctor [s]
+  (str
+    jtab "public " (:name s) "(" (:name s) " from) {\n"
+    (apply str
+      (for [f (:fields s)]
+        (str jtab jtab "this." (:name f) " = from." (:name f) ";\n")))
+    jtab "}\n"))
+
+(defn java-derived-struct-ctor [s name]
+  (str
+    jtab jtab "public " name "("
+    (apply str
+      (interpose
+        ", "
+        (for [f (:fields s)]
+          (format "%s %s" (gen-java-ref (:type f)) (:name f)))))
+    ") {\n"
+    jtab jtab jtab "super("
+    (apply str
+      (interpose
+        ", "
+        (for [f (:fields s)] (:name f))))
+    ");\n"
+    jtab jtab "}\n"))
+
+(defn java-derived-struct-copy-ctor [s name]
+  (str
+    jtab jtab "public " name "(" (:name s) " from) {\n"
+    jtab jtab jtab "super(from);\n"
+    jtab jtab "}\n"))
+
+(defn java-member-var [f]
   (let [type (:type f)]
     ; need special handling for array fields as size suffix needs to go last
-    (if (= :array (:kind type))
-      (format "    public %s %s[];\n"
-        (gen-java-ref (:type type))
-        (:name f))
-      (format "    public %s %s;\n"
-        (gen-java-ref type)
-        (:name f)))))
+    ;(if (= :array (:kind type))
+    ;  (format "    public %s %s[];\n"
+    ;    (gen-java-ref (:type type))
+    ;    (:name f))
+    (str
+      jtab "public "
+      (gen-java-ref type)
+      " "
+      (:name f)
+      ";\n")))
+
+(defn java-arg [f]
+  (format "%s %s"
+    (gen-java-ref (:type f))
+    (:name f)))
+
+(defmethod gen-java :structure [s]
+  (let [name (:name s)]
+    (str
+      "public class " name " {\n"
+
+      (apply str (map java-member-var (:fields s))) "\n"
+
+      jtab "public " name "() { super(); }\n\n"
+      (java-struct-ctor s) "\n"
+      (java-struct-copy-ctor s) "\n"
+
+      jtab "public static class ByRef extends " name " implements Structure.ByReference {\n"
+      (java-derived-struct-ctor s "ByRef")
+      (java-derived-struct-copy-ctor s "ByRef")
+      jtab "};\n\n"
+
+      jtab "public static class ByVal extends " name " implements Structure.ByValue {\n"
+      (java-derived-struct-ctor s "ByVal")
+      (java-derived-struct-copy-ctor s "ByVal")
+      jtab "};\n"
+
+      "}")))
 
 (defmethod gen-java-ref :structure [s]
   (:name s))
 
 (defmethod gen-java-ref :array [a]
-  (format "%s[%d]"
+  (format "%s[]"
     (gen-java-ref (:type a)) (:size a)))
 
 (defmethod gen-java-ref :bitfield [b]
@@ -120,19 +216,65 @@
               out (PrintWriter. raw-out)]
     (block out)))
 
+(defn gen-clojure-typedef [cname jname]
+  )
 (defn gen-clojure-framework [name dir clj-namespace java-namespace structs]
   (with-clojure-file name dir clj-namespace
-    (fn [out] (doto out
-      (.print (str
+    (fn [out]
+      (.print out (str
         ";\n"
         "; Generated by bstool\n"
         ";\n"))
-      (.print
-        (format "(ns %s.%s\n  (:import\n    (%s\n      %s)))\n"
-          clj-namespace
-          name
-          java-namespace
-          (apply str (interpose "\n      " (map #(:name (:objc-type %)) structs)))
+      (.print out
+        (str
+          "(ns " clj-namespace "." name "\n"
+          ctab "(:import\n"
+          ctab ctab "(" java-namespace "\n"
+          ctab ctab ctab
+          (apply str
+            (interpose
+              (str "\n" ctab ctab ctab)
+              (apply concat (for [s structs]
+                (let [sname (:name (:objc-type s))]
+                  [sname (str sname "$ByRef") (str sname "$ByVal")])))
+              ))
+          ")))\n\n"))
+      (doall (for [struct structs]
+        (let [cname (:name (:attrs struct))
+              jname (:name (:objc-type struct))
+              members (apply str (interpose " " (for [f (:fields (:objc-type struct))] (:name f))))]
+          ; generate a def for the class
+          (.print out (str
+            "; ______________________________________________________ " cname "\n"
+            "\n"
+            ))
+          ; define symbols for use in method type signatures
+          (.print out (str
+            "(def " cname " " jname "$ByVal)\n\n"))
+          (.print out (str
+            "(def " cname "Ref " jname "$ByRef)\n\n"))
+          ; define constructors for value type
+          (.print out (str
+            "(defn " (.toLowerCase cname) "\n"
+            ctab "[" members "]\n"
+            ctab "(" jname "$ByVal. " members ")"
+            (if (< 1 (count members))
+              (str "\n" ctab "[from]\n"
+                ctab "(" jname "$ByVal. from)")
+              "")
+            ")\n\n"))
+          ; define constructors for reference type
+          (.print out (str
+            "(defn " (.toLowerCase cname) "-ref\n"
+            ctab "[" members "]\n"
+            ctab "(" jname "$ByRef. " members ")"
+            (if (< 1 (count members))
+              (str "\n" ctab "[from]\n"
+                ctab "(" jname "$ByRef. from)")
+              "")
+            ")\n\n"))
+          (.print out (str
+            "(defn " (.toLowerCase cname) "? [x]\n" ctab "(instance? " jname " x))\n\n"))
           ))))))
 
 ;
@@ -145,7 +287,7 @@
 
 (defn generate-framework-classes
   "Generates JNA-based java source files from the .bridgesupport XML file, using the supplied output directory and namespace"
-  [bsfilename output-dir java-namespace clj-namespace]
+  [name bsfilename output-dir java-namespace clj-namespace]
   (let [file (File. bsfilename)
         xml (xml-seq (parse file))
         structs
@@ -155,8 +297,8 @@
     (doall (for [struct structs]
       (gen-java-file output-dir java-namespace struct)
       ))
-    (gen-clojure-framework "foundation" output-dir clj-namespace java-namespace structs)))
+    (gen-clojure-framework name output-dir clj-namespace java-namespace structs)))
 
-(if (= 4 (count *command-line-args*))
+(if (= 5 (count *command-line-args*))
   (apply generate-framework-classes *command-line-args*)
-  (println "Usage: bsgen <bridgesupport file> <output-dir> <java-namespace> <clj-namespace>"))
+  (println "Usage: bsgen <name> <bridgesupport file> <output-dir> <java-namespace> <clj-namespace>"))
