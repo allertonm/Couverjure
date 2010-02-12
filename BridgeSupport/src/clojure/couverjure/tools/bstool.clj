@@ -107,7 +107,7 @@
 (defmethod gen-java :structure [s]
   (let [name (:name s)]
     (str
-      "public class " name " {\n"
+      "public class " name " extends Structure {\n"
 
       (apply str (map java-member-var (:fields s))) "\n"
 
@@ -256,21 +256,21 @@
           ; define constructors for value type
           (.print out (str
             "(defn " (.toLowerCase cname) "\n"
-            ctab "[" members "]\n"
-            ctab "(" jname "$ByVal. " members ")"
+            ctab "([" members "]\n"
+            ctab "(" jname "$ByVal. " members "))"
             (if (< 1 (count members))
-              (str "\n" ctab "[from]\n"
-                ctab "(" jname "$ByVal. from)")
+              (str "\n" ctab "([from]\n"
+                ctab "(" jname "$ByVal. from))")
               "")
             ")\n\n"))
           ; define constructors for reference type
           (.print out (str
             "(defn " (.toLowerCase cname) "-ref\n"
-            ctab "[" members "]\n"
-            ctab "(" jname "$ByRef. " members ")"
+            ctab "([" members "]\n"
+            ctab "(" jname "$ByRef. " members "))"
             (if (< 1 (count members))
-              (str "\n" ctab "[from]\n"
-                ctab "(" jname "$ByRef. from)")
+              (str "\n" ctab "([from]\n"
+                ctab "(" jname "$ByRef. from))")
               "")
             ")\n\n"))
           (.print out (str

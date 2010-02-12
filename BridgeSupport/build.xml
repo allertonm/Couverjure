@@ -57,6 +57,7 @@
     </target>
 
     <target name="get_bridgesupport">
+        <mkdir dir="${generated}/bridgesupport"/>
         <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}.bridgesupport" todir="${generated}/bridgesupport"/>
     </target>
 
@@ -69,38 +70,58 @@
         </antcall>
     </target>
 
+    <property name="bstool.outdir" value="${generated}"/>
+    <property name="bstool.java_namespace" value="org.couverjure.cocoa"/>
+    <property name="bstool.clj_namespace" value="couverjure.cocoa"/>
+
     <target name="bstool">
+        <mkdir dir="${bstool.outdir}/${bstool.name}"/>
         <java classname="clojure.main" classpathref="libs-for-bstool" fork="true">
             <arg value="@/couverjure/tools/bstool.clj"/>
+            <arg value="${bstool.name}"/>
             <arg value="${bstool.bsfile}"/>
-            <arg value="${bstool.outdir}"/>
+            <arg value="${bstool.outdir}/${bstool.name}"/>
             <arg value="${bstool.java_namespace}"/>
             <arg value="${bstool.clj_namespace}"/>
         </java>
     </target>
 
-    <target name="bstool-all" depends="clean,get_all_bridgesupport">
+    <target name="bstool-all" depends="clean,setupdirs,get_all_bridgesupport">
         <antcall  target="bstool">
+            <param name="bstool.name" value="foundation"/>
             <param name="bstool.bsfile" value="${generated}/bridgesupport/Foundation.bridgesupport"/>
-            <param name="bstool.outdir" value="${generated}"/>
-            <param name="bstool.java_namespace" value="org.couverjure.cocoa"/>
-            <param name="bstool.clj_namespace" value="couverjure.cocoa"/>
         </antcall>
     </target>
 
-    <target name="compile-generated" depends="bstool-all">
-        <mkdir dir="${bin}"/>
-        <javac srcdir="${generated}/java" destdir="${bin}" classpathref="libs-for-generated" debug="true">
+    <target name="compile-generated">
+        <mkdir dir="${bin}/${generated.framework}"/>
+        <javac srcdir="${generated}/${generated.framework}/java" destdir="${bin}/${generated.framework}" classpathref="libs-for-generated" debug="true">
         	<include name="**/*.java"/>
         </javac>
+    </target>
+
+    <target name="package-framework">
+        <jar jarfile="${bin}/${generated.framework}.jar" >
+             <fileset dir="${bin}/${generated.framework}" />
+             <fileset dir="${generated}/${generated.framework}/clojure"/>
+         </jar>
+    </target>
+
+    <target name="compile-all-generated" depends="bstool-all">
+        <antcall target="compile-generated">
+            <param name="generated.framework" value="foundation"/>
+        </antcall>
+    </target>
+
+    <target name="package-all-generated" depends="compile-all-generated">
+        <antcall  target="package-framework">
+            <param name="generated.framework" value="foundation"/>
+        </antcall>
     </target>
 
     <target name="setupdirs">
         <mkdir dir="${bin}"/>
         <mkdir dir="${generated}"/>
-        <mkdir dir="${generated}/java"/>
-        <mkdir dir="${generated}/clojure"/>
-        <mkdir dir="${generated}/bridgesupport"/>
     </target>
     
     <target name="clean">
