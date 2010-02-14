@@ -105,7 +105,7 @@
 (defn to-java-type
   "Converts a signature keyword to a java type"
   [kw-or-type]
-  (or (simple-objc-encodings (encoding-keyword-mapping kw-or-type)) kw-or-type))
+  (or (simple-objc-encodings (encoding-keyword-mapping kw-or-type)) (:java-type kw-or-type)))
 
 (defn to-objc-sig
   "Converts a type signature from keyword form to an objc runtime signature string"
@@ -113,7 +113,7 @@
   (apply str (map
     (fn [part]
       (when-not (keyword? part) (println "to-objc-sig: " part))
-      (or (encoding-keyword-mapping part) (.. part (getDeclaredField "ENCODING") (get nil))))
+      (or (encoding-keyword-mapping part) (:encoding part)))
     ;(or (encoding-keyword-mapping part) (.ENCODING part)))
     sig)))
 

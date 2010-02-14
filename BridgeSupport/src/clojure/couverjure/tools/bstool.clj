@@ -29,6 +29,14 @@
   (:import (java.io File FileWriter PrintWriter)))
 
 ;
+; Working with bridgesupport XML elements
+;
+
+(defn struct-sig [struct]
+  (or (:type64 (:attrs struct)) (:type (:attrs struct))))
+
+
+;
 ; Java source code generation
 ;
 
@@ -116,6 +124,7 @@
       (java-struct-copy-ctor s) "\n"
 
       jtab "public static class ByRef extends " name " implements Structure.ByReference {\n"
+      jtab jtab "public ByRef() { super(); }\n"
       (java-derived-struct-ctor s "ByRef")
       (java-derived-struct-copy-ctor s "ByRef")
       jtab "};\n\n"
@@ -216,8 +225,6 @@
               out (PrintWriter. raw-out)]
     (block out)))
 
-(defn gen-clojure-typedef [cname jname]
-  )
 (defn gen-clojure-framework [name dir clj-namespace java-namespace structs]
   (with-clojure-file name dir clj-namespace
     (fn [out]
@@ -228,6 +235,7 @@
       (.print out
         (str
           "(ns " clj-namespace "." name "\n"
+          ctab "(:use couverjure.types)\n" ; requires the defoctype macro
           ctab "(:import\n"
           ctab ctab "(" java-namespace "\n"
           ctab ctab ctab
@@ -242,7 +250,8 @@
       (doall (for [struct structs]
         (let [cname (:name (:attrs struct))
               jname (:name (:objc-type struct))
-              members (apply str (interpose " " (for [f (:fields (:objc-type struct))] (:name f))))]
+              members (apply str (interpose " " (for [f (:fields (:objc-type struct))] (:name f))))
+              escape (fn [s] (.replace s "\"" "\\\""))]
           ; generate a def for the class
           (.print out (str
             "; ______________________________________________________ " cname "\n"
@@ -250,40 +259,39 @@
             ))
           ; define symbols for use in method type signatures
           (.print out (str
-            "(def " cname " " jname "$ByVal)\n\n"))
+            "(defoctype " cname "\n"
+            ctab "\"" (escape (encode (:objc-type struct))) "\"\n"
+            ctab jname ")\n\n"))
           (.print out (str
-            "(def " cname "Ref " jname "$ByRef)\n\n"))
+            "(defoctype " cname "*\n" 
+            ctab "\"^" (escape (encode (:objc-type struct))) "\"\n"
+            ctab jname ")\n\n"))
+            ;"(def " cname "* (assoc :java-type " jname "$ByVal (type-encoding \"^" (escape (struct-sig struct)) "\")))\n\n"))
           ; define constructors for value type
           (.print out (str
             "(defn " (.toLowerCase cname) "\n"
             ctab "([" members "]\n"
-            ctab "(" jname "$ByVal. " members "))"
+            ctab ctab "(" jname "$ByVal. " members "))"
             (if (< 1 (count members))
               (str "\n" ctab "([from]\n"
-                ctab "(" jname "$ByVal. from))")
+                ctab ctab "(" jname "$ByVal. from))")
               "")
             ")\n\n"))
           ; define constructors for reference type
           (.print out (str
-            "(defn " (.toLowerCase cname) "-ref\n"
+            "(defn " (.toLowerCase cname) "*\n"
+            ctab "([]\n"
+            ctab ctab "(" jname "$ByRef.))\n"
             ctab "([" members "]\n"
-            ctab "(" jname "$ByRef. " members "))"
+            ctab ctab "(" jname "$ByRef. " members "))"
             (if (< 1 (count members))
               (str "\n" ctab "([from]\n"
-                ctab "(" jname "$ByRef. from))")
+                ctab ctab "(" jname "$ByRef. from))")
               "")
             ")\n\n"))
           (.print out (str
             "(defn " (.toLowerCase cname) "? [x]\n" ctab "(instance? " jname " x))\n\n"))
           ))))))
-
-;
-; Working with bridgesupport XML elements
-;
-
-(defn struct-sig [struct]
-  (or (:type64 (:attrs struct)) (:type (:attrs struct))))
-
 
 (defn generate-framework-classes
   "Generates JNA-based java source files from the .bridgesupport XML file, using the supplied output directory and namespace"

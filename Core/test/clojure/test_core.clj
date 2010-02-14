@@ -25,7 +25,7 @@
 ;    or implied, of Mark Allerton.
 
 (ns couverjure.test
-  (:use couverjure.core couverjure.cocoa.foundation clojure.test)
+  (:use couverjure.types couverjure.core couverjure.cocoa.foundation clojure.test)
   (:import
     (com.sun.jna Memory)))
 
@@ -147,16 +147,19 @@
             (>>super self :getCharacters ptr :range range)))
         hello (alloc mystring)]
     (>> hello :init)
-    (let [buffer (Memory. (count hello-str))]
-      (>> hello :getCharacters buffer :range (nsrange 0 (count hello-str)))
+    (let [buffer (Memory. (* 2 (count hello-str)))
+          range (nsrange 0 (count hello-str))]
+      (println "range: " range)
+      (>> hello :getCharacters buffer :range range)
       (is (= 72 (.getShort buffer 0))))
     ))
 
 (deftest nsstring-getcharacters-inrange
   (let [size (count "Hello World")
-        buffer (Memory. size)]
+        buffer (Memory. (* 2 size))]
     (>> test-nsstring :getCharacters buffer :range (nsrange 0 size))
-    (is (= 72 (.getShort buffer 0)))))
+    (is (= 72 (.getShort buffer 0)))
+    (is (= 100 (.getShort buffer (* 2 (dec size)))))))
 
 (comment 
   )
