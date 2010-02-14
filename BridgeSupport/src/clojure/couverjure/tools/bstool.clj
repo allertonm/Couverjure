@@ -130,6 +130,7 @@
       jtab "};\n\n"
 
       jtab "public static class ByVal extends " name " implements Structure.ByValue {\n"
+      jtab jtab "public ByVal() { super(); }\n"
       (java-derived-struct-ctor s "ByVal")
       (java-derived-struct-copy-ctor s "ByVal")
       jtab "};\n"
@@ -261,11 +262,11 @@
           (.print out (str
             "(defoctype " cname "\n"
             ctab "\"" (escape (encode (:objc-type struct))) "\"\n"
-            ctab jname ")\n\n"))
+            ctab jname "$ByVal)\n\n"))
           (.print out (str
             "(defoctype " cname "*\n" 
             ctab "\"^" (escape (encode (:objc-type struct))) "\"\n"
-            ctab jname ")\n\n"))
+            ctab jname "$ByRef)\n\n"))
             ;"(def " cname "* (assoc :java-type " jname "$ByVal (type-encoding \"^" (escape (struct-sig struct)) "\")))\n\n"))
           ; define constructors for value type
           (.print out (str

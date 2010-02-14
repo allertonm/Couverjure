@@ -213,6 +213,7 @@ the necessary coercions of the arguments and return value based on the method si
   [name sig fn]
   (let [param-types (into-array Class (map to-java-type (rest sig)))
         return-type (to-java-type (first sig))]
+    (println "method-callback-proxy: " name " sig " sig " args " (map to-java-type (rest sig)))
       (proxy [MethodImplProxy] [(str name) return-type param-types]
         (typeMappedCallback ([args]
           (wrap-method fn sig (seq args)))))
@@ -222,8 +223,10 @@ the necessary coercions of the arguments and return value based on the method si
   "Add a method to a class with the given name, signature and implementation function"
   [class name sig fn]
   ;(println "add-method " class " name " name " sig " sig)
-  (let [sel (selector name)]
-    (.class_addMethod foundation class sel (method-callback-proxy name sig fn) (to-objc-sig sig))))
+  (let [sel (selector name)
+        objc-sig (to-objc-sig sig)]
+    (println "add-method: " name " sig " objc-sig)
+    (.class_addMethod foundation class sel (method-callback-proxy name sig fn) objc-sig)))
 
 ; the following two functions are used to support the "method" macro and the ">>" family of macros
 
