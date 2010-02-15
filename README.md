@@ -51,7 +51,11 @@ The best description of the current code status is "demonstration" or "proof of 
 * Does not support any kind of property apart from "id" types
 * Using copy methods will leak objects
 * Does not support any argument or return type that cannot be represented by a single character type encoding (this means structure types such as NSRange and also byref or inout types are not yet supported) 
+
 _Updated 06-02-2010: structure arguments are now supported, but the current mechanism for introducing new structures and their ObjC encoding is pretty clunky, and the next phase of work will look at how to improve this._
+
+_Updated 15-02-2010: the mechanisms introduced in this version for structures (and objective-c types in general) probably wrap up how we deal with structure arguments. Structure return values still need to be worked on though._
+
 * Does not support GC-only frameworks
 
 Also, readers of the code should be prepared to be horrified by my lack of idiomatic Clojure and also the fact that the code is all over the map (basically my first priority has been to make it work rather than make it pretty.)
@@ -59,11 +63,20 @@ Also, readers of the code should be prepared to be horrified by my lack of idiom
 ## Areas for future work ##
 
 * Improve interpretation of method signatures to deal with structs and ref/out types - and look at whether keywords or java.lang.reflect.Types are better for defining signatures on the Clojure side of the fence. 
+
 _Updated 06-02-2010: the code now includes a full parser for Objective-C type encodings, but currently this is only employed to interpret return types - but this will support some later phases of the work._
+
+_Updated 15-02-2010: Rather than java types or keywords, I've settled on a third thing - 'octypes'. An octype is a pair of a java type with an objective-c type encoding, and the old keyword based mechanism has been removed in favour of this._
+
 * Read BridgeSupport XML files to automatically generate JNA-based interfaces to non-Objective-C framework interfaces. This will probably involve generating Java source code in the first version, but I'd like to get to a completely dynamic solution, perhaps using clj-native.
+
+_Updated 15-02-2010: Couverjure now includes a tool to read bridgesupport files and generate (for now) java/JNA classes and clojure code for the structures defined in those files. This support will be extended to define enum values, constants, interfaces to native functions and code to improve performance on method invocations. Working through building this leads me to believe that a fully dynamic, runtime only solution for structures etc would not be particularly usable in practice, so I doubt that idea will go much further._
+
 * Investigate using either struct-maps or datatypes to represent IDs, classes, self and super references on the Clojure side. 
 I'd like "self" to have some special behaviour associated with it - for example, direct access to object state, but also to be usable like an id - similar to the way (super self) can be used like an id now. This calls for some polymorphism which is currently missing.
 * Build a mechanism to introspect on existing Objective-C classes and generate code to speed up message dispatch. Currently this is done completely dynamically and involves reflecting on the object and its class in order to do the right massaging of arguments and return types so we can handle things like refcounting "under the hood".
+
+_Update 15-02-2010: this idea is likely to be dropped in favour of generating the code from bridgesupport files_
 
 ## Stuff punted for now
 
