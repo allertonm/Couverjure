@@ -70,6 +70,29 @@
 (defoctype OCSel ":" Pointer)
 (defoctype OCUnknown "?" Pointer)
 
+; The set of 'primitive' octypes - i.e the types that have single character encodings
+; Making this information available for parsing purposes (see type-encoding.clj)
+(def primitive-octypes
+  [OCChar
+   OCInt
+   OCShort
+   OCLong
+   OCLongLong
+   OCUChar
+   OCUInt
+   OCUShort
+   OCULong
+   OCULongLong
+   OCFloat
+   OCDouble
+   OCBool
+   OCVoid
+   OCCString
+   OCID
+   OCClass
+   OCSel
+   OCUnknown])
+
 ; define pointer/byref types
 
 (defoctype OCChar* "^c" ByteByReference)
@@ -91,8 +114,32 @@
 (defoctype OCSel* "^:" PointerByReference)
 (defoctype OCUnknown* "^?" PointerByReference)
 
+; define mapping from primitive to pointer-to-primitive, can be useful for code-gen
+(def to-pointer-octype {
+  OCChar OCChar*
+  OCInt OCInt*
+  OCShort OCShort*
+  OCLong OCLong*
+  OCLongLong OCLongLong*
+  OCUChar OCUChar*
+  OCUInt OCUInt*
+  OCUShort OCUShort*
+  OCULong OCULongLong*
+  OCFloat OCFloat*
+  OCDouble OCDouble*
+  OCBool OCBool*
+  ;OCVoid OCVoid*
+  OCCString OCCString*
+  OCClass OCClass*
+  OCSel OCSel*
+  OCUnknown OCUnknown*
+  })
+
 ; some other useful typedefs
 
+; NSInteger/NSUInteger is architecture sensitive.
+; It's not enough to just use JNA's NativeLong for this, because the type-encoding changes
+; between 32 & 64-bit too ( i/I on 32-bit, q/Q on 64)
 ; (if arch-64-bit (do
 (def NSInteger OCLongLong)
 (def NSInteger* OCLongLong*)

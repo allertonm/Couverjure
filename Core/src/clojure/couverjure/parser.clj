@@ -130,3 +130,11 @@
         (or (p in) [:nothing in]))))
   ([term]
     (option term identity)))
+
+; helper for dealing with option results
+
+(defn option?
+  "Returns true if the value is not equal to the :nothing keyword produced by an unmatched 'option'
+  - so can be used in transform and post-transform code to check whether an option matched"
+  [x]
+  (not (= :nothing x)))

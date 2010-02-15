@@ -25,7 +25,7 @@
 ;    or implied, of Mark Allerton.
 
 (ns couverjure.core
-  (:use couverjure.type-encoding)
+  (:use couverjure.types couverjure.type-encoding)
   (:import
     (org.couverjure.core Core Foundation FoundationTypeMapper Foundation$Super ID MethodImplProxy)
     (com.sun.jna Native CallbackProxy TypeMappingCallbackProxy Pointer)))
@@ -45,77 +45,6 @@
 (def native-helper (.ivarHelper core))
 
 (println "Loading Couverjure Core")
-
-;
-; handling Objective-C method type signatures/encodings
-;
-
-; this map defines the Java/JNA types that correspond to single-char Objective-C type encodings
-(def simple-objc-encodings
-  {\c Byte/TYPE,
-   \i Integer/TYPE,
-   \s Short/TYPE,
-   \l Integer/TYPE,
-   \q Long/TYPE,
-   \C Byte/TYPE,
-   \I Integer/TYPE,
-   \S Short/TYPE,
-   \L Integer/TYPE,
-   \Q Long/TYPE,
-   \f Float/TYPE,
-   \d Double/TYPE,
-   \B Boolean/TYPE,
-   \v Void/TYPE,
-   \* String,
-   \@ ID
-   \# Pointer
-   \: Pointer
-   \? Pointer
-   })
-
-; map keywords to signature characters
-(def encoding-keyword-mapping
-  {
-    ; these are (for now) just the 64-bit encodings
-    :bool \B
-    :char \c
-    :uchar \C
-    :short \s
-    :ushort \S
-    :unichar \S
-    :int \i
-    :uint \I
-    :long \q
-    :ulong \Q
-    :longlong \q
-    :ulonglong \Q
-    :nsinteger \q
-    :nsuinteger \Q
-    :float \f
-    :double \d
-    :longdouble \d
-    :void \v
-    :char-* \*
-    :id \@
-    :class \#
-    :sel \:
-    :unknown \?
-    })
-
-(defn to-java-type
-  "Converts a signature keyword to a java type"
-  [kw-or-type]
-  (or (simple-objc-encodings (encoding-keyword-mapping kw-or-type)) (:java-type kw-or-type)))
-
-(defn to-objc-sig
-  "Converts a type signature from keyword form to an objc runtime signature string"
-  [sig]
-  (apply str (map
-    (fn [part]
-      (when-not (keyword? part) (println "to-objc-sig: " part))
-      (or (encoding-keyword-mapping part) (:encoding part)))
-    ;(or (encoding-keyword-mapping part) (.ENCODING part)))
-    sig)))
 
 ;
 ; Dealing with conversions of Objective-C identifiers
@@ -211,9 +140,9 @@ the necessary coercions of the arguments and return value based on the method si
 (defn method-callback-proxy
   "Builds an instance of JNA's CallbackProxy for the given method signature and implementation function"
   [name sig fn]
-  (let [param-types (into-array Class (map to-java-type (rest sig)))
-        return-type (to-java-type (first sig))]
-    (println "method-callback-proxy: " name " sig " sig " args " (map to-java-type (rest sig)))
+  (let [param-types (into-array Class (map :java-type (rest sig)))
+        return-type (:java-type (first sig))]
+    ;(println "method-callback-proxy: " name " sig " sig " args " (map to-java-type (rest sig)))
       (proxy [MethodImplProxy] [(str name) return-type param-types]
         (typeMappedCallback ([args]
           (wrap-method fn sig (seq args)))))
@@ -224,8 +153,8 @@ the necessary coercions of the arguments and return value based on the method si
   [class name sig fn]
   ;(println "add-method " class " name " name " sig " sig)
   (let [sel (selector name)
-        objc-sig (to-objc-sig sig)]
-    (println "add-method: " name " sig " objc-sig)
+        objc-sig (apply str (map :encoding sig))]
+    ;(println "add-method: " name " sig " objc-sig)
     (.class_addMethod foundation class sel (method-callback-proxy name sig fn) objc-sig)))
 
 ; the following two functions are used to support the "method" macro and the ">>" family of macros
@@ -250,7 +179,7 @@ used by the ... macro to build actual obj-c alls and can also be used with type 
 return-type keyword [arg-type [keyword arg-type]*]?"
   [return-type keys-and-arg-types]
   (let [[msg arg-types] (read-objc-msg keys-and-arg-types)]
-    [msg (apply vector (concat [return-type :id :sel] arg-types))]))
+    [msg (apply vector (concat [return-type OCID OCSel] arg-types))]))
 
 (defmacro method
   "Builds an invocation of add-method, reading the method signature 'objC style' as a set of key/type pairs.
@@ -273,15 +202,15 @@ This macro is intended to be used in the scope of an implementation block, if no
 the class-def structure (see the implentation macro def)"
   [class-def name ref-or-atom]
   (let [properties (fn [self] (get-ivar self (:state-ivar-name class-def)))]
-    (add-method (:class class-def) (to-name name) [:id :id :sel]
+    (add-method (:class class-def) (to-name name) [OCID OCID OCSel]
       (fn [self sel] (deref (name (properties self)))))
     (condp = ref-or-atom
       :atom
-      (add-method (:class class-def) (to-write-accessor-name name) [:void :id :sel :id]
+      (add-method (:class class-def) (to-write-accessor-name name) [OCVoid OCID OCSel OCID]
         (fn [self sel id]
           (reset! (name (properties self)) id)))
       :ref
-      (add-method (:class class-def) (to-write-accessor-name name) [:void :id :sel :id]
+      (add-method (:class class-def) (to-write-accessor-name name) [OCVoid OCID OCSel OCID]
         (fn [self sel id]
           (dosync (ref-set (name (properties self)) id)))))
     ))
@@ -302,7 +231,7 @@ The body of the implementation should consist of a set of (method) or (property)
          ~(symbol "init") (fn [self# initial-state#] (init-ivar self# state-ivar-name# initial-state#))]
     (doto class-def#
       ~@body)
-    (method class-def# [:void :dealloc] [] (release-ivar ~(symbol "self") state-ivar-name#))
+    (method class-def# [OCVoid :dealloc] [] (release-ivar ~(symbol "self") state-ivar-name#))
     (register-objc-class new-class#)
     new-class#))
 
@@ -332,19 +261,19 @@ The body of the implementation should consist of a set of (method) or (property)
   (if (= (:kind type) :primitive)
     (let [primitive (:type type)]
         (condp (fn [set prim] (set prim)) primitive
-          #{:id}
+          #{OCID}
           (if needs-retain?
             (.retainAndReleaseOnFinalize value)
             (.releaseOnFinalize value))
-          #{:class :sel} value
-          #{:char :uchar} (.asByte value)
-          #{:short :ushort} (.asShort value)
-          #{:int :uint :long :ulong} (.asInt value)
-          #{:longlong :ulonglong} (.asLong value)
-          #{:float} (.asFloat value)
-          #{:double} (.asDouble value)
-          #{:char*} (.asString value)
-          #{:void} nil))))
+          #{OCClass OCSel} value
+          #{OCChar OCUChar} (.asByte value)
+          #{OCShort OCUShort} (.asShort value)
+          #{OCInt OCUInt OCLong OCULong} (.asInt value)
+          #{OCLongLong OCULongLong} (.asLong value)
+          #{OCFloat} (.asFloat value)
+          #{OCDouble} (.asDouble value)
+          #{OCCString} (.asString value)
+          #{OCVoid} nil))))
 
 (defn needs-retain?
   "Given a selector name (for a method whose return type is 'id') determines whether the

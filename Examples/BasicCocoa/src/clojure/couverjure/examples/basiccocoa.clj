@@ -1,5 +1,5 @@
 (ns couverjure.examples.basiccocoa
-  (:use couverjure.core couverjure.appkit couverjure.webkit))
+  (:use couverjure.types couverjure.core couverjure.appkit couverjure.webkit))
 
 (def NSObject (objc-class :NSObject))
 
@@ -11,15 +11,15 @@
   (property :window :atom)
   (property :webView :atom)
   ; implement init to set up our state (must currently do this if we define properties.)
-  (method [:id :init] []
+  (method [OCID :init] []
     (let [_self (>>super self :init)]
       (init _self {:window (atom nil) :webView (atom nil)})
       _self))
   ; SimpleAppDelegate is wired as the application delegate in the NIB, so this will be invoked after load
-  (method [:void :applicationDidFinishLaunching :id] [notification]
+  (method [OCVoid :applicationDidFinishLaunching OCID] [notification]
     (println "App Did Finish Launching"))
   ; backForward: is an action wired to the segmented control we're using for back and forward buttons
-  (method [:void :backForward :id] [segmented-control]
+  (method [OCVoid :backForward OCID] [segmented-control]
     ; the explicit deref of properties is pretty ugly here - it's much less code to invoke
     ; the accessor (but currently much slower!)
     (let [web-view (deref ((properties self) :webView))]
@@ -27,7 +27,7 @@
         0 (>> web-view :goBack)
         1 (>> web-view :goForward))))
   ; handle new values in the address box
-  (method [:void :address :id] [text-field]
+  (method [OCVoid :address OCID] [text-field]
     (>> (deref ((properties self) :webView)) :takeStringURLFrom text-field)))
 
 ; This is a hack to get around the fact that either JavaApplicationStub or clojure (most likely the former)
@@ -36,7 +36,7 @@
 ; We acheive this by creating an instance of an anonymous (objc) class and invoking it using performSelectorOnMainThread
 (let [ThreadAdapter
       (implementation (str (gensym)) (objc-class :NSObject)
-        (method [:void :onMainThread] []
+        (method [OCVoid :onMainThread] []
           (ns-application-main)))
       thread-adapter (alloc ThreadAdapter)]
   (>> thread-adapter :init)

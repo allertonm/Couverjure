@@ -27,6 +27,7 @@
 (ns couverjure.type-encoding
   (:use
     couverjure.parser
+    couverjure.types
     clojure.set)
   (:import
     (com.sun.jna Pointer)
@@ -36,28 +37,15 @@
 ; Define the data structure used for the syntax tree we are going to build from the Objective-C encoding strings
 ;
 
-; keyword mappings for single char (primitive) types
-(def primitive-encodings {
-  \c :char
-  \i :int
-  \s :short
-  \l :long
-  \q :longlong
-  \C :uchar
-  \I :uint
-  \S :ushort
-  \L :ulong
-  \Q :ulonglong
-  \f :float
-  \d :double
-  \B :bool
-  \v :void
-  \* :char*
-  \@ :id
-  \# :class
-  \: :sel
-  \? :unknown
-  })
+; the list of single character encodings
+(def primitive-encoding-chars
+  ; everything in primitive-octypes is guaranteed to have a single-char encoding string,
+  ; so we just take 'first' to get into character form
+  (for [t primitive-octypes] (first (:encoding t))))
+
+; generate map of single character encodings to octypes from the list of 'primitive' octypes
+(def primitive-encodings
+  (zipmap primitive-encoding-chars primitive-octypes))
 
 ; keyword mappings for argument qualifier encodings
 (def qualifier-encodings {
@@ -70,43 +58,12 @@
   \V :oneway
   })
 
-;
-; this map defines the Java/JNA types for the primitive types
-(def primitive-java-types {
-  :char Byte/TYPE,
-  :int Integer/TYPE,
-  :short Short/TYPE,
-  :long Integer/TYPE,
-  :longlong Long/TYPE,
-  :uchar Byte/TYPE,
-  :uint Integer/TYPE,
-  :ushort Short/TYPE,
-  :ulong Integer/TYPE,
-  :ulonglong Long/TYPE,
-  :float Float/TYPE,
-  :double Double/TYPE,
-  :bool Boolean/TYPE,
-  :void Void/TYPE,
-  :char* String,
-  :id ID
-  :class Pointer
-  :selector Pointer
-  :unknown Pointer
-  })
 
-
-; produce reversed maps from primitives and qualifiers maps
-
-(def encode-primitives
-  (let [keys (keys primitive-encodings)]
-    (zipmap (map primitive-encodings keys) keys)))
+; produce reversed map from the qualifiers map
 
 (def encode-qualifiers
   (let [keys (keys qualifier-encodings)]
     (zipmap (map qualifier-encodings keys) keys)))
-
-; defines a structure for argument/qualifier pairs
-(defstruct method-argument :qualifier :type)
 
 ; defines the structure for the main type tree
 ; - for what I hope is simplicity's sake I have one struct map that contains all of the possible
@@ -118,10 +75,10 @@
 ; constructors for each node type
 ;
 
-(defn primitive-type [key]
+(defn primitive-type [octype]
   (struct-map objc-type
     :kind :primitive
-    :type key))
+    :type octype))
 (defn array-type [size type]
   (struct-map objc-type
     :kind :array
@@ -150,10 +107,13 @@
   (struct-map objc-type
     :kind :bitfield
     :size size))
-(defn arg-type [qualifier type]
+(defn arg-type [qualifier type offset]
   (struct-map objc-type
     :kind :arg
-    :type type))
+    :qualifier qualifier
+    :type type
+    ; we don't (yet) use offset for anything, but it allows us to easily check that we reencode correctly
+    :size offset))
 
 ;
 ; This is the parser grammar for Objective-C method type encodings
@@ -163,7 +123,7 @@
 (def alpha (in-set (union (char-set \a \z) (char-set \A \Z))))
 (def digit (in-set (char-set \0 \9)))
 
-(def primitive (in-set #{\c \i \s \l \q \C \I \S \L \Q \f \d \B \v \* \@ \# \: \?} #(primitive-type (primitive-encodings %))))
+(def primitive (in-set (set primitive-encoding-chars) #(primitive-type (primitive-encodings %))))
 (def qualifier (in-set #{\r \n \N \o \O \R \V} #(qualifier-encodings %)))
 
 (def identifier
@@ -217,8 +177,8 @@
 
 (def method-argument-encoding
   (pattern [(option qualifier) type-encoding (option offset)]
-    (fn [[qualifier type _]]
-      (arg-type qualifier type))))
+    (fn [[qualifier type offset]]
+      (arg-type qualifier type offset))))
 
 (def method-signature-encoding (series method-argument-encoding))
 
@@ -229,20 +189,20 @@
 (defmulti encode :kind)
 
 (defmethod encode :primitive [p]
-  (str (encode-primitives (:type p))))
+  (:encoding (:type p)))
 
 (defmethod encode :array [a]
   (str \[ (:size a) (encode (:type a)) \]))
 
 (defmethod encode :field [f]
-  (str (when-not (= :nothing (:name f)) (str \" (:name f) \") "") (encode (:type f))))
+  (str (if (option? (:name f)) (str \" (:name f) \") "") (encode (:type f))))
 
 (defn- encode-type-name [tn]
   (let [name (:name tn)]
     (if (= :no-name name) "?" name)))
 
 (defmethod encode :structure [s]
-  (str \{ (encode-type-name s) \= (apply str (map encode (:fields s))) \}))
+  (str \{ (encode-type-name s) \= (if (option? (:fields s)) (apply str (map encode (:fields s)))) \}))
 
 (defmethod encode :union [s]
   (str \( (encode-type-name s) \= (apply str (map encode (:fields s))) \)))
@@ -254,7 +214,10 @@
   (str \b (:size b)))
 
 (defmethod encode :arg [a]
-  (str (encode-qualifiers (:qualifier a)) (encode (:type a))))
+  (str
+    (if (option? (:qualifier a)) (encode-qualifiers (:qualifier a)))
+    (encode (:type a))
+    (if (option? (:size a)) (:size a))))
 
 
 

@@ -42,8 +42,8 @@
 (deftest test-create-nsstring-subclass
   (let [mystring (new-objc-class (str (gensym)) NSString)
         hello-str "Hello World"]
-    (add-method mystring "length" [:uint :id :sel] (fn [self sel] (count hello-str)))
-    (add-method mystring "characterAtIndex:" [:unichar :id :sel :uint] (fn [self sel index] (nth hello-str index)))
+    (add-method mystring "length" [OCUInt OCID OCSel] (fn [self sel] (count hello-str)))
+    (add-method mystring "characterAtIndex:" [OCUnichar OCID OCSel OCUInt] (fn [self sel index] (nth hello-str index)))
     (register-objc-class mystring)
     (let
       [hello (alloc mystring)]
@@ -56,8 +56,8 @@
   (let [hello-str "Hello World"
         mystring
         (implementation (str (gensym)) NSString
-          (method [:uint :length] [] (count hello-str))
-          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
+          (method [OCUInt :length] [] (count hello-str))
+          (method [OCUnichar :characterAtIndex OCUInt] [index] (nth hello-str index)))
         hello (alloc mystring)]
     (>> hello :init)
     (let [cai (>> hello :characterAtIndex 0)] (is (= cai 72)))
@@ -68,8 +68,8 @@
   (let [hello-str "Hello World"
         mystring
         (implementation (str (gensym)) NSString
-          (method [:uint :length] [] (count hello-str))
-          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
+          (method [OCUInt :length] [] (count hello-str))
+          (method [OCUnichar :characterAtIndex OCUInt] [index] (nth hello-str index)))
         hello (alloc mystring)]
     (dynamic-send-msg hello "init")
     (let [cai (dynamic-send-msg hello "characterAtIndex:" 0)] (is (= cai 72)))
@@ -80,13 +80,13 @@
   (let [hello-str "Hello World"
         mystring
         (implementation (str (gensym)) NSString
-          (method [:id :init] []
+          (method [OCID :init] []
             (println "in init: " self)
             (let [_self (>>super self :init)]
               (println "self: " _self)
               _self))
-          (method [:uint :length] [] (count hello-str))
-          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index)))
+          (method [OCUInt :length] [] (count hello-str))
+          (method [OCUnichar :characterAtIndex OCUInt] [index] (nth hello-str index)))
         hello (alloc mystring)]
     (>> hello :init)
     (let [cai (>> hello :characterAtIndex 0)] (is (= cai 72)))
@@ -96,13 +96,13 @@
 (deftest test-state
   (let [mystring
         (implementation (str (gensym)) NSString
-          (method [:id :init] []
+          (method [OCID :init] []
             (let [_self (>>super self :init)]
               (init _self {:value "Hello World"})
               (println "self: " _self)
               _self))
-          (method [:uint :length] [] (count (:value (properties self))))
-          (method [:unichar :characterAtIndex :uint] [index] (nth (:value (properties self)) index)))
+          (method [OCUInt :length] [] (count (:value (properties self))))
+          (method [OCUnichar :characterAtIndex OCUInt] [index] (nth (:value (properties self)) index)))
         hello (alloc mystring)]
     (>> hello :init)
     (let [cai (>> hello :characterAtIndex 0)] (is (= cai 72)))
@@ -113,7 +113,7 @@
   (let [test-class
         (implementation (str (gensym)) NSObject
           (property :testString :atom)
-          (method [:id :init] []
+          (method [OCID :init] []
             (let [_self (>>super self :init)]
               (init _self {:testString (atom test-nsstring)})
               _self)))
@@ -127,10 +127,12 @@
     ))
 
 (deftest test-string-coercion
-  ; need to sort out an autorelease pool to prevent a leak warning here
   (with-autorelease-pool
     (let [utf8String (>> test-nsstring :UTF8String)]
       (is (= utf8String "Hello World")))))
+
+; the NSRange tests probably need to move out of test-core, since they also require
+; couverjure.cocoa.foundation to be generated from BridgeSupport
 
 ; this test will test two things
 ; 1) use of a structure argument (the NSRange arg to getCharacters:inRange:) both
@@ -140,9 +142,9 @@
   (let [hello-str "Hello World"
         mystring
         (implementation (str (gensym)) NSString
-          (method [:uint :length] [] (count hello-str))
-          (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index))
-          (method [:void :getCharacters :unknown :range NSRange] [ptr range]
+          (method [OCUInt :length] [] (count hello-str))
+          (method [OCUnichar :characterAtIndex OCUInt] [index] (nth hello-str index))
+          (method [OCVoid :getCharacters OCUnknown :range NSRange] [ptr range]
             (println "getCharacters: " ptr " range: " range)
             (>>super self :getCharacters ptr :range range)))
         hello (alloc mystring)]
@@ -156,37 +158,16 @@
 
 (deftest nsstring-getcharacters-inrange
   (let [size (count "Hello World")
+        ; This example shows us that we need to do better than just use JNA's Memory class! Ugh.
         buffer (Memory. (* 2 size))]
     (>> test-nsstring :getCharacters buffer :range (nsrange 0 size))
     (is (= 72 (.getShort buffer 0)))
     (is (= 100 (.getShort buffer (* 2 (dec size)))))))
 
-(comment 
-  )
-
-(comment
-  ; this helped me have a look at how the macros were expanding
-  (deftest test-macroexpand-implementation
-    (let [hello-str "hello"
-          m1 (macroexpand-1 '(implementation (str (gensym)) NSString
-        (method [:id :init] []
-          (let [_self (>>super self :init)]
-            (println "self: " _self)
-            _self))
-        (method [:uint :length] [] (count hello-str))
-        (method [:unichar :characterAtIndex :uint] [index] (nth hello-str index))))
-          m2 (macroexpand m1)
-          m3 (macroexpand m2)]
-      (println m1)
-      (println m2)
-      (println m3)))
-  )
-
-
 (deftest test-thread-adapter
   (let [ThreadAdapter
         (implementation (str (gensym)) NSObject
-          (method [:void :onMainThread] []
+          (method [OCVoid :onMainThread] []
             (println "Hello World")))
         thread-adapter (alloc ThreadAdapter)]
     (>> thread-adapter :init)

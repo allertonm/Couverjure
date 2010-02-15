@@ -25,7 +25,7 @@
 ;    or implied, of Mark Allerton.
 
 (ns couverjure.tools.bsgen
-  (:use clojure.xml couverjure.type-encoding)
+  (:use clojure.xml couverjure.types couverjure.type-encoding)
   (:import (java.io File FileWriter PrintWriter)))
 
 ;
@@ -151,26 +151,11 @@
   ; have to peek inside the type to do this right
   (let [type (:type p)]
     (if (and (= :primitive (:kind type)))
-      (condp = (:type type)
-        :void "Pointer"
-        :unknown "Pointer"
-        :char "ByteByReference"
-        :uchar "ByteByReference"
-        :short "ShortByReference"
-        :ushort "ShortByReference"
-        :int "IntByReference"
-        :uint "IntByReference"
-        :long "IntByReference"
-        :ulong "IntByReference"
-        :longlong "LongByReference"
-        :ulonglong "LongByReference"
-        :float "FloatByReference"
-        :double "DoubleByReference"
-        "Pointer")
+      (.getName (or (:java-type (to-pointer-octype (:type type))) com.sun.jna.Pointer))
       (str (gen-java-ref type) ".ByRef"))))
 
 (defmethod gen-java-ref :primitive [p]
-  (.getName (primitive-java-types (:type p))))
+  (.getName (:java-type (:type p))))
 
 ;
 ; output file creation

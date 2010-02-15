@@ -81,6 +81,12 @@
     (is (= 4 (count (first result))))
     (is (empty? (second result)))))
 
+(deftest test-reencoding-breakage
+  (let [encoding "@40@0:8{_NSRange=QQ}16^{_NSZone=}32"
+        decoded (first (method-signature-encoding encoding))
+        reencoded (apply str (map encode decoded))]
+    (is (= encoding reencoded))))
+
 (defn test-all-method-sigs [class]
   (let [out-count (LongByReference.)
         method-list-ptr (.class_copyMethodList foundation class out-count)
@@ -94,16 +100,19 @@
 
                 (let [encoding (.method_getTypeEncoding foundation method)]
                   (try
-                    [encoding, (method-signature-encoding encoding)]
+                    (let [decoded (method-signature-encoding encoding)
+                          reencoded (if (empty? (second decoded)) (apply str (map encode (first decoded))))]
+                      (is (= encoding reencoded))
+                      [encoding, decoded, reencoded])
                     (catch Throwable e [encoding, [nil, (.toString e)]]))
                   )))]
         (println encoding "\n" (second failure))))))
 
-(comment
+;(comment
 (deftest test-method-sigs
   (test-all-method-sigs NSString)
   (test-all-method-sigs NSObject))
-  )
+;  )
 
 
 (defmethod report :begin-test-var [m] (println "beginning test " (:var m)))
