@@ -57,7 +57,7 @@
   "Returns a parser that matches the given character"
   ([char transform]
     (fn [in]
-      (if (= char (first in)) [char (rest in)] nil)))
+      (if (= char (first in)) [(transform char) (rest in)] nil)))
   ([char]
     (single-char char identity)))
 

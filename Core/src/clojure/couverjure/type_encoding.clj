@@ -134,7 +134,7 @@
 (def type-name
   (choice [
     identifier
-    (single-char \? #(:no-name))
+    (single-char \? (fn [x] :no-name))
     ]))
 
 (def field-name

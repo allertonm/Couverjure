@@ -58,7 +58,7 @@
 
     <target name="get_bridgesupport">
         <mkdir dir="${generated}/bridgesupport"/>
-        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}.bridgesupport" todir="${generated}/bridgesupport"/>
+        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}Full.bridgesupport" todir="${generated}/bridgesupport"/>
     </target>
 
     <target name="get_all_bridgesupport">
@@ -89,7 +89,7 @@
     <target name="bstool-all" depends="clean,setupdirs,get_all_bridgesupport">
         <antcall  target="bstool">
             <param name="bstool.name" value="foundation"/>
-            <param name="bstool.bsfile" value="${generated}/bridgesupport/Foundation.bridgesupport"/>
+            <param name="bstool.bsfile" value="${generated}/bridgesupport/FoundationFull.bridgesupport"/>
         </antcall>
     </target>
 
