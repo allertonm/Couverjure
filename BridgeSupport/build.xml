@@ -88,7 +88,7 @@
 
     <target name="bstool-all" depends="clean,setupdirs,get_all_bridgesupport">
         <antcall  target="bstool">
-            <param name="bstool.name" value="foundation"/>
+            <param name="bstool.name" value="Foundation"/>
             <param name="bstool.bsfile" value="${generated}/bridgesupport/FoundationFull.bridgesupport"/>
         </antcall>
     </target>
@@ -109,13 +109,13 @@
 
     <target name="compile-all-generated" depends="bstool-all">
         <antcall target="compile-generated">
-            <param name="generated.framework" value="foundation"/>
+            <param name="generated.framework" value="Foundation"/>
         </antcall>
     </target>
 
     <target name="package-all-generated" depends="compile-all-generated">
         <antcall  target="package-framework">
-            <param name="generated.framework" value="foundation"/>
+            <param name="generated.framework" value="Foundation"/>
         </antcall>
     </target>
 
