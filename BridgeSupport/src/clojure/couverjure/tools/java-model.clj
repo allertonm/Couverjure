@@ -8,17 +8,21 @@
     (defstruct ~struct-name :tag ~@keys)
     (defn ~name [~@keys-as-symbols] (struct ~struct-name ~(keyword (str name)) ~@keys-as-symbols)))))
 
-(deftagged type-specifier :name :array?)
-(deftagged var-declaration :type-specifier :name)
-(deftagged field-declaration :modifiers :var-declaration)
-(deftagged method-declaration :modifiers :type-specifier :name :parameters :body)
-(deftagged class-declaration :modifiers :name :implements :extends :body)
-(deftagged interface-declaration :modifiers :name :extends :body)
-(deftagged var-reference :object :name)
+(deftagged type-spec :name)
+(deftagged array-type-spec :name)
+(deftagged variadic-type-spec :name)
+(deftagged var-decl :type-spec :name)
+(deftagged field-decl :modifiers :var-decl)
+(deftagged method-decl :modifiers :type-spec :name :parameters :body)
+(deftagged class-decl :modifiers :name :implements :extends :body)
+(deftagged interface-decl :modifiers :name :extends :body)
+(deftagged var-ref :object :name)
 (deftagged modifier :name)
+(deftagged package-decl :package-name)
+(deftagged import-decl :package-name :class-name)
 
 (deftagged statement :body)
-(deftagged method-invocation :object :method :parameters)
+(deftagged call-method :object :method :parameters)
 (deftagged assignment :left :right)
 (deftagged break)
 (deftagged line-comment :text)
@@ -35,25 +39,31 @@
     nil))
 
 (defmethod java-source :seq [s level]
-  (doall (for [m s] (java-source m level))))
+  (for [m s] (java-source m level)))
 
-(defmethod java-source :type-specifier [ts level]
-  [ (:name ts) (if (:array? ts) "[]") ])
+(defmethod java-source :type-spec [ts level]
+  [ (:name ts) ])
 
-(defmethod java-source :var-declaration [vd level]
-  [ (java-source (:type-specifier vd) level) " " (:name vd) ])
+(defmethod java-source :array-type-spec [ts level]
+  [ (:name ts) "[]" ])
 
-(defmethod java-source :field-declaration [fd level]
+(defmethod java-source :variadic-type-spec [ts level]
+  [ (:name ts) "..." ])
+
+(defmethod java-source :var-decl [vd level]
+  [ (java-source (:type-spec vd) level) " " (:name vd) ])
+
+(defmethod java-source :field-decl [fd level]
   [ (indent level)
     (java-source-modifiers (:modifiers fd))
-    (java-source (:var-declaration fd) level)
+    (java-source (:var-decl fd) level)
     ";\n"])
 
-(defmethod java-source :method-declaration [md level]
+(defmethod java-source :method-decl [md level]
   [(indent level)
    (java-source-modifiers (:modifiers md))
-   (java-source (:type-specifier md) level)
-   (if (:type-specifier md) " ")
+   (java-source (:type-spec md) level)
+   (if (:type-spec md) " ")
    (:name md)
    "("
    (interpose ", " (java-source (:parameters md) level))
@@ -65,7 +75,7 @@
       "}\n" ]
      ";\n")])
 
-(defmethod java-source :class-declaration [cd level]
+(defmethod java-source :class-decl [cd level]
   [ (indent level)
     (java-source-modifiers (:modifiers cd))
     "class " (:name cd)
@@ -78,7 +88,7 @@
     (indent level)
     "}\n"])
 
-(defmethod java-source :interface-declaration [cd level]
+(defmethod java-source :interface-decl [cd level]
   [ (indent level)
     (java-source-modifiers (:modifiers cd))
     "interface " (:name cd)
@@ -89,7 +99,7 @@
     (indent level)
     "}\n"])
 
-(defmethod java-source :var-reference [vr level]
+(defmethod java-source :var-ref [vr level]
   [ (:object vr) (if (:object vr) ".") (:name vr) ])
 
 (defmethod java-source :modifier [mod level]
@@ -98,7 +108,7 @@
 (defmethod java-source :statement [st level]
   [ (indent level) (java-source (:body st) level) ";\n" ])
 
-(defmethod java-source :method-invocation [mi level]
+(defmethod java-source :call-method [mi level]
   [ (:object mi)
     (if (:object mi) ".")
     (:method mi)
@@ -115,6 +125,12 @@
 (defmethod java-source :line-comment [c level]
   [ (indent level) "// " (:text c) "\n" ])
 
+(defmethod java-source :package-decl [p level]
+  [ (indent level) "package " (:package-name p) ";\n" ])
+
+(defmethod java-source :import-decl [i level]
+  [ (indent level) "import " (:package-name i) "." (:class-name i) ";\n" ])
+
 
 (defn output-java-source [stream java-source-tree]
   (doall
@@ -127,47 +143,67 @@
 
 (def public (modifier "public"))
 (def static (modifier "static"))
-(defn ctor-declaration [modifiers name params body] (method-declaration modifiers nil name params body))
-(defn super-ctor-invocation [params] (method-invocation nil "super" params))
+(defn constructor [modifiers name params body] (method-decl modifiers nil name params body))
+(defn call-super-ctor [params] (call-method nil "super" params))
 
-(defn jna-structure [name var-declarations]
-  (class-declaration [public] name nil "Structure" [
+(defn jna-structure [name var-decls]
+  (class-decl [public] name nil "Structure" [
     (line-comment "Structure fields")
-    (for [v var-declarations] (field-declaration [public] v))
+    (for [v var-decls] (field-decl [public] v))
     (break)
     (line-comment "Constructors")
-    (ctor-declaration [public] name nil [
-      (statement (super-ctor-invocation nil))
+    (constructor [public] name nil [
+      (statement (call-super-ctor nil))
       ])
-    (ctor-declaration [public] name var-declarations [
-      (for [v var-declarations]
-        (statement (assignment (var-reference "this" (:name v)) (var-reference nil (:name v)))))
+    (constructor [public] name var-decls [
+      (for [v var-decls]
+        (statement (assignment (var-ref "this" (:name v)) (var-ref nil (:name v)))))
       ])
-    (ctor-declaration [public] name [(var-declaration (type-specifier name false) "from")] [
-      (for [v var-declarations]
-        (statement (assignment (var-reference "this" (:name v)) (var-reference "from" (:name v)))))
+    (constructor [public] name [(var-decl (type-spec name) "from")] [
+      (for [v var-decls]
+        (statement (assignment (var-ref "this" (:name v)) (var-ref "from" (:name v)))))
       ])
     (break)
     (line-comment "Value and Reference override classes")
-    (class-declaration [public static] "ByVal" "Structure.ByVal" name [
-      (ctor-declaration [public] "ByVal" nil [
-        (statement (super-ctor-invocation nil))
+    (class-decl [public static] "ByVal" "Structure.ByVal" name [
+      (constructor [public] "ByVal" nil [
+        (statement (call-super-ctor nil))
+        ])
+      (constructor [public] "ByVal" var-decls [
+        (statement
+          (call-super-ctor
+            (for [v var-decls] (var-ref nil (:name v)))))
         ])
       ])
     ]))
 
+(defn jna-structure-file [name var-decls]
+  [(package-decl "org.couverjure.cocoa")
+   (break)
+   (import-decl "com.sun.jna" "*")
+   (break)
+   (jna-structure name var-decls)
+   (break)
+   (interface-decl [public] "MyLibrary" "Library" [
+     (method-decl [public]
+       (type-spec "int") "NSThing"
+       [(var-decl (type-spec "String") "field")
+        (var-decl (type-spec "int") "x")]
+       nil)
+     ])])
+
 ;(deftest test-deftagged
-;  (println (macroexpand '(deftagged method-invocation :object :method :parameters))))
+;  (println (macroexpand '(deftagged call-method :object :method :parameters))))
 
 (deftest test-build-model
-  (let [vars [(var-declaration (type-specifier "String" false) "field")
-              (var-declaration (type-specifier "int" false) "x")]]
+  (let [vars [(var-decl (type-spec "String") "field")
+              (var-decl (type-spec "int") "x")]]
     (println (jna-structure "Test" vars))))
 
 (deftest test-model-to-source
-  (let [vars [(var-declaration (type-specifier "String" false) "field")
-              (var-declaration (type-specifier "int" false) "x")]
-        model (jna-structure "Test" vars)
+  (let [vars [(var-decl (type-spec "String") "field")
+              (var-decl (type-spec "int") "x")]
+        model (jna-structure-file "Test" vars)
         source-tree (java-source model 0)]
     ;(println source-tree)
     (output-java-source System/out source-tree)))
