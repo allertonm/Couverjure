@@ -177,51 +177,52 @@
 ; Defines the tab size. Indentation is done with spaces for tabs.
 (def java-tab-size 4)
 
+;; 'flatten' written by Rich Hickey,
+;; see http://groups.google.com/group/clojure/msg/385098fabfcaad9b
+;; temporarily inlined from clojure.contrib.seq until I fix the build
+(defn flatten
+  "Takes any nested combination of sequential things (lists, vectors,
+  etc.) and returns their contents as a single, flat sequence.
+  (flatten nil) returns nil."
+  [x]
+  (filter (complement sequential?)
+          (rest (tree-seq sequential? seq x))))
+
 (defn format-java-source
   "Generate formatted source code from the results of emit-java.
-This uses the formatting-instruction keywords in the tree to control
-line-breaks and tabs, but otherwise just writes all of the strings
-in the tree to the output (assumed to be a java.io.Writer).
-nils in the tree are ignored (same as for 'str')"
-  [writer emit-java-tree]
-  ; OK, I'm not proud, but I'm treating the indentation and line-break status as 'state',
-  ; rather than trying to write this all in tail-call form. Don't start on about monads...
-  (let [level (atom 0)
-        at-break (atom true)]
-    (letfn [
-      (format [stream tree]
-        (doall
-          ; because we're using state, we need to force strictness on this loop
-          ; otherwise we'd only need to do it at the top of the recursion
-          (for [s tree]
-            (cond
-              ; nils
-              (nil? s)
-              nil
-              ; line-break
-              (= s :break)
-              (do
-                (reset! at-break true)
-                (.write stream "\n"))
-              ; indent
-              (= s :indent)
-              (swap! level inc)
-              ; unindent
-              (= s :unindent)
-              (swap! level dec)
-              ; plain old string
-              (instance? String s)
-              (do
-                (if @at-break
-                  (do
-                    (.write stream (apply str (repeat (* @level java-tab-size) \space)))
-                    (reset! at-break false)))
-                (.write stream s))
-              ; everything else
-              true
-              (format stream s))
-            )))]
-      (format writer emit-java-tree))))
+ This uses the formatting-instruction keywords in the tree to control
+ line-breaks and tabs, but otherwise just writes all of the strings
+ in the tree to the output (assumed to be a java.io.Writer).
+ nils in the tree are ignored (same as for 'str')"
+  [writer emitted-tree]
+  (loop [emitted (filter (complement nil?) (flatten emitted-tree))
+         at-break true
+         level 0]
+    (let [s (first emitted)
+          rest (rest emitted)]
+       (cond
+         ; nil means we're done
+         (nil? s)
+         nil
+         ; line-break
+         (= s :break)
+         (do
+           (.write writer "\n")
+           (recur rest true level))
+         ; indent
+         (= s :indent)
+         (recur rest at-break (inc level))
+         ; unindent
+         (= s :unindent)
+         (recur rest at-break (dec level))
+         ; everything else should be strings
+         (string? s)
+         (do
+           (if at-break
+              (.write writer (apply str (repeat (* level java-tab-size) \space))))
+           (.write writer s)
+           (recur rest false level))
+    ))))
 
 (defn format-java-model
   "Generate formatted source code from the model to the supplied writer"
