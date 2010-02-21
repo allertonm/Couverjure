@@ -15,6 +15,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Clojure" level="project" />
     <orderEntry type="module" module-name="Core" />
+    <orderEntry type="library" name="Clojure-Contrib-Slim" level="project" />
   </component>
 </module>
 

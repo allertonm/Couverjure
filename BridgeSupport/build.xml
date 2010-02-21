@@ -4,8 +4,13 @@
 
     <property name="jna" value="../ThirdParty/jna/jnalib"/>
     <property name="core" value="../Core"/>
-    <property name="clojure" value="../ThirdParty/clojure-1.1.0-rc2"/>
+    <property name="clojure" value="../ThirdParty/clojure-1.1.0"/>
+    <property name="clojure-contrib" value="../ThirdParty/clojure-contrib-1.1.0"/>
     <property environment="env"/>
+
+    <target name="build-contrib">
+        <ant antfile="${clojure-contrib}/build.xml" inheritall="false"/>
+    </target>
 
     <path id="libs-for-generated">
         <path location="${jna}/build-d64/jna.jar"/>

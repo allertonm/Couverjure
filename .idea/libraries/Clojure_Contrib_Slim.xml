@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="Clojure-Contrib-Slim">
-    <CLASSES />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ThirdParty/clojure-contrib-1.1.0/clojure-contrib-slim.jar!/" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES />
   </library>

@@ -1,7 +1,7 @@
 <project name="BasicCocoa" basedir="." default="package">
 
     <property name="jna" value="../../ThirdParty/jna/jnalib/"/>
-    <property name="clojure" value="../../ThirdParty/clojure-1.1.0-rc2"/>
+    <property name="clojure" value="../../ThirdParty/clojure-1.1.0"/>
     <property name="couverjure" value="../../Core"/>
     <property name="corenative" value="../../CoreNative"/>
     <property name="appname" value="BasicCocoa"/>

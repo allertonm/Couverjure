@@ -25,7 +25,10 @@
 ;    or implied, of Mark Allerton.
 
 (ns couverjure.tools.java-model
-  (:use clojure.test couverjure.struct-utils))
+  (:use
+    clojure.test
+    clojure.contrib.seq-utils
+    couverjure.struct-utils))
 
 ;
 ; java-model provides a code-model approach to emitting java source code
@@ -176,17 +179,6 @@
 
 ; Defines the tab size. Indentation is done with spaces for tabs.
 (def java-tab-size 4)
-
-;; 'flatten' written by Rich Hickey,
-;; see http://groups.google.com/group/clojure/msg/385098fabfcaad9b
-;; temporarily inlined from clojure.contrib.seq until I fix the build
-(defn flatten
-  "Takes any nested combination of sequential things (lists, vectors,
-  etc.) and returns their contents as a single, flat sequence.
-  (flatten nil) returns nil."
-  [x]
-  (filter (complement sequential?)
-          (rest (tree-seq sequential? seq x))))
 
 (defn format-java-source
   "Generate formatted source code from the results of emit-java.

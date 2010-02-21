@@ -1,7 +1,7 @@
 <project name="Native" basedir="." default="package">
 
     <property name="jna" value="../ThirdParty/jna/jnalib"/>
-    <property name="clojure" value="../ThirdParty/clojure-1.1.0-rc2"/>
+    <property name="clojure" value="../ThirdParty/clojure-1.1.0"/>
     <property environment="env"/>
 
     <path id="libs">
