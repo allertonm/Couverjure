@@ -28,7 +28,8 @@
   (:use
     clojure.test
     clojure.contrib.seq-utils
-    couverjure.struct-utils))
+    couverjure.struct-utils
+    couverjure.tools.formatter))
 
 ;
 ; java-model provides a code-model approach to emitting java source code
@@ -81,7 +82,7 @@
 
 (defn- emit-java-modifiers [mods]
   (if (and mods (> (count mods) 0))
-    [(interpose " " (emit-java mods)) " "]
+    (emit-java mods)
     nil))
 
 (defmethod emit-java :seq [s]
@@ -91,13 +92,13 @@
   [ (:name ts) ])
 
 (defmethod emit-java :array-type-spec [ts]
-  [ (:name ts) "[]" ])
+  [ (:name ts) :no-space "[]" ])
 
 (defmethod emit-java :variadic-type-spec [ts]
-  [ (:name ts) "..." ])
+  [ (:name ts) :no-space "..." ])
 
 (defmethod emit-java :var-decl [vd]
-  [ (emit-java (:type-spec vd)) " " (:name vd) ])
+  [ (emit-java (:type-spec vd)) (:name vd) ])
 
 (defmethod emit-java :field-decl [fd]
   [ (emit-java-modifiers (:modifiers fd))
@@ -107,13 +108,12 @@
 (defmethod emit-java :method-decl [md]
   [(emit-java-modifiers (:modifiers md))
    (emit-java (:type-spec md))
-   (if (:type-spec md) " ")
    (:name md)
    "("
-   (interpose ", " (emit-java (:parameters md)))
+   (interpose "," (emit-java (:parameters md)))
    ")"
    (if (:body md)
-     [" {" :indent :break
+     ["{" :indent :break
       (emit-java (:body md))
       :unindent "}" ]
      ";")
@@ -121,22 +121,22 @@
 
 (defmethod emit-java :class-decl [cd]
   [ (emit-java-modifiers (:modifiers cd))
-    "class " (:name cd)
-    (if (:implements cd) " implements ")
+    "class" (:name cd)
+    (if (:implements cd) "implements")
     (:implements cd)
-    (if (:extends cd) " extends ")
+    (if (:extends cd) "extends")
     (:extends cd)
-    " {" :indent :break
+    "{" :indent :break
     (emit-java (:body cd))
     :unindent
     "}" :break ])
 
 (defmethod emit-java :interface-decl [cd]
   [ (emit-java-modifiers (:modifiers cd))
-    "interface " (:name cd)
-    (if (:extends cd) " extends ")
+    "interface" (:name cd)
+    (if (:extends cd) "extends")
     (:extends cd)
-    " {" :indent :break
+    "{" :indent :break
     (emit-java (:body cd))
     :unindent
     "}" :break ])
@@ -155,66 +155,31 @@
     (if (:object mi) ".")
     (:method mi)
     "("
-    (interpose ", " (emit-java (:parameters mi)))
+    (interpose "," (emit-java (:parameters mi)))
     ")" ])
 
 (defmethod emit-java :assignment [as]
-  [ (emit-java (:left as)) " = " (emit-java (:right as)) ])
+  [ (emit-java (:left as)) "=" (emit-java (:right as)) ])
 
 (defmethod emit-java :line-comment [c]
-  [ "// " (:text c) :break ])
+  [ "//" (:text c) :break ])
 
 (defmethod emit-java :break [c]
   [:break])
 
 (defmethod emit-java :package-decl [p]
-  [ "package " (:package-name p) ";" :break ])
+  [ "package" (:package-name p) ";" :break ])
 
 (defmethod emit-java :import-decl [i]
-  [ "import " (:package-name i) "." (:class-name i) ";" :break ])
+  [ "import" (:package-name i) "." (:class-name i) ";" :break ])
 
 ;
 ; formatted output
 ;
 
-; Defines the tab size. Indentation is done with spaces for tabs.
-(def java-tab-size 4)
-
 (defn format-java-source
-  "Generate formatted source code from the results of emit-java.
- This uses the formatting-instruction keywords in the tree to control
- line-breaks and tabs, but otherwise just writes all of the strings
- in the tree to the output (assumed to be a java.io.Writer).
- nils in the tree are ignored (same as for 'str')"
   [writer emitted-tree]
-  (loop [emitted (filter (complement nil?) (flatten emitted-tree))
-         at-break true
-         level 0]
-    (let [s (first emitted)
-          rest (rest emitted)]
-       (cond
-         ; nil means we're done
-         (nil? s)
-         nil
-         ; line-break
-         (= s :break)
-         (do
-           (.write writer "\n")
-           (recur rest true level))
-         ; indent
-         (= s :indent)
-         (recur rest at-break (inc level))
-         ; unindent
-         (= s :unindent)
-         (recur rest at-break (dec level))
-         ; everything else should be strings
-         (string? s)
-         (do
-           (if at-break
-              (.write writer (apply str (repeat (* level java-tab-size) \space))))
-           (.write writer s)
-           (recur rest false level))
-    ))))
+  (format-source writer emitted-tree 4 #{ "(" "[" "." } #{ "(" ")" "]" "," "." ";" }))
 
 (defn format-java-model
   "Generate formatted source code from the model to the supplied writer"
