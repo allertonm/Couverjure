@@ -79,7 +79,7 @@ public class Test extends Structure {
     }
 
     // Value and Reference override classes
-    public static class ByVal implements Structure.ByVal extends Test {
+    public static class ByVal extends Test implements Structure.ByVal {
         public ByVal() {
             super();
         }

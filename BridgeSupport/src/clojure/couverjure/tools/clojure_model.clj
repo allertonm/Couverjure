@@ -28,6 +28,9 @@
   (:use
     couverjure.tools.formatter))
 
+(defn no-brackets [seq]
+  (conj (apply list seq) :no-brackets))
+
 ; this is a model of economy when compared to the java version :)
 ;
 (defn emit-clojure [m]
@@ -44,6 +47,9 @@
       ; (each list element is a new comment line)
       (= :comment (first m))
       (for [mi (rest m)] [ ";" (str mi) :break])
+      ; :source as first element writes the rest of the elements directly to the output
+      (= :source (first m))
+      (apply str (rest m))
       ; everything else
       true
       ["(" (map emit-clojure m) ")"])
@@ -53,6 +59,9 @@
     ; maps
     (map? m)
     ["{" (for [mi m] [(emit-clojure (first mi)) (emit-clojure (second mi))]) "}"]
+    ; strings
+    (string? m)
+    [ (str "\"" m "\"") ]
     ; formatting instructions
     (#{:break :indent :unindent} m)
     m

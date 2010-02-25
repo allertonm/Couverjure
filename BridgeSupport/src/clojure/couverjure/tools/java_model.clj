@@ -52,6 +52,7 @@
 (deftagged call-method :object :method :parameters)
 (deftagged assignment :left :right)
 (deftagged line-comment :text)
+(deftagged multiline-comment :lines)
 ; break is a special element that allows clients to force line-breaks
 (deftagged break)
 
@@ -78,7 +79,7 @@
 (defmulti emit-java
   ; Note that we make a psuedo-tag :seq for 'everything else' - we assume the model
   ; contains only tagged-structs or sequences
-  (fn [m] (or (:tag m) :seq))) 
+  (fn [m] (or (:tag m) :seq))) ;(if (sequential? m) :seq ) (throw (IllegalArgumentException. (str "Invalid arg to emit-java:" m)))))) 
 
 (defn- emit-java-modifiers [mods]
   (if (and mods (> (count mods) 0))
@@ -122,10 +123,10 @@
 (defmethod emit-java :class-decl [cd]
   [ (emit-java-modifiers (:modifiers cd))
     "class" (:name cd)
-    (if (:implements cd) "implements")
-    (:implements cd)
     (if (:extends cd) "extends")
     (:extends cd)
+    (if (:implements cd) "implements")
+    (:implements cd)
     "{" :indent :break
     (emit-java (:body cd))
     :unindent
@@ -163,6 +164,9 @@
 
 (defmethod emit-java :line-comment [c]
   [ "//" (:text c) :break ])
+
+(defmethod emit-java :multiline-comment [c]
+  [ "/*" :break (for [line (:lines c)] [ " *" line :break ]) " */" :break ])
 
 (defmethod emit-java :break [c]
   [:break])

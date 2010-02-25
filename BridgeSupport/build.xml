@@ -19,6 +19,7 @@
 
     <path id="libs-for-bstool">
         <path location="${clojure}/clojure.jar"/>
+        <path location="${clojure-contrib}/clojure-contrib-slim.jar"/>
         <path location="${core}/couverjure.jar"/>
         <path location="${jna}/build-d64/jna.jar"/>
         <path location="src/clojure"/>
