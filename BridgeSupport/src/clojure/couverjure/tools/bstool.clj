@@ -78,7 +78,7 @@
 (defmulti to-type-spec :kind)
 
 (defmethod to-type-spec :structure [s]
-  (type-spec (if (= :no-name (:name s)) "Object" (:name s))))
+  (type-spec (if (= :no-name (:name s)) "Object" (str (:name s) ".ByVal"))))
 
 (defmethod to-type-spec :array [a]
   (array-type-spec (:name (to-type-spec (:type a)))))
@@ -185,8 +185,12 @@
             (for [e content :when (tag= :arg e)] e)
             arg-decls
             (for [a args]
-              (var-decl (to-type-spec (first (type-encoding (type64-or-type a)))) (:name (:attrs a))))]
-        (method-decl [public] return-type-spec (:name (:attrs f)) arg-decls nil)))
+              (var-decl (to-type-spec (first (type-encoding (type64-or-type a)))) (:name (:attrs a))))
+            all-arg-decls
+            (if (:variadic (attrs f))
+              (concat arg-decls [(var-decl (variadic-type-spec "Object") "rest")])
+              arg-decls)]
+        (method-decl [public] return-type-spec (:name (:attrs f)) all-arg-decls nil)))
     ]))
 
 
@@ -247,17 +251,21 @@
               ])))
         )))
 
+(defn java-library-name [name function-type]
+  (str name ({ :inline "Inline" :variadic "Variadic" } function-type)))
+
+(defn function-type-pred [function-type]
+  (condp = function-type
+    :inline #(:inline (attrs %))
+    :variadic #(:variadic (attrs %))
+    #(not (or (:inline (attrs %)) (:variadic (attrs %))))))
+
 ; generate a class defining external functions
 (defn gen-java-functions-file [name dir pkg-name functions function-type]
   (let [classname
-        (str name ({ :inline "Inline" :variadic "Variadic" } function-type))
-        filter-pred
-        (condp = function-type
-          :inline #(:inline (attrs %))
-          :variadic #(:variadic (attrs %))
-          #(not (or (:inline (attrs %)) (:variadic (attrs %)))))
+        (java-library-name name function-type)
         filtered
-        (filter filter-pred functions)]
+        (filter (function-type-pred function-type) functions)]
     (with-java-file classname dir pkg-name
       (fn [out]
         (format-java-source
@@ -295,6 +303,90 @@
 ; section separator for clojure code
 (def separator "______________________________________________________ ")
 
+(defn clojure-framework-struct [struct struct-type]
+  (let [cname
+        (:name (:attrs struct))
+        jname
+        (:name (:objc-type struct))
+        members
+        (for [f (:fields (:objc-type struct))] (symbol (:name f)))
+        struct-classname
+        (str jname ({:value "$ByVal" :reference "$ByRef"} struct-type))
+        type-prefix
+        (if (= :reference struct-type) "^")
+        suffix
+        (if (= :reference struct-type) "*")
+        escape
+        (fn [s] (.replace s "\"" "\\\""))]
+    (list :no-brackets
+      (list (symbol "defoctype") (symbol (str cname suffix)) :break :indent
+        (str type-prefix (escape (encode (:objc-type struct))))
+        (symbol struct-classname))
+      :break :break :unindent
+      (list (symbol "defn") (symbol (str (.toLowerCase cname) suffix "?")) :break :indent
+        [(symbol "x")] :break
+        (list (symbol "instance?") (symbol struct-classname) (symbol "x")))
+      :break :break :unindent
+      (list (symbol "defn") (symbol (str (.toLowerCase cname) suffix)) :break :indent
+        (list (apply vector members) :break :indent
+          (list (symbol (str struct-classname ".")) (no-brackets members)))
+        (if (< 1 (count members))
+          (list :no-brackets :break :unindent
+            (list [(symbol "from")] :break :indent
+              (list (symbol (str struct-classname ".")) (symbol "from"))))
+          (list :no-brackets)))
+      :break :break :unindent :unindent
+      )))
+
+(defn clojure-framework-structs [structs]
+  (no-brackets
+    (for [struct structs]
+      (let [cname (:name (:attrs struct))]
+        (list :no-brackets
+          (list :comment (str separator cname))
+          :break
+          (clojure-framework-struct struct :value)
+          (clojure-framework-struct struct :reference)
+          )))))
+
+(defn clojure-framework-enums [enums]
+  (no-brackets
+    (for [enum enums]
+      (list :no-brackets
+        (list (symbol "def") (symbol (:name (:attrs enum))) (list :source (:value (:attrs enum))))
+        :break))))
+
+(defn clojure-framework-functions [name functions function-type]
+  (let [library-class
+        (java-library-name name function-type)
+        native-library-name
+        (if (= function-type :inline) (str name "Inline") name)
+        filtered
+        (filter (function-type-pred function-type) functions)
+        lib-sym (symbol (str (.toLowerCase library-class) "-lib"))]
+    (list :no-brackets
+      (list (symbol "def") lib-sym :break :indent
+        (list (symbol "load-framework-library") (symbol library-class) (str native-library-name)))
+      :break :break :unindent
+      (no-brackets
+        (for [f filtered]
+          (let [fn-name
+                (:name (attrs f))
+                arg-syms
+                (for [e (content f) :when (tag= :arg e)]
+                  (symbol (:name (:attrs e))))
+                all-arg-syms
+                (if (= :variadic function-type)
+                  (concat arg-syms [(symbol "rest")])
+                  arg-syms)]
+            (list :no-brackets
+            (list (symbol "defn") (symbol (.toLowerCase (:name (:attrs f)))) :break :indent
+              (apply vector all-arg-syms) :break
+              (list (symbol (str "." fn-name)) lib-sym (no-brackets all-arg-syms)))
+              :break :break :unindent)
+            ))
+    ))))
+
 (defn gen-clojure-framework [name dir clj-namespace java-namespace components]
   (with-clojure-file (.toLowerCase name) dir clj-namespace
     (fn [out]
@@ -302,61 +394,33 @@
         (list :no-brackets
           (list :comment "" "Generated by bstool" "")
           (list (symbol "ns") (symbol (str clj-namespace "." (.toLowerCase name))) :break :indent
-            (list :use (symbol "couverjure.types")) :break
+            (list :use (symbol "couverjure.types") (symbol "couverjure.frameworks")) :break
             (list :import
               (list (symbol java-namespace) :break :indent
-                (no-brackets
-                  (for [s (:structs components)]
-                    (let [sname (:name (:objc-type s))]
-                      (list :no-brackets
-                        (symbol (str sname "$ByRef"))
-                        :break
-                        (symbol (str sname "$ByVal"))
-                        :break))))
+                (list :no-brackets
+                  (symbol name) :break
+                  (symbol (str name "Inline")) :break
+                  (symbol (str name "Variadic")) :break
+                  (no-brackets
+                    (for [s (:structs components)]
+                      (let [sname (:name (:objc-type s))]
+                        (list :no-brackets
+                          (symbol (str sname "$ByRef"))
+                          :break
+                          (symbol (str sname "$ByVal"))
+                          :break)))))
                 )))
           :break :unindent :unindent
-          (no-brackets
-            (for [struct (:structs components)]
-              (let [cname (:name (:attrs struct))
-                    jname (:name (:objc-type struct))
-                    members (for [f (:fields (:objc-type struct))] (symbol (:name f)))
-                    escape (fn [s] (.replace s "\"" "\\\""))]
-                (list :no-brackets
-                  (list :comment (str separator cname))
-                  :break
-                  (list (symbol "defoctype") (symbol cname) :break :indent
-                    (str (escape (encode (:objc-type struct))))
-                    (symbol (str jname "$ByVal")))
-                  :break :break :unindent
-                  (list (symbol "defoctype") (symbol (str cname "*")) :break :indent
-                    (str "^" (escape (encode (:objc-type struct))))
-                    (symbol (str jname "$ByRef")))
-                  :break :break :unindent
-                  (list (symbol "defn") (symbol (.toLowerCase cname)) :break :indent
-                    (list (apply vector members) :break :indent
-                      (list (symbol (str jname "$ByVal.")) (no-brackets members)))
-                    (if (< 1 (count members))
-                      (list :no-brackets :break :unindent
-                        (list [(symbol "from")] :break :indent
-                          (list (symbol (str jname "$ByVal.")) (symbol "from"))))
-                      (list :no-brackets)))
-                  :break :break :unindent :unindent
-                  (list (symbol "defn") (symbol (str (.toLowerCase cname) "*")) :break :indent
-                    (list (apply vector members) :break :indent
-                      (list (symbol (str jname "$ByRef.")) (no-brackets members)))
-                    (if (< 1 (count members))
-                      (list :no-brackets :break :unindent
-                        (list [(symbol "from")] :break :indent
-                          (list (symbol (str jname "$ByRef.")) (symbol "from"))))
-                      (list :no-brackets)))
-                  :break :break :unindent :unindent))))
-          (list :comment (str separator "enums"))
-          :break
-          (no-brackets
-            (for [enum (:enums components)]
-              (list :no-brackets
-                (list (symbol "def") (symbol (:name (:attrs enum))) (list :source (:value (:attrs enum))))
-                :break)))
+          (list :comment (str separator "structs")) :break
+          (clojure-framework-structs (:structs components))
+          (list :comment (str separator "enums")) :break
+          (clojure-framework-enums (:enums components))
+          (list :comment (str separator "functions (non-inline)")) :break
+          (clojure-framework-functions name (:functions components) nil)
+          (list :comment (str separator "functions (variadic)")) :break
+          (clojure-framework-functions name (:functions components) :variadic)
+          (list :comment (str separator "functions (inline)")) :break
+          (clojure-framework-functions name (:functions components) :inline)
           ))))))
 
 ; ______________________________________________________ tool main

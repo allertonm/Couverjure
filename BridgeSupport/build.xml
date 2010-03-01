@@ -64,7 +64,10 @@
 
     <target name="get_bridgesupport">
         <mkdir dir="${generated}/bridgesupport"/>
-        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}Full.bridgesupport" todir="${generated}/bridgesupport"/>
+        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}Full.bridgesupport"
+              todir="${generated}/bridgesupport"/>
+        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}.dylib"
+              tofile="${generated}/bridgesupport/lib${framework.name}Inline.dylib"/>
     </target>
 
     <target name="get_all_bridgesupport">
@@ -111,6 +114,8 @@
              <fileset dir="${bin}/${generated.framework}" />
              <fileset dir="${generated}/${generated.framework}/clojure"/>
          </jar>
+        <copy file="${generated}/bridgesupport/lib${generated.framework}Inline.dylib"
+              tofile="${bin}/lib${generated.framework}Inline.dylib"/>
     </target>
 
     <target name="compile-all-generated" depends="bstool-all">

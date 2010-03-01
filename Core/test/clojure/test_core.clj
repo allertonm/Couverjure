@@ -164,6 +164,12 @@
     (is (= 72 (.getShort buffer 0)))
     (is (= 100 (.getShort buffer (* 2 (dec size)))))))
 
+(deftest test-inlined-nsmakerange
+  (let [range (nsmakerange 0 1)]
+    (is (nsrange? range))
+    (is (= 0 (.location range)))
+    (is (= 1 (.length range)))))
+
 (deftest test-thread-adapter
   (let [ThreadAdapter
         (implementation (str (gensym)) NSObject
