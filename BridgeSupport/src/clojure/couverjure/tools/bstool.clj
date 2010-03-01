@@ -356,6 +356,23 @@
         (list (symbol "def") (symbol (:name (:attrs enum))) (list :source (:value (:attrs enum))))
         :break))))
 
+; must go after functions (non-inline) since it uses the library def
+(defn clojure-framework-constants [framework-name constants]
+  (let [filtered (filter #(= "@" (:type (attrs %))) constants)
+        constants-lib-name (str (.toLowerCase framework-name) "-constants")]
+    (list :no-brackets
+      (list (symbol "def") (symbol constants-lib-name) (list (symbol "load-framework-constants") framework-name))
+      :break :break
+      (no-brackets
+        (for [c filtered]
+          (let [const-name (:name (attrs c))]
+            (list :no-brackets
+              (list (symbol "def") (symbol const-name) :break :indent
+                (list (symbol "framework-constant") (symbol constants-lib-name) const-name))
+              :unindent :break :break
+              ))
+          )))))
+
 (defn clojure-framework-functions [name functions function-type]
   (let [library-class
         (java-library-name name function-type)
@@ -413,14 +430,16 @@
           :break :unindent :unindent
           (list :comment (str separator "structs")) :break
           (clojure-framework-structs (:structs components))
-          (list :comment (str separator "enums")) :break
-          (clojure-framework-enums (:enums components))
           (list :comment (str separator "functions (non-inline)")) :break
           (clojure-framework-functions name (:functions components) nil)
           (list :comment (str separator "functions (variadic)")) :break
           (clojure-framework-functions name (:functions components) :variadic)
           (list :comment (str separator "functions (inline)")) :break
           (clojure-framework-functions name (:functions components) :inline)
+          (list :comment (str separator "enums")) :break
+          (clojure-framework-enums (:enums components)) :break
+          (list :comment (str separator "constants")) :break
+          (clojure-framework-constants name (:constants components))
           ))))))
 
 ; ______________________________________________________ tool main
@@ -443,6 +462,8 @@
         (for [elem xml :when (tag= :enum elem)] elem)
         :functions
         (for [elem xml :when (tag= :function elem)] elem)
+        :constants
+        (for [elem xml :when (tag= :constant elem)] elem)
         }]
     (gen-java-framework name output-dir java-namespace components)
     ; one clojure module will reference all three classes, clojure code shouldn't need to know these details

@@ -170,6 +170,10 @@
     (is (= 0 (.location range)))
     (is (= 1 (.length range)))))
 
+(deftest test-constants
+  (is (not (nil? NSDecimalDigits)))
+  (println NSDecimalDigits))
+
 (deftest test-thread-adapter
   (let [ThreadAdapter
         (implementation (str (gensym)) NSObject
