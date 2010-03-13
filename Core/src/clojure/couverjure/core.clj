@@ -342,14 +342,12 @@ into the method selector."
 ; Macro assistance for autorelease pools
 ;
 
-(def NSAutoreleasePool (objc-class "NSAutoreleasePool"))
-
 (defmacro with-autorelease-pool
   "Wraps the body in a block that creates and releases an NSAutoreleasePool"
   [& body]
   ; NSAutoreleasePool requires special handling because we want the 'release'
   ; to occur at the end of the block, not at some later point when the GC runs
-  `(let [pool# (send-msg (alloc NSAutoreleasePool) (selector "init") [])
+  `(let [pool# (send-msg (alloc couverjure.cocoa.foundation/NSAutoreleasePool) (selector "init") [])
          result# (do ~@body)]
     (send-msg pool# (selector "release") [])
     result#

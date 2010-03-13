@@ -29,9 +29,6 @@
   (:import
     (com.sun.jna Memory)))
 
-(def NSString (objc-class :NSString))
-(def NSObject (objc-class :NSObject))
-
 
 (println (.CFStringCreateWithCString foundation nil "Hello World" 0))
 
