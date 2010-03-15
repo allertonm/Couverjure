@@ -33,6 +33,9 @@
          (recur rest at-break no-space (dec level))
          (= s :no-space)
          (recur rest at-break true level)
+         ; empty strings are ignored
+         (empty? s)
+         (recur rest at-break no-space level)
          ; everything else should be strings
          (string? s)
          (do

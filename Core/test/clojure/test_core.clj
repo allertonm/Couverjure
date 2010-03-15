@@ -162,7 +162,7 @@
     (is (= 100 (.getShort buffer (* 2 (dec size)))))))
 
 (deftest test-inlined-nsmakerange
-  (let [range (nsmakerange 0 1)]
+  (let [range (NSMakeRange 0 1)]
     (is (nsrange? range))
     (is (= 0 (.location range)))
     (is (= 1 (.length range)))))

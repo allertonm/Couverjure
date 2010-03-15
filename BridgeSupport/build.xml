@@ -12,11 +12,6 @@
         <ant antfile="${clojure-contrib}/build.xml" inheritall="false"/>
     </target>
 
-    <path id="libs-for-generated">
-        <path location="${jna}/build-d64/jna.jar"/>
-        <path location="${core}/couverjure.jar"/>
-    </path>
-
     <path id="libs-for-bstool">
         <path location="${clojure}/clojure.jar"/>
         <path location="${clojure-contrib}/clojure-contrib-slim.jar"/>
@@ -62,13 +57,19 @@
         </antcall>
     </target>
 
-    <target name="get_bridgesupport">
+    <target name="prepare_bridgesupport">
         <mkdir dir="${generated}/bridgesupport"/>
-        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}Full.bridgesupport"
-              todir="${generated}/bridgesupport"/>
+    </target>
+
+    <target name="get_bridgesupport_inline" unless="framework.no-inline" depends="prepare_bridgesupport">
         <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}.dylib"
               tofile="${generated}/bridgesupport/lib${framework.name}Inline.dylib"/>
     </target>
+
+    <target name="get_bridgesupport" depends="prepare_bridgesupport,get_bridgesupport_inline">
+        <copy file="/System/Library/Frameworks/${framework.name}.framework/Resources/BridgeSupport/${framework.name}Full.bridgesupport"
+              todir="${generated}/bridgesupport"/>
+     </target>
 
     <target name="get_all_bridgesupport">
         <antcall target="get_bridgesupport">
@@ -95,38 +96,55 @@
         </java>
     </target>
 
-    <target name="bstool-all" depends="clean,setupdirs,get_all_bridgesupport">
-        <antcall  target="bstool">
-            <param name="bstool.name" value="Foundation"/>
-            <param name="bstool.bsfile" value="${generated}/bridgesupport/FoundationFull.bridgesupport"/>
-        </antcall>
+    <path id="libs-for-generated">
+        <path location="${jna}/build-d64/jna.jar"/>
+        <path location="${core}/couverjure.jar"/>
+        <fileset dir="${bin}" includes="*.jar"/>
+    </path>
+
+    <!--
+        params:
+            framework.name
+
+    -->
+    <target name="package-framework-inline" unless="framework.no-inline">
+        <copy file="${generated}/bridgesupport/lib${framework.name}Inline.dylib"
+              tofile="${bin}/lib${framework.name}Inline.dylib"/>
     </target>
 
-    <target name="compile-generated">
-        <mkdir dir="${bin}/${generated.framework}"/>
-        <javac srcdir="${generated}/${generated.framework}/java" destdir="${bin}/${generated.framework}" classpathref="libs-for-generated" debug="true">
+    <target name="generate-and-package-framework">
+        <antcall target="get_bridgesupport"/>
+        <antcall  target="bstool">
+            <param name="bstool.name" value="${framework.name}"/>
+            <param name="bstool.bsfile" value="${generated}/bridgesupport/${framework.name}Full.bridgesupport"/>
+        </antcall>
+        <mkdir dir="${bin}/${framework.name}"/>
+        <javac srcdir="${generated}/${framework.name}/java" destdir="${bin}/${framework.name}" classpathref="libs-for-generated" debug="true">
         	<include name="**/*.java"/>
         </javac>
-    </target>
-
-    <target name="package-framework">
-        <jar jarfile="${bin}/${generated.framework}.jar" >
-             <fileset dir="${bin}/${generated.framework}" />
-             <fileset dir="${generated}/${generated.framework}/clojure"/>
+        <jar jarfile="${bin}/${framework.name}.jar" >
+             <fileset dir="${bin}/${framework.name}" />
+             <fileset dir="${generated}/${framework.name}/clojure"/>
          </jar>
-        <copy file="${generated}/bridgesupport/lib${generated.framework}Inline.dylib"
-              tofile="${bin}/lib${generated.framework}Inline.dylib"/>
+        <antcall target="package-framework-inline"/>
     </target>
 
-    <target name="compile-all-generated" depends="bstool-all">
-        <antcall target="compile-generated">
-            <param name="generated.framework" value="Foundation"/>
+    <target name="generate-and-package-all">
+        <!--
+        Can't do CoreFoundation as we don't generate code for CFTypes yet
+        <antcall target="generate-and-package-framework">
+            <param name="framework.name" value="CoreFoundation"/>
         </antcall>
-    </target>
-
-    <target name="package-all-generated" depends="compile-all-generated">
-        <antcall  target="package-framework">
-            <param name="generated.framework" value="Foundation"/>
+        -->
+        <antcall target="generate-and-package-framework">
+            <param name="framework.name" value="Foundation"/>
+        </antcall>
+        <antcall target="generate-and-package-framework">
+            <param name="framework.name" value="AppKit"/>
+        </antcall>
+        <antcall target="generate-and-package-framework">
+            <param name="framework.name" value="WebKit"/>
+            <param name="framework.no-inline" value="true"/>
         </antcall>
     </target>
 

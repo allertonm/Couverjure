@@ -4,6 +4,7 @@
     <property name="clojure" value="../../ThirdParty/clojure-1.1.0"/>
     <property name="couverjure" value="../../Core"/>
     <property name="corenative" value="../../CoreNative"/>
+    <property name="bridgesupport" value="../../BridgeSupport"/>
     <property name="appname" value="BasicCocoa"/>
     <property environment="env"/>
 
@@ -20,7 +21,14 @@
         <ant antfile="${couverjure}/build.xml" inheritall="false" inheritrefs="false"/>
     </target>
 
-    <target name="package" depends="clean, couverjure">
+    <target name="bridgefiles">
+        <ant antfile="${bridgesupport}/build.xml"
+             target="generate-and-package-all"
+             inheritall="false"
+             inheritrefs="false"/>
+    </target>
+
+    <target name="package" depends="clean, couverjure, bridgefiles">
         <property name="applibs" value="build/${appname}.app/Contents/Resources/lib"/>
         <mkdir dir="build/${appname}.app"/>
         <mkdir dir="build/${appname}.app/Contents"/>
@@ -47,11 +55,24 @@
         <copy file="${clojure}/clojure.jar" todir="${applibs}"/>
         <copy file="${jna}/build-d64/jna.jar" todir="${applibs}"/>
         <copy file="${couverjure}/couverjure.jar" todir="${applibs}"/>
+        <copy todir="${applibs}">
+            <fileset dir="${bridgesupport}/bin">
+                <include name="Foundation.jar"/>
+                <include name="AppKit.jar"/>
+                <include name="WebKit.jar"/>
+            </fileset>
+        </copy>
         <jar jarfile="${applibs}/${appname}.jar">
             <fileset dir="src/clojure"/>
         </jar>
 
         <copy file="${corenative}/build/Release/libcouverjure.jnilib" todir="build/${appname}.app/Contents/Frameworks"/>
+        <copy todir="build/${appname}.app/Contents/Frameworks">
+            <fileset dir="${bridgesupport}/bin">
+                <include name="libFoundationInline.dylib"/>
+                <include name="libAppKitInline.dylib"/>
+            </fileset>
+        </copy>
      </target>
 
     <target name="runForDebug">

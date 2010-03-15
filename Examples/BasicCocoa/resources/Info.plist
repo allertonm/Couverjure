@@ -24,7 +24,7 @@
         <dict>
             <key>ClassPath</key>
             <string>
-                :$APP_PACKAGE/Contents/Resources/lib/couverjure.jar:$APP_PACKAGE/Contents/Resources/lib/jna.jar:$APP_PACKAGE/Contents/Resources/lib/clojure.jar:$APP_PACKAGE/Contents/Resources/lib/BasicCocoa.jar:/System/Library/Java
+                :$APP_PACKAGE/Contents/Resources/lib/couverjure.jar:$APP_PACKAGE/Contents/Resources/lib/jna.jar:$APP_PACKAGE/Contents/Resources/lib/clojure.jar:$APP_PACKAGE/Contents/Resources/lib/BasicCocoa.jar:$APP_PACKAGE/Contents/Resources/lib/Foundation.jar:$APP_PACKAGE/Contents/Resources/lib/AppKit.jar:$APP_PACKAGE/Contents/Resources/lib/WebKit.jar:/System/Library/Java
             </string>
 
             <key>JVMVersion</key>
@@ -48,6 +48,8 @@
             <key>Properties</key>
             <dict>
                 <key>java.library.path</key>
+                <string>$APP_PACKAGE/Contents/Frameworks</string>
+                <key>jna.library.path</key>
                 <string>$APP_PACKAGE/Contents/Frameworks</string>
             </dict>
             <!-- <key>VMOptions</key>
