@@ -83,6 +83,9 @@
     <property name="bstool.outdir" value="${generated}"/>
     <property name="bstool.java_namespace" value="org.couverjure.cocoa"/>
     <property name="bstool.clj_namespace" value="couverjure.cocoa"/>
+    <property name="bstool.dupfile1" value=""/>
+    <property name="bstool.dupfile2" value=""/>
+    <property name="bstool.dupfile3" value=""/>
 
     <target name="bstool">
         <mkdir dir="${bstool.outdir}/${bstool.name}"/>
@@ -93,6 +96,9 @@
             <arg value="${bstool.outdir}/${bstool.name}"/>
             <arg value="${bstool.java_namespace}"/>
             <arg value="${bstool.clj_namespace}"/>
+            <arg value="${bstool.dupfile1}"/>
+            <arg value="${bstool.dupfile2}"/>
+            <arg value="${bstool.dupfile3}"/>
         </java>
     </target>
 
@@ -141,10 +147,12 @@
         </antcall>
         <antcall target="generate-and-package-framework">
             <param name="framework.name" value="AppKit"/>
+            <param name="bstool.dupfile1" value="${generated}/bridgesupport/FoundationFull.bridgesupport"/>
         </antcall>
         <antcall target="generate-and-package-framework">
             <param name="framework.name" value="WebKit"/>
             <param name="framework.no-inline" value="true"/>
+            <param name="bstool.dupfile1" value="${generated}/bridgesupport/FoundationFull.bridgesupport"/>
         </antcall>
     </target>
 

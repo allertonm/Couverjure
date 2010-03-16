@@ -349,9 +349,9 @@
           (clojure-framework-struct struct :reference)
           )))))
 
-(defn clojure-framework-enums [enums]
+(defn clojure-framework-enums [enums dup-names]
   (no-brackets
-    (for [enum enums]
+    (for [enum enums :when (not (dup-names (:name (attrs enum))))]
       (list :no-brackets
         (list (symbol "def") (symbol (:name (:attrs enum))) (list :source (:value (:attrs enum))))
         :break))))
@@ -405,10 +405,10 @@
               )))
         ))))
 
-(defn clojure-framework-classes [name classes]
+(defn clojure-framework-classes [name classes dup-classnames]
   (list :no-brackets
     (no-brackets
-      (for [c classes]
+      (for [c classes :when (not (dup-classnames (:name (attrs c))))]
         (list :no-brackets
           (list (symbol "def") (symbol (:name (attrs c))) (list (symbol "objc-class") (:name (attrs c))))
           :break)
@@ -449,18 +449,30 @@
           (list :comment (str separator "functions (inline)")) :break
           (clojure-framework-functions name (:functions components) :inline)
           (list :comment (str separator "enums")) :break
-          (clojure-framework-enums (:enums components)) :break
+          (clojure-framework-enums (:enums components) (:dup-names components)) :break
           (list :comment (str separator "constants")) :break
           (clojure-framework-constants name (:constants components)) :break
           (list :comment (str separator "classes")) :break
-          (clojure-framework-classes name (:classes components))
+          (clojure-framework-classes name (:classes components) (:dup-names components))
           ))))))
+
+(defn dup-names [dup-files]
+  "Obtains all of the class & enum names declared in the given set of bridgesupport files, which can be used
+  to eliminate duplicate class & enum declarations."
+  (set
+    (flatten
+      (for [filename dup-files :when (seq filename)]
+        (let [file (File. filename)
+              xml (xml-seq (parse file))]
+          (for [elem xml :when (#{:class :enum} (tag elem))] (:name (attrs elem)))
+          )))))
+
 
 ; ______________________________________________________ tool main
 
 (defn generate-framework-classes
   "Generates JNA-based java source files from the .bridgesupport XML file, using the supplied output directory and namespace"
-  [name bsfilename output-dir java-namespace clj-namespace]
+  [name bsfilename output-dir java-namespace clj-namespace & dup-files]
   (let [file (File. bsfilename)
         xml (xml-seq (parse file))
         components {
@@ -480,11 +492,13 @@
         (for [elem xml :when (tag= :constant elem)] elem)
         :classes
         (for [elem xml :when (tag= :class elem)] elem)
+        :dup-names
+        (dup-names dup-files)
         }]
     (gen-java-framework name output-dir java-namespace components)
     ; one clojure module will reference all three classes, clojure code shouldn't need to know these details
     (gen-clojure-framework name output-dir clj-namespace java-namespace components)))
 
-(if (= 5 (count *command-line-args*))
+(if (< 4 (count *command-line-args*))
   (apply generate-framework-classes *command-line-args*)
-  (println "Usage: bsgen <name> <bridgesupport file> <output-dir> <java-namespace> <clj-namespace>"))
+  (println "Usage: bsgen <name> <bridgesupport file> <output-dir> <java-namespace> <clj-namespace> [<bridgesupport duplicate class file>*]"))

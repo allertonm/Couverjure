@@ -1,15 +1,14 @@
 (ns couverjure.examples.basiccocoa
   (:use
     couverjure.types
-    couverjure.core)
-  (:require
-    [couverjure.cocoa.foundation :as fnd]
-    [couverjure.cocoa.appkit :as app]
-    [couverjure.cocoa.webkit :as web]))
+    couverjure.core
+    couverjure.cocoa.foundation
+    couverjure.cocoa.appkit
+    couverjure.cocoa.webkit))
 
 ; The class "SimpleAppDelegate" is named as the "File's Owner" in our default NIB
 ; - so will be automatically loaded after NSApplicationMain is invoked.
-(defimplementation SimpleAppDelegate fnd/NSObject
+(defimplementation SimpleAppDelegate NSObject
   ; define accessors for window and webView - both of which have been named
   ; as outlets on SimpleAppDelegate in the NIB
   (property :window :atom)
@@ -39,9 +38,9 @@
 ; happen on the main thread.
 ; We acheive this by creating an instance of an anonymous (objc) class and invoking it using performSelectorOnMainThread
 (let [ThreadAdapter
-      (implementation (str (gensym)) fnd/NSObject
+      (implementation (str (gensym)) NSObject
         (method [OCVoid :onMainThread] []
-          (app/NSApplicationMain 0 nil)))
+          (NSApplicationMain 0 nil)))
       thread-adapter (alloc ThreadAdapter)]
   (>> thread-adapter :init)
   (>> thread-adapter :performSelectorOnMainThread (selector :onMainThread) :withObject nil :waitUntilDone true))
