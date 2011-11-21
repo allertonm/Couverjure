@@ -1,3 +1,5 @@
+(I have ceased work on this project, see "Why did I stop doing this?" below for rationale.)
+
 # What is Couverjure? #
 
 Couverjure is an attempt at building a direct bridge between Clojure and Objective-C.
@@ -103,3 +105,15 @@ The intention is ultimately to contribute these changes back to JNA, but as thin
 
 The JNA changes are (like JNA itself) released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/copyleft/lesser.html)
 
+# Why did I stop doing this
+
+The section on "why is this a terrible idea" hints at some of the reasons I could see that this would not go anywhere, and subsequent events have proven these intuitions to be correct. 
+
+* Apple no longer ships a JVM by default 
+* Applications based on the JVM are not accepted in the Mac App Store.
+* Apple will never ship a JVM for iOS devices
+* Apple's flirtation with garbage collection in Objective-C has given way to Automatic Reference Counting
+
+# What should you use instead?
+
+Those of you interested in building OS X or iOS applications in Clojure would be better off looking at the combination of ClojureScript with JSCocoa.
